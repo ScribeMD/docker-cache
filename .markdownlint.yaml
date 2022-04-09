@@ -1,0 +1,3 @@
+# Commitizen produces duplicate headings in CHANGELOG.md.
+no-duplicate-header:
+  siblings_only: true

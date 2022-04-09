@@ -1,0 +1,29 @@
+name: Docker Cache
+author: Kurt von Laven
+description: Cache Docker images whether built or pulled.
+branding:
+  icon: download
+  color: blue
+inputs:
+  key:
+    description: >
+      The cache key to ferry to the official GitHub cache action. restore-keys
+      are not supported, because partial cache restoration leads to a "snowball"
+      effect.
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Use Docker in rootless mode.
+      uses: ScribeMD/rootless-docker@0.1.1
+    - name: Get Docker root directory.
+      id: docker-info
+      run: |
+        docker_root_dir="$(docker info --format "{{ .DockerRootDir }}")"
+        echo "::set-output name=root-dir::$docker_root_dir"
+      shell: bash
+    - name: Cache Docker images.
+      uses: actions/cache@v3.0.2
+      with:
+        path: ${{ steps.docker-info.outputs.root-dir }}
+        key: ${{ inputs.key }}

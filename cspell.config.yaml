@@ -1,0 +1,13 @@
+version: "0.2"
+language: en-US
+useGitignore: true
+ignorePaths:
+  - .vscode
+dictionaryDefinitions:
+  - name: custom
+    path: .dictionary.txt
+dictionaries:
+  - custom
+  - fullstack
+  - npm
+  - python

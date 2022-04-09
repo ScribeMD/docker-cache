@@ -1,0 +1,98 @@
+default_install_hook_types:
+  - commit-msg
+  - post-checkout
+  - pre-commit
+  - pre-merge-commit
+  - pre-push
+default_language_version:
+  python: python3.10.4
+default_stages:
+  - commit
+  - push
+minimum_pre_commit_version: 2.18.1
+repos:
+  # Automatically fix issues.
+
+  ## Python, Polyglot, Git, pre-commit
+  - repo: https://github.com/ScribeMD/pre-commit-hooks
+    rev: 0.3.0
+    hooks:
+      - id: no-merge-commits
+      - id: asdf-install
+      - id: poetry-check
+      - id: poetry-lock
+      - id: poetry-install
+      - id: pre-commit-install
+      - id: megalinter
+        args: &megalinter-args [--flavor, documentation, --release, v5.11.0]
+      - id: megalinter-all
+        args: *megalinter-args
+
+  ## Markdown
+  - repo: https://github.com/frnmst/md-toc
+    rev: 8.1.2
+    hooks:
+      - id: md-toc
+
+  ## Python, TOML, Polyglot, Git
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      ### Automatically fix issues.
+      - id: end-of-file-fixer
+      - id: file-contents-sorter
+        files: \.dictionary\.txt
+        args: [--ignore-case, --unique]
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+      ### Check for issues.
+      - id: check-added-large-files
+        args: [--enforce-all]
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: destroyed-symlinks
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: detect-private-key
+      - id: forbid-new-submodules
+      - id: no-commit-to-branch
+
+  # Check for issues.
+
+  ## Pre-commit
+  - repo: meta
+    hooks:
+      - id: check-useless-excludes
+
+  ## Python
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: v1.2.4
+    hooks:
+      - id: python-safety-dependencies-check
+
+  ## Natural language
+  - repo: https://github.com/PrincetonUniversity/blocklint
+    rev: v0.2.3
+    hooks:
+      - id: blocklint
+
+  ## Git
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v2.24.0 # Keep in sync with pyproject.toml.
+    hooks:
+      - id: commitizen
+        stages:
+          - commit-msg
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 2.1.6
+    hooks:
+      - id: check-mailmap
+      - id: forbid-binary
+      - id: git-check

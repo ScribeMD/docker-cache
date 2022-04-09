@@ -1,0 +1,15 @@
+name: Test
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    name: Run Pre-commit Hooks
+    uses: ScribeMD/pre-commit-action/.github/workflows/test.yaml@0.1.0
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_ACTIONS_CHANNEL_ID: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}

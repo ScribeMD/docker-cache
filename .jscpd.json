@@ -1,0 +1,10 @@
+{
+  "maxLines": 0,
+  "maxSize": 0,
+  "threshold": 0,
+  "reporters": ["consoleFull", "console"],
+  "ignore": [".git", ".venv"],
+  "gitignore": true,
+  "blame": true,
+  "ignoreCase": true
+}

@@ -1,0 +1,7 @@
+# Normalize line endings of all text files to LF when adding or committing
+# them to the repository.
+* text=auto
+
+# Normalize line endings of all text files to LF when copying them from the
+# repository to the working directory, such as when checking them out.
+* text eol=lf

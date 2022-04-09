@@ -1,0 +1,5 @@
+# MegaLinter
+report/
+
+# Poetry
+.venv

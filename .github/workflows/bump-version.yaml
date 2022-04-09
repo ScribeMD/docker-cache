@@ -1,0 +1,12 @@
+name: Bump Version
+on:
+  push:
+    branches:
+      - main
+jobs:
+  bump-version:
+    name: Bump Version
+    uses: ScribeMD/slack-templates/.github/workflows/bump-version.yaml@0.2.2
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_ACTIONS_CHANNEL_ID: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}

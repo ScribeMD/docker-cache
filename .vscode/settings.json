@@ -1,0 +1,12 @@
+{
+  "editor.tabSize": 2,
+  "editorconfig.generateAuto": false,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "python.defaultInterpreterPath": "./.venv/bin/python",
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "search.exclude": {
+    "poetry.lock": true
+  }
+}
