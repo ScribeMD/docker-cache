@@ -9,6 +9,7 @@ default_language_version:
 default_stages:
   - commit
   - push
+exclude: \.pnp\.(c|loader\.m)js|\.yarn|dist
 minimum_pre_commit_version: 2.18.1
 repos:
   # Automatically fix issues.
@@ -24,9 +25,13 @@ repos:
       - id: poetry-install
       - id: pre-commit-install
       - id: megalinter
-        args: &megalinter-args [--flavor, documentation, --release, v5.11.0]
+        args: &megalinter-args [--flavor, javascript, --release, v5.11.0]
       - id: megalinter-all
         args: *megalinter-args
+      - id: yarn-install
+      - id: yarn-dedupe
+      - id: yarn-audit
+      - id: yarn-build
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc
