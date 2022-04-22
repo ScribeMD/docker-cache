@@ -33,6 +33,7 @@ repos:
       - id: yarn-dedupe
       - id: yarn-audit
       - id: yarn-build
+      - id: yarn-test
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc
