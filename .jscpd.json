@@ -3,7 +3,7 @@
   "maxSize": 0,
   "threshold": 0,
   "reporters": ["consoleFull", "console"],
-  "ignore": [".git", ".venv"],
+  "ignore": [".git", ".venv", ".yarn"],
   "gitignore": true,
   "blame": true,
   "ignoreCase": true

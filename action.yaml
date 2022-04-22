@@ -11,19 +11,13 @@ inputs:
       are not supported, because partial cache restoration leads to a "snowball"
       effect.
     required: true
+outputs:
+  cache-hit:
+    description: >
+      The ferried output of the official GitHub cache action. True on cache hit
+      (even if the subsequent docker load failed) and false on cache miss.
 runs:
-  using: composite
-  steps:
-    - name: Use Docker in rootless mode.
-      uses: ScribeMD/rootless-docker@0.1.1
-    - name: Get Docker root directory.
-      id: docker-info
-      run: |
-        docker_root_dir="$(docker info --format "{{ .DockerRootDir }}")"
-        echo "::set-output name=root-dir::$docker_root_dir"
-      shell: bash
-    - name: Cache Docker images.
-      uses: actions/cache@v3.0.2
-      with:
-        path: ${{ steps.docker-info.outputs.root-dir }}
-        key: ${{ inputs.key }}
+  using: node16
+  main: dist/main.js
+  post-if: success()
+  post: dist/post.js

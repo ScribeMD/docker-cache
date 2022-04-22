@@ -14,17 +14,19 @@ Cache Docker Images Whether Built or Pulled
   - [Usage](#usage)
   - [Inputs](#inputs)
     - [Required](#required)
+  - [Outputs](#outputs)
+    - [`cache-hit`](#cache-hit)
   - [Supported Runners](#supported-runners)
   - [Contributing](#contributing)
   - [Changelog](#changelog)
 
 <!--TOC-->
 
-[Use Docker in rootless mode](https://github.com/ScribeMD/rootless-docker) to
-avoid permission issues. Query the Docker root directory via
-[`docker info`](https://docs.docker.com/engine/reference/commandline/info/), so
-it can be cached. This is where Docker stores both built and pulled images. Note
-that this action does not perform Docker layer caching.
+Cache all Docker images whether built or pulled by
+[saving](https://docs.docker.com/engine/reference/commandline/save/) them on
+cache misses and
+[loading](https://docs.docker.com/engine/reference/commandline/load/) them on
+cache hits. Note that this action does not perform Docker layer caching.
 [The official Docker build push action](https://github.com/docker/build-push-action)
 performs Docker layer caching for built images but does not cache pulled images.
 
@@ -49,6 +51,17 @@ The explicit cache key to ferry to the
 [official GitHub cache action](https://github.com/marketplace/actions/cache).
 `restore-keys` are not supported, because partial cache restoration leads to a
 ["snowball" effect](https://glebbahmutov.com/blog/do-not-let-npm-cache-snowball/).
+
+## Outputs
+
+### `cache-hit`
+
+The ferried output of the
+[official GitHub cache action](https://github.com/marketplace/actions/cache).
+True on cache hit (even if the subsequent
+[`docker load`](https://docs.docker.com/engine/reference/commandline/load/)
+failed) and false on cache miss. See also
+[skipping steps based on cache-hit](https://github.com/marketplace/actions/cache#Skipping-steps-based-on-cache-hit).
 
 ## Supported Runners
 

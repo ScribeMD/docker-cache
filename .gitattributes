@@ -5,3 +5,10 @@
 # Normalize line endings of all text files to LF when copying them from the
 # repository to the working directory, such as when checking them out.
 * text eol=lf
+
+# Yarn generates some minified JavaScript files that are technically text, but
+# that we don't want Git to check for whitespace errors.
+*.cjs binary
+
+# As of 2022-04-21, Git mistakenly categorizes Yarn cache files as textual.
+*.zip binary

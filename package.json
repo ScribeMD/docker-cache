@@ -1,0 +1,33 @@
+{
+  "name": "docker-cache",
+  "version": "0.1.0",
+  "description": "Cache Docker Images Whether Built or Pulled",
+  "homepage": "https://github.com/ScribeMD/docker-cache#readme",
+  "main": "dist/main.js",
+  "repository": "github:ScribeMD/docker-cache",
+  "author": "Kurt von Laven <kurt.von.laven@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "yarn run tsc"
+  },
+  "engines": {
+    "node": "16.4.2",
+    "yarn": "3.2.0"
+  },
+  "packageManager": "yarn@3.2.0",
+  "dependencies": {
+    "@actions/cache": "^2.0.2",
+    "@actions/core": "^1.6.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node16-strictest-esm": "^1.0.1",
+    "@types/eslint": "^8.4.1",
+    "@types/node": "^17.0.25",
+    "@types/prettier": "2.6.0",
+    "@yarnpkg/sdks": "^2.5.0",
+    "eslint": "~8.13.0",
+    "prettier": "2.6.2",
+    "typescript": "^4.6.3"
+  }
+}

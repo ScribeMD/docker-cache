@@ -1,12 +1,19 @@
 {
   "editor.tabSize": 2,
   "editorconfig.generateAuto": false,
+  "eslint.nodePath": ".yarn/sdks",
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "python.defaultInterpreterPath": "./.venv/bin/python",
   "python.terminal.activateEnvInCurrentTerminal": true,
   "search.exclude": {
-    "poetry.lock": true
-  }
+    "poetry.lock": true,
+    "/dist": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }
