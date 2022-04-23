@@ -10,9 +10,7 @@ const DOCKER_IMAGES_PATH = "~/.docker-images.tar";
 const execBashCommand = async (command: string): Promise<void> => {
   info(command);
   try {
-    const result = await execAsPromised(command, {
-      shell: "/usr/bin/bash",
-    });
+    const result = await execAsPromised(command, { shell: "/usr/bin/bash" });
     info(result.stdout);
     error(result.stderr);
   } catch (error: any) {
