@@ -11,7 +11,7 @@ const execBashCommand = async (command: string): Promise<void> => {
   info(command);
   try {
     const result = await execAsPromised(command, {
-      shell: "/usr/bin/env bash",
+      shell: "/usr/bin/bash",
     });
     info(result.stdout);
     error(result.stderr);
