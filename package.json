@@ -3,13 +3,15 @@
   "version": "0.1.1",
   "description": "Cache Docker Images Whether Built or Pulled",
   "homepage": "https://github.com/ScribeMD/docker-cache#readme",
-  "main": "dist/main.js",
+  "main": "dist/main/index.js",
   "repository": "github:ScribeMD/docker-cache",
   "author": "Kurt von Laven <kurt.von.laven@gmail.com>",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "yarn run tsc"
+    "build": "yarn run build:main && yarn run build:post",
+    "build:main": "yarn run ncc build src/main.ts --out dist/main --minify",
+    "build:post": "yarn run ncc build src/post.ts --out dist/post --minify"
   },
   "engines": {
     "node": "16.4.2",
@@ -25,6 +27,7 @@
     "@types/eslint": "^8.4.1",
     "@types/node": "^17.0.25",
     "@types/prettier": "2.6.0",
+    "@vercel/ncc": "^0.33.4",
     "@yarnpkg/sdks": "^2.5.0",
     "eslint": "~8.13.0",
     "prettier": "2.6.2",
