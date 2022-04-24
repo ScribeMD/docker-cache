@@ -8,8 +8,28 @@ on:
       - main
 jobs:
   test:
-    name: Run Pre-commit Hooks
-    uses: ScribeMD/pre-commit-action/.github/workflows/test.yaml@0.1.4
-    secrets:
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      SLACK_ACTIONS_CHANNEL_ID: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
+    name: Test
+    strategy:
+      matrix:
+        runner:
+          - ubuntu-20.04
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v3.0.2
+      - name: Cache Docker images.
+        uses: ./
+        with:
+          key: >
+            docker-${{ matrix.runner }}-${{
+              hashFiles('.pre-commit-config.yaml')
+            }}
+      - name: Run pre-commit hooks.
+        uses: ScribeMD/pre-commit-action@0.1.4
+      - name: Send Slack notification with job status.
+        if: always()
+        uses: ScribeMD/slack-templates@0.2.3
+        with:
+          bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
+          template: result
