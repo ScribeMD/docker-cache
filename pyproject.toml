@@ -12,7 +12,7 @@ build-backend = "poetry.core.masonry.api"
   ]
 
   [tool.poetry]
-  name = "pre-commit-action"
+  name = "docker-cache"
   version = "0.1.2"
   description = "Cache Docker Images Whether Built or Pulled"
   authors = ["Kurt von Laven <kurt.von.laven@gmail.com>"]
