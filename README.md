@@ -17,7 +17,6 @@ Cache Docker Images Whether Built or Pulled
   - [Outputs](#outputs)
     - [`cache-hit`](#cache-hit)
   - [Supported Runners](#supported-runners)
-  - [Contributing](#contributing)
   - [Changelog](#changelog)
 
 <!--TOC-->
@@ -67,10 +66,6 @@ failed) and false on cache miss. See also
 
 Please refer to
 [README.md of ScribeMD/rootless-docker](https://github.com/ScribeMD/rootless-docker#supported-runners).
-
-## Contributing
-
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Changelog
 
