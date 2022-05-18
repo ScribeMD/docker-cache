@@ -25,10 +25,10 @@ jobs:
               hashFiles('.pre-commit-config.yaml')
             }}
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.2.0
+        uses: ScribeMD/pre-commit-action@0.6.0
       - name: Send Slack notification with job status.
         if: always()
-        uses: ScribeMD/slack-templates@0.3.0
+        uses: ScribeMD/slack-templates@0.3.2
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
