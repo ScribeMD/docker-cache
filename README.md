@@ -32,12 +32,12 @@ performs Docker layer caching for built images but does not cache pulled images.
 
 - Add the following step before your first use of Docker:
 
-```yaml
-- name: Cache Docker images.
-  uses: ScribeMD/docker-cache@0.1.2
-  with:
-    key: docker-${{ runner.os }}-${{ hashFiles(...) }}
-```
+  ```yaml
+  - name: Cache Docker images.
+    uses: ScribeMD/docker-cache@0.1.2
+    with:
+      key: docker-${{ runner.os }}-${{ hashFiles(...) }}
+  ```
 
 ## Inputs
 
