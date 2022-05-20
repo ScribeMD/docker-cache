@@ -9,25 +9,24 @@ on:
 jobs:
   test:
     name: Test
-    strategy:
-      matrix:
-        runner:
-          - ubuntu-20.04
-    runs-on: ${{ matrix.runner }}
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out repository.
         uses: actions/checkout@v3.0.2
         with:
           fetch-depth: 0
+      - name: Get operating system name and version.
+        id: os
+        run: echo "::set-output name=image::$ImageOS"
       - name: Cache Docker images.
         uses: ./
         with:
           key: >
-            docker-${{ matrix.runner }}-${{
+            docker-${{ steps.os.outputs.image }}-${{
               hashFiles('.pre-commit-config.yaml')
             }}
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.7.0
+        uses: ScribeMD/pre-commit-action@0.7.1
       - name: Send Slack notification with job status.
         if: always()
         uses: ScribeMD/slack-templates@0.4.0
