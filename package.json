@@ -14,7 +14,7 @@
     "build:post": "yarn run ncc build src/post.ts --out dist/post --minify"
   },
   "engines": {
-    "node": "16.4.2",
+    "node": "16.15.0",
     "yarn": "3.2.0"
   },
   "packageManager": "yarn@3.2.0",
