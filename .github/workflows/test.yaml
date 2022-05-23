@@ -21,13 +21,32 @@ jobs:
       - name: Get operating system name and version.
         id: os
         run: echo "IMAGE=$ImageOS" >>"$GITHUB_OUTPUT"
+      - name: Determine name of MegaLinter Docker image from pre-commit config.
+        id: megalinter
+        run: |
+          from os import environ
+          from re import compile
+
+          _MEGALINTER_ARGS_PATTERN = compile(
+              "args:\\s*&megalinter-args\\s*\\[--flavor,\\s*(?P<flavor>\\w+),"
+              "\\s*--release,\\s*(?P<release>v(\\d+\\.){2}\\d+)"
+          )
+          with open(".pre-commit-config.yaml", encoding="utf-8") as input_stream:
+              for line in input_stream:
+                  if match := _MEGALINTER_ARGS_PATTERN.search(line):
+                      break
+
+          flavor = match.group("flavor")
+          release = match.group("release")
+          docker_image = f"megalinter-{flavor}:{release}"
+          output_file = environ["GITHUB_OUTPUT"]
+          with open(output_file, "a", encoding="utf-8") as output_stream:
+              output_stream.write(f"DOCKER_IMAGE={docker_image}\n")
+        shell: python
       - name: Cache Docker images.
         uses: ./
         with:
-          key: >
-            docker-${{ steps.os.outputs.IMAGE }}-${{
-              hashFiles('.pre-commit-config.yaml')
-            }}
+          key: ${{ steps.megalinter.outputs.DOCKER_IMAGE }}
           read-only: true
       - name: Get Yarn cache directory.
         id: yarn-cache
