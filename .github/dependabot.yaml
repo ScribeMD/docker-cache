@@ -1,0 +1,35 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: "08:00"
+      timezone: America/New_York
+    assignees:
+      - Kurt-von-Laven
+    reviewers:
+      - Kurt-von-Laven
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: chore
+      include: scope
+
+  # Upgrade Poetry dependencies.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: daily
+      time: "08:00"
+      timezone: America/New_York
+    assignees:
+      - Kurt-von-Laven
+    reviewers:
+      - Kurt-von-Laven
+    open-pull-requests-limit: 1
+    insecure-external-code-execution: deny
+    allow:
+      - dependency-type: development
+    commit-message:
+      prefix: chore
+      include: scope
