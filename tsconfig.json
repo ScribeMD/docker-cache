@@ -3,6 +3,7 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "moduleResolution": "node",
+    "newLine": "lf",
     "outDir": "build"
   }
 }
