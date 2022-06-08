@@ -4,6 +4,9 @@ report
 # Poetry
 .venv
 
+# TypeScript
+build
+
 # Yarn
 .pnp.*
 .yarn/*
