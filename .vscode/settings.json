@@ -5,6 +5,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "git.branchProtection": ["main"],
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "python.defaultInterpreterPath": "./.venv/bin/python",
   "python.terminal.activateEnvInCurrentTerminal": true,
