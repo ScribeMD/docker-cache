@@ -24,6 +24,7 @@
     "@actions/core": "^1.9.1"
   },
   "devDependencies": {
+    "@fast-check/jest": "^1.1.0",
     "@jest/globals": "^28.1.2",
     "@jest/types": "^28.1.1",
     "@tsconfig/node16-strictest-esm": "^1.0.3",
@@ -34,6 +35,7 @@
     "@vercel/ncc": "^0.34.0",
     "@yarnpkg/sdks": "^2.6.2",
     "eslint": "~8.19.0",
+    "fast-check": "^3.1.4",
     "jest": "^28.1.2",
     "jest-junit": "^14.0.0",
     "prettier": "2.7.1",
