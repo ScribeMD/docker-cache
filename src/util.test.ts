@@ -1,4 +1,6 @@
+import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
+import { string } from "fast-check";
 
 jest.unstable_mockModule("node:child_process", () => ({
   exec: jest.fn<typeof import("node:child_process").exec>(),
@@ -20,9 +22,8 @@ describe("Util", (): void => {
   });
 
   describe("execBashCommand", (): void => {
-    const COMMAND = "Bash command to execute";
-
     const mockedExec = async (
+      command: string,
       error: Error | null,
       stdout: string = "",
       stderr: string = ""
@@ -32,36 +33,53 @@ describe("Util", (): void => {
           callback(error, { stdout, stderr });
         }
       );
-      const output = await util.execBashCommand(COMMAND);
+      const output = await util.execBashCommand(command);
 
-      expect(core.info).nthCalledWith<[string]>(1, COMMAND);
+      expect(core.info).nthCalledWith<[string]>(1, command);
       expect(child_process.exec).lastCalledWith(
-        COMMAND,
+        command,
         { shell: "/usr/bin/bash" },
         expect.anything()
       );
       return output;
     };
 
-    test("ferries command output to GitHub Actions on success", async (): Promise<void> => {
-      const stdout = "standard output from Bash command";
-      const stderr = "error output from Bash command";
-      const output = await mockedExec(null, stdout, stderr);
+    testProp(
+      "ferries command output to GitHub Actions on success",
+      [string(), string(), string()],
+      async (
+        command: string,
+        stdout: string,
+        stderr: string
+      ): Promise<void> => {
+        jest.clearAllMocks();
+        const output = await mockedExec(command, null, stdout, stderr);
 
-      expect(output).toBe(stdout);
-      expect(core.info).lastCalledWith(stdout);
-      expect(core.error).lastCalledWith(stderr);
-    });
+        expect(output).toBe(stdout);
+        expect(core.info).lastCalledWith(stdout);
+        expect(core.error).lastCalledWith(stderr);
+      }
+    );
 
-    test("ferries failure to GitHub Actions", async (): Promise<void> => {
-      const error = new Error("reason Bash command failed");
-      const output = await mockedExec(error);
+    testProp(
+      "ferries failure to GitHub Actions",
+      [string(), string(), string(), string()],
+      async (
+        command: string,
+        errorMessage: string,
+        stdout: string,
+        stderr: string
+      ): Promise<void> => {
+        jest.clearAllMocks();
+        const error = new Error(errorMessage);
+        const output = await mockedExec(command, error, stdout, stderr);
 
-      expect(output).toBe("");
-      expect(core.info).toHaveBeenCalledTimes(1);
-      expect(core.error).not.toHaveBeenCalled();
-      expect(core.setFailed).lastCalledWith(error.toString());
-    });
+        expect(output).toBe("");
+        expect(core.info).toHaveBeenCalledTimes(1);
+        expect(core.error).not.toHaveBeenCalled();
+        expect(core.setFailed).lastCalledWith(error.toString());
+      }
+    );
   });
 });
 
