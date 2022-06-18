@@ -5,6 +5,14 @@ const config: Config.InitialOptions = {
   collectCoverage: true,
   coverageDirectory: "reports/jest/",
   coverageProvider: "v8",
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
   moduleFileExtensions: ["ts", "js"],
   rootDir: "src",
   testEnvironment: "node",
@@ -24,6 +32,7 @@ const config: Config.InitialOptions = {
 
 if (process.env["CI"] === "true") {
   config.ci = true;
+  config.collectCoverageFrom = ["**/*.ts"];
   config.reporters = [["jest-junit", { outputDirectory: "reports/jest/" }]];
 }
 
