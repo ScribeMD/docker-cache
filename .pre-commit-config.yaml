@@ -17,7 +17,7 @@ repos:
 
   ## Python, Polyglot, Git, pre-commit
   - repo: https://github.com/ScribeMD/pre-commit-hooks
-    rev: 0.6.1
+    rev: 0.6.2
     hooks:
       - id: no-merge-commits
       - id: asdf-install
@@ -37,7 +37,7 @@ repos:
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc
-    rev: 8.1.3
+    rev: 8.1.4
     hooks:
       - id: md-toc
 
