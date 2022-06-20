@@ -21,7 +21,7 @@ const assertCalledInOrder = (...mocks: jest.Mock[]): void => {
   });
 
   const sortedCallOrders = [...callOrders].sort(
-    (a: number, b: number) => a - b
+    (a: number, b: number): number => a - b
   );
   expect(callOrders).toStrictEqual(sortedCallOrders);
 };
