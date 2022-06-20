@@ -40,7 +40,7 @@ jobs:
           comment_mode: off
       - name: Send Slack notification with job status.
         if: always()
-        uses: ScribeMD/slack-templates@0.6.1
+        uses: ScribeMD/slack-templates@0.6.2
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
