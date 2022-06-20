@@ -1,9 +1,9 @@
 # docker-cache
 
 [![Test Workflow Status](https://github.com/ScribeMD/docker-cache/workflows/Test/badge.svg)](https://github.com/ScribeMD/docker-cache/actions/workflows/test.yaml)
-[![Git Hooks: pre-commit](https://img.shields.io/badge/pre--commit-Git_Hooks-orange?logo=precommit&logoColor=FAB040)](https://pre-commit.com/)
-[![Commit Style: Conventional Commits](https://img.shields.io/badge/Conventional_Commits-Commit_Style-yellow?logo=conventionalcommits&logoColor=FE5196)](https://conventionalcommits.org)
-[![Code Style: Prettier](https://img.shields.io/badge/Prettier-Code_Style-FF69B4?logo=prettier&logoColor=F7B93E)](https://prettier.io/)
+[![Git Hooks: pre-commit](https://img.shields.io/badge/pre--commit-Git_Hooks-66A182?logo=precommit&logoColor=FAB040)](https://pre-commit.com/)
+[![Commit Style: Conventional Commits](https://img.shields.io/badge/Conventional_Commits-Commit_Style-F39237?logo=conventionalcommits&logoColor=FE5196)](https://conventionalcommits.org)
+[![Code Style: Prettier](https://img.shields.io/badge/Prettier-Code_Style-758ECD?logo=prettier&logoColor=F7B93E)](https://prettier.io/)
 
 Cache Docker Images Whether Built or Pulled
 
