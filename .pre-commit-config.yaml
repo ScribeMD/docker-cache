@@ -26,7 +26,7 @@ repos:
       - id: poetry-install
       - id: pre-commit-install
       - id: megalinter
-        args: &megalinter-args [--flavor, javascript, --release, v5.15.0]
+        args: &megalinter-args [--flavor, javascript, --release, v5.16.1]
       - id: megalinter-all
         args: *megalinter-args
       - id: yarn-install
