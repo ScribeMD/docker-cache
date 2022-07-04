@@ -3,7 +3,6 @@
   "include": ["src/**/*.ts"],
   "exclude": ["**/reports"],
   "compilerOptions": {
-    "moduleResolution": "node",
     "newLine": "lf",
     "outDir": "build"
   }
