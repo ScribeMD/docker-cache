@@ -31,6 +31,7 @@ Cache Docker Images Whether Built or Pulled
   - [Outputs](#outputs)
     - [`cache-hit`](#cache-hit)
   - [Supported Runners](#supported-runners)
+  - [Permissions](#permissions)
   - [Changelog](#changelog)
 
 <!--TOC-->
@@ -80,6 +81,12 @@ failed) and false on cache miss. See also
 
 Please refer to
 [`README.md` of ScribeMD/rootless-docker](https://github.com/ScribeMD/rootless-docker#supported-runners).
+
+## Permissions
+
+No
+[permissions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)
+are required.
 
 ## Changelog
 

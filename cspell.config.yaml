@@ -8,5 +8,6 @@ dictionaryDefinitions:
     path: .dictionary.txt
 dictionaries:
   - custom
+  - fullstack
   - npm
   - python
