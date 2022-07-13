@@ -7,8 +7,8 @@ on:
     branches:
       - main
 jobs:
-  test:
-    name: Test
+  pre-commit:
+    name: pre-commit
     runs-on: ubuntu-20.04
     permissions:
       checks: write # https://github.com/EnricoMi/publish-unit-test-result-action#permissions
@@ -28,6 +28,7 @@ jobs:
             docker-${{ steps.os.outputs.image }}-${{
               hashFiles('.pre-commit-config.yaml')
             }}
+          read-only: true
       - name: Run pre-commit hooks.
         uses: ScribeMD/pre-commit-action@0.8.10
       - name: Publish test results to GitHub.
@@ -38,10 +39,64 @@ jobs:
             reports/jest/junit.xml
             reports/junit/*.xml
           comment_mode: off
-      - name: Send Slack notification with job status.
+  save-cache:
+    name: Save Cache
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: none # workaround for https://github.com/rhysd/actionlint/issues/170
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v3.0.2
+      - name: Save Docker images.
+        uses: ./
+        with:
+          key: docker-cache-test
+      - name: Build an empty test Docker image.
+        run: docker build --tag empty .
+  restore-cache:
+    name: Restore Cache
+    needs:
+      - save-cache
+    runs-on: ubuntu-20.04
+    permissions:
+      actions: write # for cache deletion
+    steps:
+      - name: Check out repository.
+        uses: actions/checkout@v3.0.2
+      - name: Load Docker images.
+        uses: ./
+        with:
+          key: docker-cache-test
+      - name: Verify Docker loaded empty image from cache.
+        run: |
+          description="$(docker inspect --format '{{ index .Config.Labels "description" }}' empty)"
+          [[ $description == "empty image" ]]
+      - name: Delete test cache.
         if: always()
+        run: >
+          curl
+          --fail
+          --silent
+          --show-error
+          --request DELETE
+          --header "Accept: application/vnd.github.v3+json"
+          --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+          "https://api.github.com/repos/ScribeMD/docker-cache/actions/caches?key=docker-cache-test&ref=$GITHUB_REF"
+  notify:
+    name: Notify
+    if: always()
+    needs:
+      - pre-commit
+      - save-cache
+      - restore-cache
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: none # workaround for https://github.com/rhysd/actionlint/issues/170
+    steps:
+      - name: Send Slack notification with workflow result.
         uses: ScribeMD/slack-templates@0.6.3
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
           template: result
+          results: "${{ join(needs.*.result, ' ') }}"

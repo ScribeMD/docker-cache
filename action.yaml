@@ -11,6 +11,10 @@ inputs:
       are not supported, because partial cache restoration leads to a "snowball"
       effect.
     required: true
+  read-only:
+    description: If "true", disables saving the cache upon cache miss
+    required: false
+    default: "false"
 outputs:
   cache-hit:
     description: >

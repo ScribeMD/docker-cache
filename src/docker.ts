@@ -18,6 +18,10 @@ const saveDockerImages = async (): Promise<void> => {
   const key = getInput("key", { required: true });
   if (getState(CACHE_HIT) === "true") {
     info(`Cache hit occurred on the primary key ${key}, not saving cache.`);
+  } else if (getInput("read-only") === "true") {
+    info(
+      `Cache miss occurred on the primary key ${key}. Not saving cache as read-only option was selected.`
+    );
   } else {
     await execBashCommand(
       'docker image list --format "{{ .Repository }}:{{ .Tag }}" | ' +

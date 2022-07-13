@@ -11,13 +11,14 @@ jest.unstable_mockModule("./util.js", (): typeof import("./util.js") => ({
   execBashCommand: jest.fn<typeof import("./util.js").execBashCommand>(),
 }));
 
-/* Expect the given mocks each to have been called exactly once and in the given
- * order.
- */
+// Expect the given mocks were called in the given order.
 const assertCalledInOrder = (...mocks: jest.Mock[]): void => {
+  const mockCallCounts: Record<string, number> = {};
   const callOrders = mocks.map((currentMock: jest.Mock): number => {
-    expect(currentMock).toHaveBeenCalledTimes(1);
-    return <number>currentMock.mock.invocationCallOrder[0];
+    const mockName = currentMock.getMockName();
+    const callCount = mockCallCounts[mockName] ?? 0;
+    mockCallCounts[mockName] = callCount + 1;
+    return <number>currentMock.mock.invocationCallOrder[callCount];
   });
 
   const sortedCallOrders = [...callOrders].sort(
@@ -39,8 +40,10 @@ describe("Docker images", (): void => {
     core = <any>await import("@actions/core");
     util = <any>await import("./util.js");
     docker = await import("./docker.js");
+  });
 
-    core.getInput.mockReturnValue(KEY);
+  beforeEach(async (): Promise<void> => {
+    core.getInput.mockReturnValueOnce(KEY);
   });
 
   const mockedLoadDockerImages = async (cacheHit: boolean): Promise<void> => {
@@ -51,11 +54,20 @@ describe("Docker images", (): void => {
     expect(cache.restoreCache).lastCalledWith([util.DOCKER_IMAGES_PATH], KEY);
   };
 
-  const mockedSaveDockerImages = async (cacheHit: boolean): Promise<void> => {
+  const mockedSaveDockerImages = async (
+    cacheHit: boolean,
+    readOnly: boolean = false
+  ): Promise<void> => {
     core.getState.mockReturnValueOnce(cacheHit.toString());
+    if (!cacheHit) {
+      core.getInput.mockReturnValueOnce(readOnly.toString());
+    }
     await docker.saveDockerImages();
 
-    expect(core.getInput).lastCalledWith("key", { required: true });
+    expect(core.getInput).nthCalledWith(1, "key", { required: true });
+    if (!cacheHit) {
+      expect(core.getInput).lastCalledWith("read-only");
+    }
     expect(core.getState).lastCalledWith(util.CACHE_HIT);
   };
 
@@ -108,6 +120,27 @@ describe("Docker images", (): void => {
       util.execBashCommand,
       cache.saveCache
     );
+  });
+
+  test("aren't saved on cache miss when in read-only mode", async (): Promise<void> => {
+    await mockedSaveDockerImages(false, true);
+
+    expect(core.info).lastCalledWith(
+      `Cache miss occurred on the primary key ${KEY}. ` +
+        "Not saving cache as read-only option was selected."
+    );
+    expect(util.execBashCommand).not.toHaveBeenCalled();
+    expect(cache.saveCache).not.toHaveBeenCalled();
+  });
+
+  test("aren't saved on cache hit when in read-only mode", async (): Promise<void> => {
+    await mockedSaveDockerImages(true, true);
+
+    expect(core.info).lastCalledWith(
+      `Cache hit occurred on the primary key ${KEY}, not saving cache.`
+    );
+    expect(util.execBashCommand).not.toHaveBeenCalled();
+    expect(cache.saveCache).not.toHaveBeenCalled();
   });
 
   test("aren't saved on cache hit", async (): Promise<void> => {
