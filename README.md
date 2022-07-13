@@ -28,6 +28,7 @@ Cache Docker Images Whether Built or Pulled
   - [Usage](#usage)
   - [Inputs](#inputs)
     - [Required](#required)
+    - [Optional](#optional)
   - [Outputs](#outputs)
     - [`cache-hit`](#cache-hit)
   - [Supported Runners](#supported-runners)
@@ -65,6 +66,14 @@ The explicit cache key to ferry to the
 [official GitHub cache action](https://github.com/marketplace/actions/cache).
 `restore-keys` are not supported, because partial cache restoration leads to a
 ["snowball" effect](https://glebbahmutov.com/blog/do-not-let-npm-cache-snowball/).
+
+### Optional
+
+#### `read-only`
+
+default: `false`
+
+If `"true"`, disable saving cache upon cache miss.
 
 ## Outputs
 

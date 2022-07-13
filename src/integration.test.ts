@@ -72,7 +72,7 @@ describe("Integration Test", (): void => {
 
     await (load ? docker.loadDockerImages() : docker.saveDockerImages());
 
-    expect(core.getInput).lastCalledWith("key", { required: true });
+    expect(core.getInput).nthCalledWith(1, "key", { required: true });
     expect(core.info).nthCalledWith<[string]>(1, command);
     expect(child_process.exec).lastCalledWith(
       command,
@@ -89,7 +89,7 @@ describe("Integration Test", (): void => {
     await docker.loadDockerImages();
 
     // Expect cache miss since cache has never been saved.
-    expect(core.getInput).lastCalledWith("key", { required: true });
+    expect(core.getInput).nthCalledWith(1, "key", { required: true });
     expect(core.setOutput).lastCalledWith(util.CACHE_HIT, false);
     expect(child_process.exec).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();
