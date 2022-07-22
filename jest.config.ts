@@ -1,7 +1,6 @@
 import type { Config } from "@jest/types";
 
 const config: Config.InitialOptions = {
-  clearMocks: true,
   collectCoverage: true,
   coverageDirectory: "reports/jest/",
   coverageProvider: "v8",
@@ -14,6 +13,7 @@ const config: Config.InitialOptions = {
     },
   },
   moduleFileExtensions: ["ts", "js"],
+  resetMocks: true,
   rootDir: "src",
   testEnvironment: "node",
   watchman: true,
