@@ -18,18 +18,22 @@ describe("Integration Test", (): void => {
 
   let child_process: Mocked<typeof import("node:child_process")>;
   let cache: Mocked<typeof import("@actions/cache")>;
-  let inMemoryCache: Record<string, string>;
   let core: Mocked<typeof import("@actions/core")>;
-  let state: Record<string, string>;
   let util: typeof import("./util.js");
   let docker: typeof import("./docker.js");
 
-  beforeAll(async (): Promise<void> => {
+  let inMemoryCache: Record<string, string>;
+  let state: Record<string, string>;
+
+  beforeEach(async (): Promise<void> => {
     child_process = <any>await import("node:child_process");
     cache = <any>await import("@actions/cache");
     core = <any>await import("@actions/core");
     util = await import("./util.js");
     docker = await import("./docker.js");
+
+    inMemoryCache = {};
+    state = {};
 
     core.getInput.mockReturnValue(KEY);
 
@@ -54,11 +58,6 @@ describe("Integration Test", (): void => {
     core.saveState.mockImplementation((key: string, value: any): void => {
       state[key] = value.toString();
     });
-  });
-
-  beforeEach((): void => {
-    inMemoryCache = {};
-    state = {};
   });
 
   const mockedExec = async (load: boolean, command: string): Promise<void> => {
