@@ -19,14 +19,6 @@ describe("Util", (): void => {
     util = await import("./util.js");
   });
 
-  test("exports CACHE_HIT", (): void => {
-    expect(util.CACHE_HIT).toBe("cache-hit");
-  });
-
-  test("exports DOCKER_IMAGES_PATH", (): void => {
-    expect(util.DOCKER_IMAGES_PATH).toBe("~/.docker-images.tar");
-  });
-
   describe("execBashCommand", (): void => {
     const COMMAND = "Bash command to execute";
 
