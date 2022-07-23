@@ -1,7 +1,10 @@
 import { restoreCache, saveCache } from "@actions/cache";
 import { getInput, getState, info, saveState, setOutput } from "@actions/core";
 
-import { CACHE_HIT, DOCKER_IMAGES_PATH, execBashCommand } from "./util.js";
+import { execBashCommand } from "./util.js";
+
+const CACHE_HIT = "cache-hit";
+const DOCKER_IMAGES_PATH = "~/.docker-images.tar";
 
 const loadDockerImages = async (): Promise<void> => {
   const requestedKey = getInput("key", { required: true });
@@ -32,4 +35,4 @@ const saveDockerImages = async (): Promise<void> => {
   }
 };
 
-export { saveDockerImages, loadDockerImages };
+export { saveDockerImages, loadDockerImages, CACHE_HIT, DOCKER_IMAGES_PATH };

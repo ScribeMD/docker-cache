@@ -19,7 +19,6 @@ describe("Integration Test", (): void => {
   let child_process: Mocked<typeof import("node:child_process")>;
   let cache: Mocked<typeof import("@actions/cache")>;
   let core: Mocked<typeof import("@actions/core")>;
-  let util: typeof import("./util.js");
   let docker: typeof import("./docker.js");
 
   let inMemoryCache: Record<string, string>;
@@ -29,8 +28,7 @@ describe("Integration Test", (): void => {
     child_process = <any>await import("node:child_process");
     cache = <any>await import("@actions/cache");
     core = <any>await import("@actions/core");
-    util = await import("./util.js");
-    docker = await import("./docker.js");
+    docker = <any>await import("./docker.js");
 
     inMemoryCache = {};
     state = {};
@@ -89,7 +87,7 @@ describe("Integration Test", (): void => {
 
     // Expect cache miss since cache has never been saved.
     expect(core.getInput).nthCalledWith(1, "key", { required: true });
-    expect(core.setOutput).lastCalledWith(util.CACHE_HIT, false);
+    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, false);
     expect(child_process.exec).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();
     jest.clearAllMocks();
@@ -98,16 +96,16 @@ describe("Integration Test", (): void => {
     const saveCommand =
       'docker image list --format "{{ .Repository }}:{{ .Tag }}" | ' +
       '2>&1 xargs --delimiter="\n" --no-run-if-empty --verbose --exit ' +
-      `docker save --output ${util.DOCKER_IMAGES_PATH}`;
+      `docker save --output ${docker.DOCKER_IMAGES_PATH}`;
     await mockedExec(false, saveCommand);
     jest.clearAllMocks();
 
     // Attempt second cache restore.
-    const loadCommand = `docker load --input ${util.DOCKER_IMAGES_PATH}`;
+    const loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
     await mockedExec(true, loadCommand);
 
     // Expect cache hit since cache has been saved.
-    expect(core.setOutput).lastCalledWith(util.CACHE_HIT, true);
+    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, true);
     jest.clearAllMocks();
 
     // Run post step second time.

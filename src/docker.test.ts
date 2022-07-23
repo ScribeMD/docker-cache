@@ -6,8 +6,6 @@ jest.mock("@actions/cache");
 jest.mock("@actions/core");
 
 jest.unstable_mockModule("./util.js", (): typeof import("./util.js") => ({
-  CACHE_HIT: "cache-hit",
-  DOCKER_IMAGES_PATH: "~/.docker-images.tar",
   execBashCommand: jest.fn<typeof import("./util.js").execBashCommand>(),
 }));
 
@@ -51,7 +49,7 @@ describe("Docker images", (): void => {
     await docker.loadDockerImages();
 
     expect(core.getInput).lastCalledWith("key", { required: true });
-    expect(cache.restoreCache).lastCalledWith([util.DOCKER_IMAGES_PATH], KEY);
+    expect(cache.restoreCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], KEY);
   };
 
   const mockedSaveDockerImages = async (
@@ -68,16 +66,24 @@ describe("Docker images", (): void => {
     if (!cacheHit) {
       expect(core.getInput).lastCalledWith("read-only");
     }
-    expect(core.getState).lastCalledWith(util.CACHE_HIT);
+    expect(core.getState).lastCalledWith(docker.CACHE_HIT);
   };
+
+  test("exports CACHE_HIT", (): void => {
+    expect(docker.CACHE_HIT).toBe("cache-hit");
+  });
+
+  test("exports DOCKER_IMAGES_PATH", (): void => {
+    expect(docker.DOCKER_IMAGES_PATH).toBe("~/.docker-images.tar");
+  });
 
   test("are loaded on cache hit", async (): Promise<void> => {
     await mockedLoadDockerImages(true);
 
-    expect(core.saveState).lastCalledWith(util.CACHE_HIT, true);
-    expect(core.setOutput).lastCalledWith(util.CACHE_HIT, true);
+    expect(core.saveState).lastCalledWith(docker.CACHE_HIT, true);
+    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, true);
     expect(util.execBashCommand).lastCalledWith(
-      `docker load --input ${util.DOCKER_IMAGES_PATH}`
+      `docker load --input ${docker.DOCKER_IMAGES_PATH}`
     );
 
     /* The cache must be restored before the Docker images can be loaded. This
@@ -95,8 +101,8 @@ describe("Docker images", (): void => {
   test("aren't loaded on cache miss", async (): Promise<void> => {
     await mockedLoadDockerImages(false);
 
-    expect(core.saveState).lastCalledWith(util.CACHE_HIT, false);
-    expect(core.setOutput).lastCalledWith(util.CACHE_HIT, false);
+    expect(core.saveState).lastCalledWith(docker.CACHE_HIT, false);
+    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, false);
     expect(util.execBashCommand).not.toHaveBeenCalled();
   });
 
@@ -106,9 +112,9 @@ describe("Docker images", (): void => {
     expect(util.execBashCommand).lastCalledWith(
       'docker image list --format "{{ .Repository }}:{{ .Tag }}" | ' +
         '2>&1 xargs --delimiter="\n" --no-run-if-empty --verbose --exit ' +
-        `docker save --output ${util.DOCKER_IMAGES_PATH}`
+        `docker save --output ${docker.DOCKER_IMAGES_PATH}`
     );
-    expect(cache.saveCache).lastCalledWith([util.DOCKER_IMAGES_PATH], KEY);
+    expect(cache.saveCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], KEY);
 
     /* The Docker images must be saved before the cache can be. This at least
      * checks that the calls are made in the right order, but doesn't ensure
