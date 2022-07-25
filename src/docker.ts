@@ -4,7 +4,10 @@ import { getInput, getState, info, saveState, setOutput } from "@actions/core";
 import { execBashCommand } from "./util.js";
 
 const CACHE_HIT = "cache-hit";
+const DOCKER_IMAGES_LIST = "docker-images-list";
 const DOCKER_IMAGES_PATH = "~/.docker-images.tar";
+const LIST_COMMAND =
+  'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
 
 const loadDockerImages = async (): Promise<void> => {
   const requestedKey = getInput("key", { required: true });
@@ -14,6 +17,13 @@ const loadDockerImages = async (): Promise<void> => {
   setOutput(CACHE_HIT, cacheHit);
   if (cacheHit) {
     await execBashCommand(`docker load --input ${DOCKER_IMAGES_PATH}`);
+  } else {
+    info(
+      "Recording preexisting Docker images. These include standard images " +
+        "pre-cached by GitHub Actions when Docker is run as root."
+    );
+    const dockerImages = await execBashCommand(LIST_COMMAND);
+    saveState(DOCKER_IMAGES_LIST, dockerImages);
   }
 };
 
@@ -27,13 +37,32 @@ const saveDockerImages = async (): Promise<void> => {
         "read-only option was selected."
     );
   } else {
-    await execBashCommand(
-      'docker image list --format "{{ .Repository }}:{{ .Tag }}" | ' +
-        '2>&1 xargs --delimiter="\n" --no-run-if-empty --verbose --exit ' +
-        `docker save --output ${DOCKER_IMAGES_PATH}`
+    const preexistingImages = getState(DOCKER_IMAGES_LIST).split("\n");
+    info("Listing Docker images.");
+    const images = await execBashCommand(LIST_COMMAND);
+    const imagesList = images.split("\n");
+    const newImages = imagesList.filter(
+      (image: string): boolean => !preexistingImages.includes(image)
     );
-    await saveCache([DOCKER_IMAGES_PATH], key);
+    if (newImages.length === 0) {
+      info("No Docker images to save");
+    } else {
+      info(
+        "Images present before restore step will be skipped; only new images " +
+          "will be saved."
+      );
+      const newImagesArgs = newImages.join(" ");
+      const cmd = `docker save --output ${DOCKER_IMAGES_PATH} ${newImagesArgs}`;
+      await execBashCommand(cmd);
+      await saveCache([DOCKER_IMAGES_PATH], key);
+    }
   }
 };
 
-export { saveDockerImages, loadDockerImages, CACHE_HIT, DOCKER_IMAGES_PATH };
+export {
+  saveDockerImages,
+  loadDockerImages,
+  CACHE_HIT,
+  DOCKER_IMAGES_LIST,
+  DOCKER_IMAGES_PATH,
+};

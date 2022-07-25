@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 
+import type { ExecOptions } from "node:child_process";
 import type { InputOptions } from "@actions/core";
 import type { Mocked } from "./util.test.js";
 
@@ -16,6 +17,12 @@ const getKey = (paths: string[], key: string): string => {
 describe("Integration Test", (): void => {
   const KEY = "a-cache-key";
   const EXEC_OPTIONS = { shell: "/usr/bin/bash" };
+  const STDOUT = "standard output from Bash command";
+  const STDERR = "error output from Bash command";
+  const LIST_COMMAND =
+    'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
+
+  const dockerImages: string[] = [];
 
   let child_process: Mocked<typeof import("node:child_process")>;
   let cache: Mocked<typeof import("@actions/cache")>;
@@ -24,6 +31,7 @@ describe("Integration Test", (): void => {
 
   let inMemoryCache: Record<string, string>;
   let state: Record<string, string>;
+  let loadCommand: string;
 
   beforeEach(async (): Promise<void> => {
     child_process = <any>await import("node:child_process");
@@ -33,6 +41,28 @@ describe("Integration Test", (): void => {
 
     inMemoryCache = {};
     state = {};
+    loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
+
+    let callCount = 0;
+    child_process.exec.mockImplementation(
+      (_command: any, _options: any, callback: any): any => {
+        let stdout;
+        if (_command === LIST_COMMAND) {
+          /* When Docker is running as root, docker image list generates a list that includes a
+           * standard set of Docker images that are pre-cached by GitHub Actions. The production
+           * code filters out the Docker images present during the restore step from the list of
+           * images to save since caching pre-cached images would harm performance and waste
+           * cache space. This mock implementation of docker image list ensures a non-empty
+           * difference between the restore and save steps so there is something to save.
+           */
+          dockerImages.push(`test-docker-image:v${++callCount}`);
+          stdout = dockerImages.join("\n");
+        } else {
+          stdout = STDOUT;
+        }
+        callback(null, { stdout, stderr: STDERR });
+      }
+    );
 
     core.getInput.mockReturnValue(KEY);
 
@@ -59,71 +89,90 @@ describe("Integration Test", (): void => {
     });
   });
 
-  const mockedExec = async (load: boolean, command: string): Promise<void> => {
-    const stdout = "standard output from Bash command";
-    const stderr = "error output from Bash command";
-    child_process.exec.mockImplementationOnce(
-      (_command: any, _options: any, callback: any): any => {
-        callback(null, { stdout, stderr });
-      }
-    );
-
-    await (load ? docker.loadDockerImages() : docker.saveDockerImages());
-
-    expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
-      required: true,
-    });
-    expect(core.info).nthCalledWith<[string]>(1, command);
-    expect(child_process.exec).lastCalledWith(
+  const assertExecBashCommand = (
+    infoCallNum: number,
+    execCallNum: number,
+    command: string,
+    stdout: string
+  ): void => {
+    expect(core.info).nthCalledWith<[string]>(infoCallNum, command);
+    expect(child_process.exec).nthCalledWith<[string, ExecOptions, any]>(
+      execCallNum,
       command,
       EXEC_OPTIONS,
       expect.anything()
     );
-    expect(child_process.exec).toHaveBeenCalledTimes(1);
-    expect(core.info).lastCalledWith(stdout);
-    expect(core.error).lastCalledWith(stderr);
+    expect(core.info).nthCalledWith<[string]>(infoCallNum + 1, stdout);
+    expect(core.error).lastCalledWith(STDERR);
     expect(core.setFailed).not.toHaveBeenCalled();
   };
 
-  test("cache misses, then hits", async (): Promise<void> => {
-    // Attempt first cache restore.
-    await docker.loadDockerImages();
-
-    // Expect cache miss since cache has never been saved.
+  const assertLoadDockerImages = (cacheHit: boolean): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
     });
-    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, false);
-    expect(child_process.exec).not.toHaveBeenCalled();
-    expect(core.setFailed).not.toHaveBeenCalled();
-    jest.clearAllMocks();
+    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, cacheHit);
+    if (cacheHit) {
+      assertExecBashCommand(1, 1, loadCommand, STDOUT);
+      expect(core.saveState).toHaveBeenCalledTimes(1);
+    } else {
+      expect(core.info).nthCalledWith<[string]>(
+        1,
+        "Recording preexisting Docker images. These include standard images " +
+          "pre-cached by GitHub Actions when Docker is run as root."
+      );
+      assertExecBashCommand(2, 1, LIST_COMMAND, dockerImages.join("\n"));
+    }
+    expect(child_process.exec).toHaveBeenCalledTimes(1);
+  };
 
-    // Run post step first time.
-    const saveCommand =
-      'docker image list --format "{{ .Repository }}:{{ .Tag }}" | ' +
-      '2>&1 xargs --delimiter="\n" --no-run-if-empty --verbose --exit ' +
-      `docker save --output ${docker.DOCKER_IMAGES_PATH}`;
-    await mockedExec(false, saveCommand); // Expect cache saved on cache miss.
-    jest.clearAllMocks();
-
-    // Attempt second cache restore.
-    const loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
-    await mockedExec(true, loadCommand);
-
-    // Expect cache hit since cache has been saved.
-    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, true);
-    jest.clearAllMocks();
-
-    // Run post step second time.
-    await docker.saveDockerImages();
-
-    // Expect cache not to have been saved on cache hit.
-    expect(core.getInput).lastCalledWith("key", { required: true });
+  const assertSaveCacheHit = (): void => {
     expect(core.info).lastCalledWith(
       `Cache hit occurred on the primary key ${KEY}, not saving cache.`
     );
     expect(child_process.exec).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();
     expect(cache.saveCache).not.toHaveBeenCalled();
+  };
+
+  const assertSaveCacheMiss = (): void => {
+    expect(core.getInput).lastCalledWith("read-only");
+    expect(core.info).nthCalledWith<[string]>(1, "Listing Docker images.");
+    assertExecBashCommand(2, 1, LIST_COMMAND, dockerImages.join("\n"));
+    expect(core.info).nthCalledWith<[string]>(
+      4,
+      "Images present before restore step will be skipped; only new images " +
+        "will be saved."
+    );
+    const saveCommand = `docker save --output ${docker.DOCKER_IMAGES_PATH} test-docker-image:v2`;
+    assertExecBashCommand(5, 2, saveCommand, STDOUT);
+  };
+
+  const assertSaveDockerImages = (cacheHit: boolean): void => {
+    expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
+      required: true,
+    });
+    cacheHit ? assertSaveCacheHit() : assertSaveCacheMiss();
+  };
+
+  test("cache misses, then hits", async (): Promise<void> => {
+    // Attempt first cache restore.
+    await docker.loadDockerImages();
+    assertLoadDockerImages(false); // Expect cache miss since cache has never been saved.
+    jest.clearAllMocks();
+
+    // Run post step first time.
+    await docker.saveDockerImages();
+    assertSaveDockerImages(false); // Expect cache saved on cache miss.
+    jest.clearAllMocks();
+
+    // Attempt second cache restore.
+    await docker.loadDockerImages();
+    assertLoadDockerImages(true); // Expect cache hit since cache has been saved.
+    jest.clearAllMocks();
+
+    // Run post step second time.
+    await docker.saveDockerImages();
+    assertSaveDockerImages(true); // Expect cache not to have been saved on cache hit.
   });
 });
