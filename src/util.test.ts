@@ -24,15 +24,15 @@ describe("Util", (): void => {
 
     const mockedExec = async (
       error: Error | null,
-      stdout: string | null = null,
-      stderr: string | null = null
-    ): Promise<void> => {
+      stdout: string = "",
+      stderr: string = ""
+    ): Promise<string> => {
       child_process.exec.mockImplementationOnce(
         (_command: any, _options: any, callback: any): any => {
           callback(error, { stdout, stderr });
         }
       );
-      await util.execBashCommand(COMMAND);
+      const output = await util.execBashCommand(COMMAND);
 
       expect(core.info).nthCalledWith<[string]>(1, COMMAND);
       expect(child_process.exec).lastCalledWith(
@@ -40,21 +40,24 @@ describe("Util", (): void => {
         { shell: "/usr/bin/bash" },
         expect.anything()
       );
+      return output;
     };
 
     test("ferries command output to GitHub Actions on success", async (): Promise<void> => {
       const stdout = "standard output from Bash command";
       const stderr = "error output from Bash command";
-      await mockedExec(null, stdout, stderr);
+      const output = await mockedExec(null, stdout, stderr);
 
+      expect(output).toBe(stdout);
       expect(core.info).lastCalledWith(stdout);
       expect(core.error).lastCalledWith(stderr);
     });
 
     test("ferries failure to GitHub Actions", async (): Promise<void> => {
       const error = new Error("reason Bash command failed");
-      await mockedExec(error);
+      const output = await mockedExec(error);
 
+      expect(output).toBe("");
       expect(core.info).toHaveBeenCalledTimes(1);
       expect(core.error).not.toHaveBeenCalled();
       expect(core.setFailed).lastCalledWith(error.toString());
