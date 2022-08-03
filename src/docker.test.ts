@@ -69,6 +69,14 @@ describe("Docker images", (): void => {
     expect(core.getState).lastCalledWith(docker.CACHE_HIT);
   };
 
+  const assertCacheHitSave = (): void => {
+    expect(core.info).lastCalledWith(
+      `Cache hit occurred on the primary key ${KEY}, not saving cache.`
+    );
+    expect(util.execBashCommand).not.toHaveBeenCalled();
+    expect(cache.saveCache).not.toHaveBeenCalled();
+  };
+
   test("exports CACHE_HIT", (): void => {
     expect(docker.CACHE_HIT).toBe("cache-hit");
   });
@@ -142,20 +150,12 @@ describe("Docker images", (): void => {
   test("aren't saved on cache hit when in read-only mode", async (): Promise<void> => {
     await mockedSaveDockerImages(true, true);
 
-    expect(core.info).lastCalledWith(
-      `Cache hit occurred on the primary key ${KEY}, not saving cache.`
-    );
-    expect(util.execBashCommand).not.toHaveBeenCalled();
-    expect(cache.saveCache).not.toHaveBeenCalled();
+    assertCacheHitSave();
   });
 
   test("aren't saved on cache hit", async (): Promise<void> => {
     await mockedSaveDockerImages(true);
 
-    expect(core.info).lastCalledWith(
-      `Cache hit occurred on the primary key ${KEY}, not saving cache.`
-    );
-    expect(util.execBashCommand).not.toHaveBeenCalled();
-    expect(cache.saveCache).not.toHaveBeenCalled();
+    assertCacheHitSave();
   });
 });
