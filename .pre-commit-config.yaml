@@ -92,7 +92,7 @@ repos:
 
   ## Git
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.29.2 # Keep in sync with pyproject.toml.
+    rev: v2.29.3 # Keep in sync with pyproject.toml.
     hooks:
       - id: commitizen
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
