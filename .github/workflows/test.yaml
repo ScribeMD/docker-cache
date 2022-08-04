@@ -30,7 +30,7 @@ jobs:
             }}
           read-only: true
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.8.15
+        uses: ScribeMD/pre-commit-action@0.8.16
       - name: Publish test results to GitHub.
         uses: EnricoMi/publish-unit-test-result-action@v1.39
         if: always()
