@@ -18,12 +18,15 @@ optional = false
 python-versions = ">=3.6.1"
 
 [[package]]
-name = "chardet"
-version = "5.0.0"
-description = "Universal encoding detector for Python 3"
+name = "charset-normalizer"
+version = "2.1.0"
+description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.6.0"
+
+[package.extras]
+unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "colorama"
@@ -35,7 +38,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "commitizen"
-version = "2.29.3"
+version = "2.29.5"
 description = "Python commitizen client tool"
 category = "dev"
 optional = false
@@ -43,7 +46,7 @@ python-versions = ">=3.6.2,<4.0.0"
 
 [package.dependencies]
 argcomplete = ">=1.12.1,<2.0.0"
-chardet = ">=5.0.0,<6.0.0"
+charset-normalizer = ">=2.1.0,<3.0.0"
 colorama = ">=0.4.1,<0.5.0"
 decli = ">=0.5.2,<0.6.0"
 jinja2 = ">=2.10.3"
@@ -275,7 +278,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10.5"
-content-hash = "cd676d70b268db91e80254472c5b77e67f7208e05d5a10cf4e2b9bf36a30c745"
+content-hash = "f32d8b6b140e1c797b913bcd598aee7a8ad3344114ee787c3050243c9655bc80"
 
 [metadata.files]
 argcomplete = [
@@ -286,17 +289,17 @@ cfgv = [
     {file = "cfgv-3.3.1-py2.py3-none-any.whl", hash = "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426"},
     {file = "cfgv-3.3.1.tar.gz", hash = "sha256:f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"},
 ]
-chardet = [
-    {file = "chardet-5.0.0-py3-none-any.whl", hash = "sha256:d3e64f022d254183001eccc5db4040520c0f23b1a3f33d6413e099eb7f126557"},
-    {file = "chardet-5.0.0.tar.gz", hash = "sha256:0368df2bfd78b5fc20572bb4e9bb7fb53e2c094f60ae9993339e8671d0afb8aa"},
+charset-normalizer = [
+    {file = "charset-normalizer-2.1.0.tar.gz", hash = "sha256:575e708016ff3a5e3681541cb9d79312c416835686d054a23accb873b254f413"},
+    {file = "charset_normalizer-2.1.0-py3-none-any.whl", hash = "sha256:5189b6f22b01957427f35b6a08d9a0bc45b46d3788ef5a92e978433c7a35f8a5"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 commitizen = [
-    {file = "commitizen-2.29.3-py3-none-any.whl", hash = "sha256:6a332f7b6732d307dd28fbe759b13434f093b9ffe599a71dce1d09089f158dcc"},
-    {file = "commitizen-2.29.3.tar.gz", hash = "sha256:fc9e960a082319731b38790a7100571db1c0bcea97ac3d1b5dad007215639815"},
+    {file = "commitizen-2.29.5-py3-none-any.whl", hash = "sha256:07f1708232dd14a839af82df62fcd53e0adb5b807cc55f4faab6c86b9a63ef12"},
+    {file = "commitizen-2.29.5.tar.gz", hash = "sha256:a6ab0b9f6cffbc49b2a4d2b940cbcc1715a9373f04604653a64677ef20a6ba7f"},
 ]
 decli = [
     {file = "decli-0.5.2-py3-none-any.whl", hash = "sha256:d3207bc02d0169bf6ed74ccca09ce62edca0eb25b0ebf8bf4ae3fb8333e15ca0"},
