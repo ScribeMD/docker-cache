@@ -133,6 +133,7 @@ describe("Docker images", (): void => {
     assertCalledInOrder(
       core.getInput,
       core.getState,
+      core.getInput,
       util.execBashCommand,
       cache.saveCache
     );
