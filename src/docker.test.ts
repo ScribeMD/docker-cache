@@ -44,12 +44,18 @@ describe("Docker images", (): void => {
     core.getInput.mockReturnValueOnce(KEY);
   });
 
+  const assertLoadDockerImages = (cacheHit: boolean): void => {
+    expect(core.getInput).lastCalledWith("key", { required: true });
+    expect(cache.restoreCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], KEY);
+    expect(core.saveState).lastCalledWith(docker.CACHE_HIT, cacheHit);
+    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, cacheHit);
+  };
+
   const mockedLoadDockerImages = async (cacheHit: boolean): Promise<void> => {
     cache.restoreCache.mockResolvedValueOnce(cacheHit ? KEY : undefined);
     await docker.loadDockerImages();
 
-    expect(core.getInput).lastCalledWith("key", { required: true });
-    expect(cache.restoreCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], KEY);
+    assertLoadDockerImages(cacheHit);
   };
 
   const mockedSaveDockerImages = async (
@@ -88,8 +94,6 @@ describe("Docker images", (): void => {
   test("are loaded on cache hit", async (): Promise<void> => {
     await mockedLoadDockerImages(true);
 
-    expect(core.saveState).lastCalledWith(docker.CACHE_HIT, true);
-    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, true);
     expect(util.execBashCommand).lastCalledWith(
       `docker load --input ${docker.DOCKER_IMAGES_PATH}`
     );
@@ -109,8 +113,6 @@ describe("Docker images", (): void => {
   test("aren't loaded on cache miss", async (): Promise<void> => {
     await mockedLoadDockerImages(false);
 
-    expect(core.saveState).lastCalledWith(docker.CACHE_HIT, false);
-    expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, false);
     expect(util.execBashCommand).not.toHaveBeenCalled();
   });
 
