@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 
+import type { InputOptions } from "@actions/core";
 import type { Mocked } from "./util.test.js";
 
 jest.unstable_mockModule("node:child_process", () => ({
@@ -69,7 +70,9 @@ describe("Integration Test", (): void => {
 
     await (load ? docker.loadDockerImages() : docker.saveDockerImages());
 
-    expect(core.getInput).nthCalledWith(1, "key", { required: true });
+    expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
+      required: true,
+    });
     expect(core.info).nthCalledWith<[string]>(1, command);
     expect(child_process.exec).lastCalledWith(
       command,
@@ -86,7 +89,9 @@ describe("Integration Test", (): void => {
     await docker.loadDockerImages();
 
     // Expect cache miss since cache has never been saved.
-    expect(core.getInput).nthCalledWith(1, "key", { required: true });
+    expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
+      required: true,
+    });
     expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, false);
     expect(child_process.exec).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();

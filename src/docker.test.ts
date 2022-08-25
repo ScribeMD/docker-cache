@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 
+import type { InputOptions } from "@actions/core";
 import type { Mocked } from "./util.test.js";
 
 jest.mock("@actions/cache");
@@ -68,7 +69,9 @@ describe("Docker images", (): void => {
     }
     await docker.saveDockerImages();
 
-    expect(core.getInput).nthCalledWith(1, "key", { required: true });
+    expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
+      required: true,
+    });
     if (!cacheHit) {
       expect(core.getInput).lastCalledWith("read-only");
     }
