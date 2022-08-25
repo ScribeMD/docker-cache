@@ -23,7 +23,8 @@ const saveDockerImages = async (): Promise<void> => {
     info(`Cache hit occurred on the primary key ${key}, not saving cache.`);
   } else if (getInput("read-only") === "true") {
     info(
-      `Cache miss occurred on the primary key ${key}. Not saving cache as read-only option was selected.`
+      `Cache miss occurred on the primary key ${key}. Not saving cache as ` +
+        "read-only option was selected."
     );
   } else {
     await execBashCommand(
