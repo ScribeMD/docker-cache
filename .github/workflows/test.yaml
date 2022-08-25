@@ -9,7 +9,7 @@ on:
 jobs:
   pre-commit:
     name: Run Pre-commit Hooks
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions:
       checks: write # https://github.com/EnricoMi/publish-unit-test-result-action#permissions
       contents: write # for pre-commit-action
@@ -41,7 +41,7 @@ jobs:
           comment_mode: off
   save-cache:
     name: Save Cache
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions:
       contents: none # workaround for https://github.com/rhysd/actionlint/issues/170
     steps:
@@ -57,7 +57,7 @@ jobs:
     name: Restore Cache
     needs:
       - save-cache
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions:
       actions: write # for cache deletion
     steps:
@@ -89,7 +89,7 @@ jobs:
       - pre-commit
       - save-cache
       - restore-cache
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions:
       contents: none # workaround for https://github.com/rhysd/actionlint/issues/170
     steps:
