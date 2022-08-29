@@ -8,15 +8,15 @@
 
 [![Automated Updates: Dependabot](https://img.shields.io/badge/Dependabot-Automated_Updates-3CBBB1?logo=dependabot&logoColor=025E8C&labelColor=666)](https://github.com/dependabot)
 [![Language: TypeScript](https://img.shields.io/badge/TypeScript-Language-FF785A?logo=typescript&logoColor=3178C6&labelColor=666)](https://www.typescriptlang.org/)
-[![Runtime: Node.js](https://img.shields.io/badge/Node.js-Runtime-2C0703?logo=nodedotjs&logoColor=339933&labelColor=666)](https://nodejs.org/)
+[![Runtime: Node.js](https://img.shields.io/badge/Node.js-Runtime-2C0703?logo=nodedotjs&logoColor=393&labelColor=666)](https://nodejs.org/)
 [![REPL: ts-node](https://img.shields.io/badge/ts--node-REPL-FF5E5B?logo=tsnode&logoColor=3178C6&labelColor=666)](https://typestrong.org/ts-node/)
-[![Test Framework: Jest](https://img.shields.io/badge/Jest-Test_Framework-000000?logo=jest&logoColor=C21325&labelColor=666)](https://jestjs.io/)
+[![Test Framework: Jest](https://img.shields.io/badge/Jest-Test_Framework-000?logo=jest&logoColor=C21325&labelColor=666)](https://jestjs.io/)
 [![Package Management: Yarn](https://img.shields.io/badge/Yarn-Package_Management-6320EE?logo=yarn&logoColor=2C8EBB&labelColor=666)](https://yarnpkg.com/)
 [![Package Management: Poetry](https://img.shields.io/badge/Poetry-Package_Management-06BA63?logo=poetry&logoColor=60A5FA&labelColor=666)](https://python-poetry.org/)
 [![Git Hooks: pre-commit](https://img.shields.io/badge/pre--commit-Git_Hooks-04E762?logo=precommit&logoColor=FAB040&labelColor=666)](https://pre-commit.com/)
 [![Commit Style: Conventional Commits](https://img.shields.io/badge/Conventional_Commits-Commit_Style-090C9B?logo=conventionalcommits&logoColor=FE5196&labelColor=666)](https://conventionalcommits.org)
 [![Releases: Semantic Versioning](https://img.shields.io/badge/SemVer-Releases-08A045?logo=semver&logoColor=3F4551&labelColor=666)](https://semver.org/)
-[![Code Style: Prettier](https://img.shields.io/badge/Prettier-Code_Style-000000?logo=prettier&logoColor=F7B93E&labelColor=666)](https://prettier.io/)
+[![Code Style: Prettier](https://img.shields.io/badge/Prettier-Code_Style-000?logo=prettier&logoColor=F7B93E&labelColor=666)](https://prettier.io/)
 [![Code Style: EditorConfig](https://img.shields.io/badge/EditorConfig-Code_Style-FF69EB?logo=editorconfig&logoColor=FEFEFE&labelColor=666)](https://editorconfig.org/)
 [![Editor: Visual Studio Code](https://img.shields.io/badge/VSCode-Editor-EE8434?logo=visualstudiocode&logoColor=007ACC&labelColor=666)](https://code.visualstudio.com/)
 
