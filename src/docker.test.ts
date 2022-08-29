@@ -72,10 +72,10 @@ describe("Docker images", (): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
     });
+    expect(core.getState).lastCalledWith(docker.CACHE_HIT);
     if (!cacheHit) {
       expect(core.getInput).lastCalledWith("read-only");
     }
-    expect(core.getState).lastCalledWith(docker.CACHE_HIT);
   };
 
   const assertCacheHitSave = (): void => {
