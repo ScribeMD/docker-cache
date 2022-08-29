@@ -97,12 +97,12 @@ describe("Integration Test", (): void => {
     expect(core.setFailed).not.toHaveBeenCalled();
     jest.clearAllMocks();
 
-    // Run post step first time, expecting cache saved on cache miss.
+    // Run post step first time.
     const saveCommand =
       'docker image list --format "{{ .Repository }}:{{ .Tag }}" | ' +
       '2>&1 xargs --delimiter="\n" --no-run-if-empty --verbose --exit ' +
       `docker save --output ${docker.DOCKER_IMAGES_PATH}`;
-    await mockedExec(false, saveCommand);
+    await mockedExec(false, saveCommand); // Expect cache saved on cache miss.
     jest.clearAllMocks();
 
     // Attempt second cache restore.
