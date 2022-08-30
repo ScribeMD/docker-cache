@@ -1,6 +1,7 @@
 default_install_hook_types:
   - commit-msg
   - post-checkout
+  - post-commit
   - post-rewrite
   - pre-commit
   - pre-merge-commit
@@ -95,6 +96,11 @@ repos:
     rev: v2.32.2 # Keep in sync with pyproject.toml.
     hooks:
       - id: commitizen
+      - id: commitizen-branch
+        stages:
+          - post-commit
+          - post-rewrite
+          - push
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 2.1.6
     hooks:
