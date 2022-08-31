@@ -123,5 +123,6 @@ describe("Integration Test", (): void => {
     );
     expect(child_process.exec).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();
+    expect(cache.saveCache).not.toHaveBeenCalled();
   });
 });
