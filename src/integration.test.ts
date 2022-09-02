@@ -79,6 +79,7 @@ describe("Integration Test", (): void => {
       EXEC_OPTIONS,
       expect.anything()
     );
+    expect(child_process.exec).toHaveBeenCalledTimes(1);
     expect(core.info).lastCalledWith(stdout);
     expect(core.error).lastCalledWith(stderr);
     expect(core.setFailed).not.toHaveBeenCalled();
