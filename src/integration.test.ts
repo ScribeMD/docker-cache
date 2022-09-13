@@ -103,7 +103,7 @@ describe("Integration Test", (): void => {
       expect.anything()
     );
     expect(core.info).nthCalledWith<[string]>(infoCallNum + 1, stdout);
-    expect(core.error).lastCalledWith(STDERR);
+    expect(core.error).nthCalledWith<[string]>(execCallNum, STDERR);
     expect(core.setFailed).not.toHaveBeenCalled();
   };
 
