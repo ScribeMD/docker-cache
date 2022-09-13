@@ -120,7 +120,7 @@ describe("Docker images", (): void => {
     assertSaveDockerImages(cacheHit, readOnly);
   };
 
-  const assertCacheHitSave = (): void => {
+  const assertSaveCacheHit = (): void => {
     expect(core.info).lastCalledWith(
       `Cache hit occurred on the primary key ${KEY}, not saving cache.`
     );
@@ -208,13 +208,13 @@ describe("Docker images", (): void => {
   test("aren't saved on cache hit when in read-only mode", async (): Promise<void> => {
     await mockedSaveDockerImages(true, true);
 
-    assertCacheHitSave();
+    assertSaveCacheHit();
   });
 
   test("aren't saved on cache hit", async (): Promise<void> => {
     await mockedSaveDockerImages(true);
 
-    assertCacheHitSave();
+    assertSaveCacheHit();
   });
 
   test("aren't saved on cache miss when new Docker image list is empty", async (): Promise<void> => {
