@@ -45,9 +45,9 @@ describe("Integration Test", (): void => {
 
     let callCount = 0;
     child_process.exec.mockImplementation(
-      (_command: any, _options: any, callback: any): any => {
+      (command: string, _options: any, callback: any): any => {
         let stdout;
-        if (_command === LIST_COMMAND) {
+        if (command === LIST_COMMAND) {
           /* When Docker is running as root, docker image list generates a list that includes a
            * standard set of Docker images that are pre-cached by GitHub Actions. The production
            * code filters out the Docker images present during the restore step from the list of
