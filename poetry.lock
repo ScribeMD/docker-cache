@@ -284,8 +284,8 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10.6"
-content-hash = "67141421e7355f09ced17905557c8a8fdf47fc58eaa23f7de2658e6797666990"
+python-versions = "^3.10.7"
+content-hash = "689b2785510bf7f837f425004cfbdb5a0cd9ed39e79c0d9efcef62c29e1df4b3"
 
 [metadata.files]
 argcomplete = [
