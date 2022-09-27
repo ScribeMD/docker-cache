@@ -42,8 +42,7 @@ jobs:
   save-cache:
     name: Save Cache
     runs-on: ubuntu-22.04
-    permissions:
-      contents: none # workaround for https://github.com/rhysd/actionlint/issues/170
+    permissions: {}
     steps:
       - name: Check out repository.
         uses: actions/checkout@v3.0.2
@@ -80,7 +79,7 @@ jobs:
           --show-error
           --request DELETE
           --header "Accept: application/vnd.github.v3+json"
-          --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+          --header "Authorization: token ${{ github.token }}"
           "https://api.github.com/repos/ScribeMD/docker-cache/actions/caches?key=docker-cache-test&ref=$GITHUB_REF"
   notify:
     name: Notify
@@ -90,8 +89,7 @@ jobs:
       - save-cache
       - restore-cache
     runs-on: ubuntu-22.04
-    permissions:
-      contents: none # workaround for https://github.com/rhysd/actionlint/issues/170
+    permissions: {}
     steps:
       - name: Send Slack notification with workflow result.
         uses: ScribeMD/slack-templates@0.6.8

@@ -2,7 +2,7 @@
 reports
 
 # MegaLinter
-report
+megalinter-reports
 
 # Poetry
 .venv
