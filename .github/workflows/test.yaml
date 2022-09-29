@@ -29,6 +29,20 @@ jobs:
               hashFiles('.pre-commit-config.yaml')
             }}
           read-only: true
+      - name: Get Yarn cache directory.
+        id: yarn-cache
+        run: |
+          yarn_cache="$(yarn config get cacheFolder)"
+          echo "::set-output name=path::$yarn_cache"
+      - name: Cache Yarn dependencies.
+        uses: actions/cache@v3.0.9
+        with:
+          path: ${{ steps.yarn-cache.outputs.path }}
+          key: >
+            yarn-${{ steps.os.outputs.image }}-${{ hashFiles(
+              '**/yarn.lock',
+              '.yarnrc.yml'
+            ) }}
       - name: Run pre-commit hooks.
         uses: ScribeMD/pre-commit-action@0.9.10
       - name: Publish test results to GitHub.
