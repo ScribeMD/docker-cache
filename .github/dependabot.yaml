@@ -15,7 +15,7 @@ updates:
       prefix: chore
       include: scope
 
-  # Upgrade Yarn production dependencies.
+  # Upgrade Yarn dependencies.
   - package-ecosystem: npm
     directory: /
     schedule:
@@ -27,28 +27,9 @@ updates:
     reviewers:
       - Kurt-von-Laven
     open-pull-requests-limit: 1
-    allow:
-      - dependency-type: production
     commit-message:
       prefix: fix
-      include: scope
-
-  # Upgrade Yarn dev dependencies.
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: daily
-      time: "08:00"
-      timezone: America/New_York
-    assignees:
-      - Kurt-von-Laven
-    reviewers:
-      - Kurt-von-Laven
-    open-pull-requests-limit: 1
-    allow:
-      - dependency-type: development
-    commit-message:
-      prefix: chore
+      prefix-development: chore
       include: scope
 
   # Upgrade Poetry dependencies.
