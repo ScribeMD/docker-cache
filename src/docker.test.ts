@@ -3,6 +3,7 @@ import { jest } from "@jest/globals";
 import { boolean, string, uniqueArray } from "fast-check";
 
 import type { InputOptions } from "@actions/core";
+import type { FunctionLike } from "jest-mock";
 
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
@@ -12,14 +13,18 @@ jest.unstable_mockModule("./util.js", (): typeof import("./util.js") => ({
 }));
 
 // Expect the given mocks were called in the given order.
-const assertCalledInOrder = (...mocks: jest.Mock[]): void => {
+const assertCalledInOrder = <T extends FunctionLike>(
+  ...mocks: jest.MockedFunction<T>[]
+): void => {
   const mockCallCounts: Record<string, number> = {};
-  const callOrders = mocks.map((currentMock: jest.Mock): number => {
-    const mockName = currentMock.getMockName();
-    const callCount = mockCallCounts[mockName] ?? 0;
-    mockCallCounts[mockName] = callCount + 1;
-    return <number>currentMock.mock.invocationCallOrder[callCount];
-  });
+  const callOrders = mocks.map(
+    (currentMock: jest.MockedFunction<T>): number => {
+      const mockName = currentMock.getMockName();
+      const callCount = mockCallCounts[mockName] ?? 0;
+      mockCallCounts[mockName] = callCount + 1;
+      return <number>currentMock.mock.invocationCallOrder[callCount];
+    }
+  );
 
   const sortedCallOrders = [...callOrders].sort(
     (a: number, b: number): number => a - b
@@ -162,7 +167,7 @@ describe("Docker images", (): void => {
      * checks that the calls are made in the right order, but doesn't ensure
      * that the Docker images finished saving before the cache started saving.
      */
-    assertCalledInOrder(
+    assertCalledInOrder<FunctionLike>(
       core.getInput,
       core.getState,
       core.getInput,
@@ -199,7 +204,7 @@ describe("Docker images", (): void => {
        * ensure that the cache finished restoring before the Docker images started
        * loading.
        */
-      assertCalledInOrder(
+      assertCalledInOrder<FunctionLike>(
         core.getInput,
         cache.restoreCache,
         util.execBashCommand
