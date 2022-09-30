@@ -3,7 +3,6 @@ import { jest } from "@jest/globals";
 import { boolean, string, uniqueArray } from "fast-check";
 
 import type { InputOptions } from "@actions/core";
-import type { Mocked } from "./util.test.js";
 
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
@@ -29,9 +28,9 @@ const assertCalledInOrder = (...mocks: jest.Mock[]): void => {
 };
 
 describe("Docker images", (): void => {
-  let cache: Mocked<typeof import("@actions/cache")>;
-  let core: Mocked<typeof import("@actions/core")>;
-  let util: Mocked<typeof import("./util.js")>;
+  let cache: jest.MockedObject<typeof import("@actions/cache")>;
+  let core: jest.MockedObject<typeof import("@actions/core")>;
+  let util: jest.MockedObject<typeof import("./util.js")>;
   let docker: typeof import("./docker.js");
 
   beforeAll(async (): Promise<void> => {

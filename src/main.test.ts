@@ -1,7 +1,5 @@
 import { jest } from "@jest/globals";
 
-import type { Mocked } from "./util.test.js";
-
 jest.unstable_mockModule(
   "./docker.js",
   (): Partial<typeof import("./docker.js")> => ({
@@ -10,7 +8,7 @@ jest.unstable_mockModule(
 );
 
 describe("Main", (): void => {
-  let docker: Mocked<typeof import("./docker.js")>;
+  let docker: jest.MockedObject<typeof import("./docker.js")>;
 
   beforeAll(async (): Promise<void> => {
     docker = <any>await import("./docker.js");

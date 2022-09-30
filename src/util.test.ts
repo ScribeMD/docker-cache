@@ -8,11 +8,9 @@ jest.unstable_mockModule("node:child_process", () => ({
 
 jest.mock("@actions/core");
 
-type Mocked<T> = jest.MockedObject<Awaited<T>>;
-
 describe("Util", (): void => {
-  let child_process: Mocked<typeof import("node:child_process")>;
-  let core: Mocked<typeof import("@actions/core")>;
+  let child_process: jest.MockedObject<typeof import("node:child_process")>;
+  let core: jest.MockedObject<typeof import("@actions/core")>;
   let util: typeof import("./util.js");
 
   beforeAll(async (): Promise<void> => {
@@ -82,5 +80,3 @@ describe("Util", (): void => {
     );
   });
 });
-
-export { Mocked };
