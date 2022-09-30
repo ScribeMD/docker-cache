@@ -26,11 +26,13 @@ describe("Util", (): void => {
       stdout: string = "",
       stderr: string = ""
     ): Promise<string> => {
-      child_process.exec.mockImplementationOnce(
-        (_command: any, _options: any, callback: any): any => {
-          callback(error, { stdout, stderr });
-        }
-      );
+      child_process.exec.mockImplementationOnce(<typeof child_process.exec>((
+        _command: any,
+        _options: any,
+        callback: any
+      ): any => {
+        callback(error, { stdout, stderr });
+      }));
       const output = await util.execBashCommand(command);
 
       expect(core.info).nthCalledWith<[string]>(1, command);

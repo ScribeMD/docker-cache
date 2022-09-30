@@ -67,27 +67,29 @@ describe("Integration Test", (): void => {
     otherStdout: string,
     otherStderr: string
   ): void => {
-    child_process.exec.mockImplementation(
-      (command: string, _options: any, callback: any): any => {
-        let stdout: string, stderr: string;
-        if (command === LIST_COMMAND) {
-          /* When Docker is running as root, docker image list generates a list that includes a
-           * standard set of Docker images that are pre-cached by GitHub Actions. The production
-           * code filters out the Docker images present during the restore step from the list of
-           * images to save since caching pre-cached images would harm performance and waste
-           * cache space. This mock implementation of docker image list ensures a non-empty
-           * difference between the restore and save steps so there is something to save.
-           */
-          dockerImages.push(`test-docker-image:v${++callCount}`);
-          stdout = dockerImages.join("\n");
-          stderr = listStderr;
-        } else {
-          stdout = otherStdout;
-          stderr = otherStderr;
-        }
-        callback(null, { stdout, stderr });
+    child_process.exec.mockImplementation(<typeof child_process.exec>((
+      command: string,
+      _options: any,
+      callback: any
+    ): any => {
+      let stdout: string, stderr: string;
+      if (command === LIST_COMMAND) {
+        /* When Docker is running as root, docker image list generates a list that includes a
+         * standard set of Docker images that are pre-cached by GitHub Actions. The production
+         * code filters out the Docker images present during the restore step from the list of
+         * images to save since caching pre-cached images would harm performance and waste
+         * cache space. This mock implementation of docker image list ensures a non-empty
+         * difference between the restore and save steps so there is something to save.
+         */
+        dockerImages.push(`test-docker-image:v${++callCount}`);
+        stdout = dockerImages.join("\n");
+        stderr = listStderr;
+      } else {
+        stdout = otherStdout;
+        stderr = otherStderr;
       }
-    );
+      callback(null, { stdout, stderr });
+    }));
   };
 
   const assertExecBashCommand = (
