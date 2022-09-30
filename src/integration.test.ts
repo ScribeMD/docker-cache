@@ -4,7 +4,6 @@ import { string } from "fast-check";
 
 import type { ExecOptions } from "node:child_process";
 import type { InputOptions } from "@actions/core";
-import type { Mocked } from "./util.test.js";
 
 jest.unstable_mockModule("node:child_process", () => ({
   exec: jest.fn<typeof import("node:child_process").exec>(),
@@ -21,9 +20,9 @@ describe("Integration Test", (): void => {
   const LIST_COMMAND =
     'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
 
-  let child_process: Mocked<typeof import("node:child_process")>;
-  let cache: Mocked<typeof import("@actions/cache")>;
-  let core: Mocked<typeof import("@actions/core")>;
+  let child_process: jest.MockedObject<typeof import("node:child_process")>;
+  let cache: jest.MockedObject<typeof import("@actions/cache")>;
+  let core: jest.MockedObject<typeof import("@actions/core")>;
   let docker: typeof import("./docker.js");
 
   let loadCommand: string;
