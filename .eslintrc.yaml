@@ -8,3 +8,5 @@ parserOptions:
     - tsconfig.json
 plugins:
   - "@typescript-eslint"
+env:
+  node: true
