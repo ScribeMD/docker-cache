@@ -92,7 +92,7 @@ jobs:
     permissions: {}
     steps:
       - name: Send Slack notification with workflow result.
-        uses: ScribeMD/slack-templates@0.6.8
+        uses: ScribeMD/slack-templates@0.6.9
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
