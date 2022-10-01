@@ -2,6 +2,7 @@
   "editor.tabSize": 2,
   "editorconfig.generateAuto": false,
   "eslint.nodePath": ".yarn/sdks",
+  "eslint.packageManager": "yarn",
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
