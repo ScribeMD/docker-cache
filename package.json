@@ -21,7 +21,7 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "@actions/cache": "^3.0.0",
-    "@actions/core": "^1.9.1"
+    "@actions/core": "^1.10.0"
   },
   "devDependencies": {
     "@fast-check/jest": "^1.1.0",
