@@ -31,7 +31,7 @@
     "@types/eslint": "^8.4.5",
     "@types/jest": "^29.1.1",
     "@types/node": "^18.0.1",
-    "@types/prettier": "2.6.3",
+    "@types/prettier": "2.7.1",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "@vercel/ncc": "^0.34.0",
