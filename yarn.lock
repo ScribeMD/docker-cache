@@ -5,9 +5,9 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@actions/cache@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@actions/cache@npm:3.0.0"
+"@actions/cache@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@actions/cache@npm:3.0.4"
   dependencies:
     "@actions/core": ^1.2.6
     "@actions/exec": ^1.0.1
@@ -18,7 +18,7 @@ __metadata:
     "@azure/storage-blob": ^12.8.0
     semver: ^6.1.0
     uuid: ^3.3.3
-  checksum: 382ecba39014e98d93d03b679dad7b5743288ca30e8305dfe1ae980bc019a87bd4e5b98ec85ee9e768503ee64a86986d70f6e75b2e8c6ab2d2ded4993ae9c804
+  checksum: 6aad87b630dd0c84ee048bef1d55d8296aa56d6bd377e7e570d2bc4877fe10db26b9197065e0bbd1ad82c039b5b5ff488ed650332330d3d2e4e060392970247f
   languageName: node
   linkType: hard
 
@@ -2404,7 +2404,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "docker-cache@workspace:."
   dependencies:
-    "@actions/cache": ^3.0.0
+    "@actions/cache": ^3.0.4
     "@actions/core": ^1.10.0
     "@fast-check/jest": ^1.1.0
     "@jest/globals": ^29.1.2
