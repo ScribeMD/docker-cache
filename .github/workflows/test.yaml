@@ -15,7 +15,7 @@ jobs:
       contents: write # for pre-commit-action
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
       - name: Get operating system name and version.
@@ -45,7 +45,7 @@ jobs:
     permissions: {}
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
       - name: Save Docker images.
         uses: ./
         with:
@@ -61,7 +61,7 @@ jobs:
       actions: write # for cache deletion
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
       - name: Load Docker images.
         uses: ./
         with:
