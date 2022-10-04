@@ -7,6 +7,9 @@ PRINT_ALPACA: false
 SHOW_ELAPSED_TIME: true
 CREDENTIALS_SECRETLINT_ARGUMENTS: --secretlintignore .gitignore
 JAVASCRIPT_DEFAULT_STYLE: prettier
+# Work around https://github.com/oxsecurity/megalinter/issues/1572.
+JAVASCRIPT_ES_CLI_LINT_MODE: project
+JAVASCRIPT_ES_CONFIG_FILE: LINTER_DEFAULT
 JSON_PRETTIER_FILE_EXTENSIONS:
   - .json
   - .md
