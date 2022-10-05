@@ -35,7 +35,7 @@ jobs:
           yarn_cache="$(yarn config get cacheFolder)"
           echo "::set-output name=path::$yarn_cache"
       - name: Cache Yarn dependencies.
-        uses: actions/cache@v3.0.9
+        uses: actions/cache@v3.0.10
         with:
           path: ${{ steps.yarn-cache.outputs.path }}
           key: >
