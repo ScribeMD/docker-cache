@@ -44,7 +44,7 @@ jobs:
               '.yarnrc.yml'
             ) }}
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.9.10
+        uses: ScribeMD/pre-commit-action@0.9.12
       - name: Publish test results to GitHub.
         uses: EnricoMi/publish-unit-test-result-action@v1.39
         if: always()
