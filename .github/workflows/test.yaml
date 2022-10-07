@@ -94,7 +94,7 @@ jobs:
           --request DELETE
           --header "Accept: application/vnd.github.v3+json"
           --header "Authorization: token ${{ github.token }}"
-          "https://api.github.com/repos/ScribeMD/docker-cache/actions/caches?key=docker-cache-test&ref=$GITHUB_REF"
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/caches?key=docker-cache-test&ref=$GITHUB_REF"
   notify:
     name: Notify
     if: always()
