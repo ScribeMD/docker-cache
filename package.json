@@ -15,7 +15,7 @@
     "test": "yarn run tsc && yarn node --experimental-vm-modules \"$(yarn bin jest)\""
   },
   "engines": {
-    "node": "16.17.1",
+    "node": "16.18.0",
     "yarn": "3.2.4"
   },
   "packageManager": "yarn@3.2.4",
