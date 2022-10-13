@@ -1,6 +1,6 @@
-import type { Config } from "@jest/types";
+import type { JestConfigWithTsJest } from "ts-jest";
 
-const config: Config.InitialOptions = {
+const config: JestConfigWithTsJest = {
   collectCoverage: true,
   coverageDirectory: "reports/jest/",
   coverageProvider: "v8",
@@ -20,10 +20,8 @@ const config: Config.InitialOptions = {
 
   // See https://kulshekhar.github.io/ts-jest/docs/guides/esm-support#use-esm-presets.
   preset: "ts-jest/presets/default-esm",
-  globals: {
-    "ts-jest": {
-      useESM: true,
-    },
+  transform: {
+    "^.+\\.[jt]s$": ["ts-jest", { useESM: true }],
   },
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
