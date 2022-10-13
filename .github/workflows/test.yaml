@@ -20,12 +20,12 @@ jobs:
           fetch-depth: 0
       - name: Get operating system name and version.
         id: os
-        run: echo "::set-output name=image::$ImageOS"
+        run: echo "IMAGE=$ImageOS" >>"$GITHUB_OUTPUT"
       - name: Cache Docker images.
         uses: ./
         with:
           key: >
-            docker-${{ steps.os.outputs.image }}-${{
+            docker-${{ steps.os.outputs.IMAGE }}-${{
               hashFiles('.pre-commit-config.yaml')
             }}
           read-only: true
@@ -33,13 +33,13 @@ jobs:
         id: yarn-cache
         run: |
           yarn_cache="$(yarn config get cacheFolder)"
-          echo "::set-output name=path::$yarn_cache"
+          echo "PATH=$yarn_cache" >>"$GITHUB_OUTPUT"
       - name: Cache Yarn dependencies.
         uses: actions/cache@v3.0.11
         with:
-          path: ${{ steps.yarn-cache.outputs.path }}
+          PATH: ${{ steps.yarn-cache.outputs.PATH }}
           key: >
-            yarn-${{ steps.os.outputs.image }}-${{ hashFiles(
+            yarn-${{ steps.os.outputs.IMAGE }}-${{ hashFiles(
               '**/yarn.lock',
               '.yarnrc.yml'
             ) }}
