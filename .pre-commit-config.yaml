@@ -18,7 +18,7 @@ repos:
 
   ## Python, Polyglot, Git, pre-commit
   - repo: https://github.com/ScribeMD/pre-commit-hooks
-    rev: 0.13.0
+    rev: 0.13.1
     hooks:
       - id: no-merge-commits
       - id: asdf-install
@@ -102,7 +102,7 @@ repos:
           - post-rewrite
           - push
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.6
+    rev: 3.0.0
     hooks:
       - id: check-mailmap
       - id: forbid-binary
