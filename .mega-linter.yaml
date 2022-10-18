@@ -1,4 +1,5 @@
 APPLY_FIXES: all
+CLEAR_REPORT_FOLDER: true
 DEFAULT_BRANCH: main
 FAIL_IF_MISSING_LINTER_IN_FLAVOR: true
 FILTER_REGEX_EXCLUDE: \.pnp\.(c|loader\.m)js|\.yarn/|dist
