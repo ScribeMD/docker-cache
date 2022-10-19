@@ -5,20 +5,21 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@actions/cache@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@actions/cache@npm:3.0.0"
+"@actions/cache@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "@actions/cache@npm:3.0.6"
   dependencies:
-    "@actions/core": ^1.2.6
+    "@actions/core": ^1.10.0
     "@actions/exec": ^1.0.1
     "@actions/glob": ^0.1.0
     "@actions/http-client": ^2.0.1
     "@actions/io": ^1.0.1
+    "@azure/abort-controller": ^1.1.0
     "@azure/ms-rest-js": ^2.6.0
     "@azure/storage-blob": ^12.8.0
     semver: ^6.1.0
     uuid: ^3.3.3
-  checksum: 382ecba39014e98d93d03b679dad7b5743288ca30e8305dfe1ae980bc019a87bd4e5b98ec85ee9e768503ee64a86986d70f6e75b2e8c6ab2d2ded4993ae9c804
+  checksum: 1cc63d07ad514454d7fb4d2cde928157d31847c2b9eafb081fbd518c8619ed6a66c9bd570d60787610ad152bd69839358176f03f1ee5f9d1baa660236cdfcfdf
   languageName: node
   linkType: hard
 
@@ -86,7 +87,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/abort-controller@npm:^1.0.0":
+"@azure/abort-controller@npm:^1.0.0, @azure/abort-controller@npm:^1.1.0":
   version: 1.1.0
   resolution: "@azure/abort-controller@npm:1.1.0"
   dependencies:
@@ -2412,7 +2413,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "docker-cache@workspace:."
   dependencies:
-    "@actions/cache": ^3.0.0
+    "@actions/cache": ^3.0.6
     "@actions/core": ^1.10.0
     "@fast-check/jest": ^1.2.0
     "@jest/globals": ^29.2.0
