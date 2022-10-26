@@ -30,7 +30,7 @@
     "@tsconfig/node16-strictest-esm": "^1.0.3",
     "@types/eslint": "^8.4.8",
     "@types/jest": "^29.2.0",
-    "@types/node": "^18.11.6",
+    "@types/node": "^18.11.7",
     "@types/prettier": "2.7.1",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
