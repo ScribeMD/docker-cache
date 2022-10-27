@@ -88,7 +88,7 @@ jobs:
         if: always()
         run: >
           curl
-          --fail
+          --fail-with-body
           --silent
           --show-error
           --request DELETE
