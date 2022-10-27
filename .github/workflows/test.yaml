@@ -63,7 +63,7 @@ jobs:
       - name: Save Docker images.
         uses: ./
         with:
-          key: docker-cache-test-${{ github.run_attempt }}
+          key: docker-cache-test-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Build an empty test Docker image.
         run: docker build --tag empty .
   restore-cache:
@@ -79,7 +79,7 @@ jobs:
       - name: Load Docker images.
         uses: ./
         with:
-          key: docker-cache-test-${{ github.run_attempt }}
+          key: docker-cache-test-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Verify Docker loaded empty image from cache.
         run: |
           description="$(docker inspect --format '{{ index .Config.Labels "description" }}' empty)"
@@ -94,7 +94,11 @@ jobs:
           --request DELETE
           --header 'Accept: application/vnd.github.v3+json'
           --header 'Authorization: Bearer ${{ github.token }}'
-          "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/caches?key=docker-cache-test-${{ github.run_attempt }}&ref=$GITHUB_REF" ||
+          "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/caches?key=docker-cache-test-${{
+            github.run_id
+          }}-${{
+            github.run_attempt
+          }}&ref=$GITHUB_REF" ||
           (( $? == 22 ))
   notify:
     name: Notify
