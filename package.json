@@ -28,7 +28,7 @@
     "@jest/globals": "^29.2.2",
     "@jest/types": "^29.2.1",
     "@tsconfig/node16-strictest-esm": "^1.0.3",
-    "@types/eslint": "^8.4.9",
+    "@types/eslint": "^8.4.10",
     "@types/jest": "^29.2.2",
     "@types/node": "^18.11.9",
     "@types/prettier": "2.7.1",
