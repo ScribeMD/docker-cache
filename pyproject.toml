@@ -10,6 +10,7 @@ build-backend = "poetry.core.masonry.api"
     "pyproject.toml:version",
     "README.md:docker-cache@"
   ]
+  major_version_zero = true
 
   [tool.poetry]
   name = "docker-cache"
