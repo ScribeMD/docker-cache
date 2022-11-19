@@ -1,4 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>ScribeMD/.github#0.7.4"]
+  "extends": ["github>ScribeMD/.github#0.7.8"]
 }
