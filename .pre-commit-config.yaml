@@ -69,7 +69,7 @@ repos:
       - id: detect-aws-credentials
         args: [--allow-missing-credentials]
       - id: detect-private-key
-      - id: forbid-new-submodules
+      - id: forbid-submodules
       - id: no-commit-to-branch
 
   # Check for issues.
