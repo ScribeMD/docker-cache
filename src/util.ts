@@ -8,7 +8,7 @@ const execBashCommand = async (command: string): Promise<string> => {
   info(command);
   let output = "";
   try {
-    const result = await execAsPromised(command, { shell: "/usr/bin/bash" });
+    const result = await execAsPromised(command);
     output = result.stdout;
     info(output);
     error(result.stderr);
