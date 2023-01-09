@@ -15,7 +15,7 @@
     "test": "yarn run tsc && yarn node --experimental-vm-modules \"$(yarn bin jest)\""
   },
   "engines": {
-    "node": "18.12.1",
+    "node": "18.13.0",
     "yarn": "3.3.0"
   },
   "packageManager": "yarn@3.3.0",
@@ -30,7 +30,7 @@
     "@tsconfig/node16-strictest-esm": "1.0.3",
     "@types/eslint": "8.4.10",
     "@types/jest": "29.2.3",
-    "@types/node": "18.11.9",
+    "@types/node": "18.11.18",
     "@types/prettier": "2.7.1",
     "@typescript-eslint/eslint-plugin": "5.45.0",
     "@typescript-eslint/parser": "5.45.0",
