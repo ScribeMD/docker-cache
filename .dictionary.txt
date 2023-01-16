@@ -1,2 +1,3 @@
 checkov
 Laven
+setuptools
