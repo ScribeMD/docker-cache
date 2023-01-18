@@ -6,7 +6,7 @@ on:
 jobs:
   notify-reviewers:
     name: Notify Reviewers
-    uses: ScribeMD/slack-templates/.github/workflows/notify-reviewers.yaml@0.6.12
+    uses: ScribeMD/slack-templates/.github/workflows/notify-reviewers.yaml@0.6.13
     permissions:
       contents: read
     secrets:

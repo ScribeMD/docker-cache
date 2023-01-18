@@ -6,7 +6,7 @@ on:
 jobs:
   notify-assignee:
     name: Notify Assignee
-    uses: ScribeMD/slack-templates/.github/workflows/notify-assignee.yaml@0.6.12
+    uses: ScribeMD/slack-templates/.github/workflows/notify-assignee.yaml@0.6.13
     permissions:
       contents: read
     secrets:
