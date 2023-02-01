@@ -8,6 +8,7 @@ dictionaryDefinitions:
     path: .dictionary.txt
 dictionaries:
   - custom
+  - docker
   - fullstack
   - npm
   - python

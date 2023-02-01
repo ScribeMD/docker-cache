@@ -1,5 +1,4 @@
 # for testing purposes
 
-FROM scratch
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 LABEL description="empty image"
-COPY LICENSE /LICENSE

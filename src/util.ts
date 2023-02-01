@@ -4,11 +4,18 @@ const execAsPromised = promisify(exec);
 
 import { error, info, setFailed } from "@actions/core";
 
-const execBashCommand = async (command: string): Promise<string> => {
+const execBashCommand = async (
+  command: string,
+  platform: NodeJS.Platform = process.platform
+): Promise<string> => {
   info(command);
+  const shell =
+    platform === "win32"
+      ? "C:\\Program Files\\Git\\bin\\bash.exe"
+      : "/usr/bin/bash";
   let output = "";
   try {
-    const result = await execAsPromised(command, { shell: "/usr/bin/bash" });
+    const result = await execAsPromised(command, { shell });
     output = result.stdout;
     info(output);
     error(result.stderr);

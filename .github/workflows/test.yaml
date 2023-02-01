@@ -74,21 +74,38 @@ jobs:
           comment_mode: off
   save-cache:
     name: Save Cache
-    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - windows-2022
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository.
         uses: actions/checkout@v3.3.0
       - name: Save Docker images.
         uses: ./
         with:
-          key: docker-cache-test-${{ github.run_id }}-${{ github.run_attempt }}
+          key: docker-cache-test-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Build an empty test Docker image.
-        run: docker build --tag empty .
+        run: |
+          if [[ "${{ matrix.os }}" =~ 'windows' ]]; then
+            DOCKERFILE='Dockerfile.windows'
+          else
+            DOCKERFILE='Dockerfile'
+          fi
+          docker build --tag empty . --file "$DOCKERFILE"
+        shell: bash
   restore-cache:
     name: Restore Cache
     needs:
       - save-cache
-    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+          - windows-2022
+    runs-on: ${{ matrix.os }}
     permissions:
       actions: write # for cache deletion
     steps:
@@ -97,11 +114,12 @@ jobs:
       - name: Load Docker images.
         uses: ./
         with:
-          key: docker-cache-test-${{ github.run_id }}-${{ github.run_attempt }}
+          key: docker-cache-test-${{ matrix.os }}-${{github.run_id }}-${{ github.run_attempt }}
       - name: Verify Docker loaded empty image from cache.
         run: |
           description="$(docker inspect --format '{{ index .Config.Labels "description" }}' empty)"
           [[ $description == 'empty image' ]]
+        shell: bash
       - name: Delete test cache if permitted (i.e., workflow not triggered from fork).
         if: always()
         run: >
@@ -118,6 +136,7 @@ jobs:
             github.run_attempt
           }}&ref=$GITHUB_REF" ||
           (( $? == 22 ))
+        shell: bash
   notify:
     name: Notify
     if: always()
