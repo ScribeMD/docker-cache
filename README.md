@@ -97,8 +97,9 @@ failed) and false on cache miss. See also
 
 ## Supported Runners
 
-Please refer to
-[`README.md` of ScribeMD/rootless-docker](https://github.com/ScribeMD/rootless-docker#supported-runners).
+- Tested on `ubuntu-22.04` and `windows-2022`
+- Probably works on `ubuntu-18.04` and `ubuntu-20.04`
+- May work on future versions of Linux and Windows
 
 ## Permissions
 
