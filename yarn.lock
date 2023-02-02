@@ -1506,18 +1506,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.2.4":
-  version: 3.3.1
-  resolution: "@yarnpkg/core@npm:3.3.1"
+"@yarnpkg/core@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@yarnpkg/core@npm:3.4.0"
   dependencies:
     "@arcanis/slice-ansi": ^1.1.1
     "@types/semver": ^7.1.0
     "@types/treeify": ^1.0.0
-    "@yarnpkg/fslib": ^2.10.0
+    "@yarnpkg/fslib": ^2.10.1
     "@yarnpkg/json-proxy": ^2.1.1
     "@yarnpkg/libzip": ^2.2.4
     "@yarnpkg/parsers": ^2.5.1
-    "@yarnpkg/pnp": ^3.2.6
+    "@yarnpkg/pnp": ^3.3.0
     "@yarnpkg/shell": ^3.2.5
     camelcase: ^5.3.1
     chalk: ^3.0.0
@@ -1542,17 +1542,17 @@ __metadata:
     treeify: ^1.1.0
     tslib: ^1.13.0
     tunnel: ^0.0.6
-  checksum: b5a8664a4c0dd02cfa7656ca67e832ae44e9aa2e4bc7a2f102b93f5626ce81ea378f1e9fb40b3b9c375c92471046f8d0027ca2658334b7cdfa5260d234d61aed
+  checksum: 024fc0ffc5b971b31e742df979aa011b12c4f46b5031fd8fba6d037184abe2f55b082b96f6938c700295e52e588f4241fcdcc4ea75dfaa5ced6ea1ce146ed039
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^2.10.0, @yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.7.1, @yarnpkg/fslib@npm:^2.9.0":
-  version: 2.10.0
-  resolution: "@yarnpkg/fslib@npm:2.10.0"
+"@yarnpkg/fslib@npm:^2.10.1, @yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.9.0":
+  version: 2.10.1
+  resolution: "@yarnpkg/fslib@npm:2.10.1"
   dependencies:
     "@yarnpkg/libzip": ^2.2.4
     tslib: ^1.13.0
-  checksum: 7c08938b442cb93ecb710f0b1e877836c3c0ead492a1d120e7ae62f96575630fa93e18f3189086156373bb03b04a1833135a7065fdd7160874b0b2b22eb34f71
+  checksum: 76a4e094cdde790edf9c1609c63c4ab4e7d518fc13e05da2de9431ece15ccd442a941b505e90d62731edef8ce7a0e491c60fc824f4383dcecf69d4cec74a8ba6
   languageName: node
   linkType: hard
 
@@ -1586,22 +1586,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnp@npm:^3.2.6":
-  version: 3.2.6
-  resolution: "@yarnpkg/pnp@npm:3.2.6"
+"@yarnpkg/pnp@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@yarnpkg/pnp@npm:3.3.0"
   dependencies:
     "@types/node": ^13.7.0
-    "@yarnpkg/fslib": ^2.10.0
-  checksum: 3d866a7f6c85277560d74269a6e2d660a173931c71516dae0ab4620bdc9eec1672d352f7a8be395d1d2b27f33f7ac7bd58161135998e38d7ce393a825105207b
+    "@yarnpkg/fslib": ^2.10.1
+  checksum: 231f65f50684c9b4f994096483540ca276172f27f0dbc43b4c8ff65b66aed2cb59f547165e1f1b627108deef4c2204f16f429b3486d0c375e384380679407c3b
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:2.6.3":
-  version: 2.6.3
-  resolution: "@yarnpkg/sdks@npm:2.6.3"
+"@yarnpkg/sdks@npm:2.7.0":
+  version: 2.7.0
+  resolution: "@yarnpkg/sdks@npm:2.7.0"
   dependencies:
-    "@yarnpkg/core": ^3.2.4
-    "@yarnpkg/fslib": ^2.7.1
+    "@yarnpkg/core": ^3.4.0
+    "@yarnpkg/fslib": ^2.10.1
     "@yarnpkg/parsers": ^2.5.1
     chalk: ^3.0.0
     clipanion: 3.2.0-rc.4
@@ -1610,7 +1610,7 @@ __metadata:
     tslib: ^1.13.0
   bin:
     sdks: ./lib/cli.js
-  checksum: 8f925a34367a052dfff444472b33fde42b9c2513133f73fe9244aeeb0a5682ed72573e0f5ff0f091e4af9a7da01c661d662b429faaf6d10f058a7e8287567e9b
+  checksum: a4d7e224087861a9ee0c2a1628ba21ffc9375370132db686e6737cd2c09db46125e0f2eb8754d6cf2d590aaefe2ad9a4a38dbe9f35d42f33e16e9904a7b66088
   languageName: node
   linkType: hard
 
@@ -2442,7 +2442,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.50.0
     "@typescript-eslint/parser": 5.50.0
     "@vercel/ncc": 0.36.1
-    "@yarnpkg/sdks": 2.6.3
+    "@yarnpkg/sdks": 2.7.0
     eslint: 8.33.0
     eslint-config-prettier: 8.6.0
     fast-check: 3.6.2
@@ -5577,11 +5577,11 @@ __metadata:
 
 "typescript@patch:typescript@4.9.4#~builtin<compat/typescript>":
   version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=23ec76"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1caaea6cb7f813e64345190fddc4e6c924d0b698ab81189b503763c4a18f7f5501c69362979d36e19c042d89d936443e768a78b0675690b35eb663d19e0eae71
+  checksum: 3e2ab0772908676d9b9cb83398c70003a3b08e1c6b3b122409df9f4b520f2fdaefa20c3d7d57dce283fed760ac94b3ce94d4a7fa875127b67852904425a1f0dc
   languageName: node
   linkType: hard
 
