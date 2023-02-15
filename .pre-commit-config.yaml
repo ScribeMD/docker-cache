@@ -38,7 +38,7 @@ repos:
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc
-    rev: 8.1.8
+    rev: 8.1.9
     hooks:
       - id: md-toc
 
