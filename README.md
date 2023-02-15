@@ -56,8 +56,14 @@ performs Docker layer caching for built images but does not cache pulled images.
   - name: Cache Docker images.
     uses: ScribeMD/docker-cache@0.2.8
     with:
-      key: docker-${{ runner.os }}-${{ hashFiles(...) }}
+      key: docker-${{ runner.os }}-${{ hashFiles(paths) }}
   ```
+
+- Change the key to some fast function of your Docker image versions, for
+  example, `docker-${{ runner.os }}-${{ hashFiles('docker-compose.yaml') }}`,
+  if `docker-compose.yaml` specifies the Docker images you pull. Refer to the
+  [official GitHub cache action](https://github.com/marketplace/actions/cache#creating-a-cache-key)
+  for guidance on creating a cache key.
 
 ## Inputs
 
