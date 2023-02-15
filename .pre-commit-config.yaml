@@ -87,7 +87,7 @@ repos:
 
   ## Natural language
   - repo: https://github.com/PrincetonUniversity/blocklint
-    rev: v0.2.3
+    rev: v0.2.4
     hooks:
       - id: blocklint
 
