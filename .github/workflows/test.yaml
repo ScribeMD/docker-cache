@@ -62,6 +62,7 @@ jobs:
               '**/yarn.lock',
               '.yarnrc.yml'
             ) }}
+          restore-keys: yarn-${{ steps.os.outputs.IMAGE }}-
       - name: Run pre-commit hooks.
         uses: ScribeMD/pre-commit-action@0.9.43
       - name: Publish test results to GitHub.
