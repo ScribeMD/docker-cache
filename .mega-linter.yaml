@@ -1,28 +1,7 @@
-APPLY_FIXES: all
-CLEAR_REPORT_FOLDER: true
-DEFAULT_BRANCH: main
-DISABLE_LINTERS:
-  - MARKDOWN_MARKDOWN_LINK_CHECK # Superseded by Lychee
-  - TYPESCRIPT_STANDARD # We use Prettier instead.
-FAIL_IF_MISSING_LINTER_IN_FLAVOR: true
-FILTER_REGEX_EXCLUDE: \.pnp\.(c|loader\.m)js|\.yarn|dist
-FORMATTERS_DISABLE_ERRORS: false
-PRINT_ALPACA: false
-SHOW_ELAPSED_TIME: true
-JAVASCRIPT_DEFAULT_STYLE: prettier
+EXTENDS: https://raw.githubusercontent.com/ScribeMD/.github/0.11.3/.github/base.mega-linter.yaml
 JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
-JAVASCRIPT_ES_CONFIG_FILE: LINTER_DEFAULT
-JSON_PRETTIER_FILE_EXTENSIONS:
-  - .json
-  - .md
-MARKDOWN_MARKDOWNLINT_CONFIG_FILE: LINTER_DEFAULT
-REPOSITORY_CHECKOV_CONFIG_FILE: LINTER_DEFAULT
-REPOSITORY_SECRETLINT_ARGUMENTS: --secretlintignore .gitignore
-SPELL_CSPELL_CONFIG_FILE: LINTER_DEFAULT
 # Work around https://github.com/oxsecurity/megalinter/issues/2500.
 SPELL_CSPELL_PRE_COMMANDS:
   - command: npm install @cspell/dict-win32@2.0.1
     continue_if_failed: false
-TYPESCRIPT_DEFAULT_STYLE: prettier
 TYPESCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
-TYPESCRIPT_ES_CONFIG_FILE: LINTER_DEFAULT
