@@ -27,7 +27,7 @@
     "@fast-check/jest": "1.6.0",
     "@jest/globals": "29.4.3",
     "@jest/types": "29.4.3",
-    "@tsconfig/node16-strictest-esm": "1.0.3",
+    "@tsconfig/node18-strictest-esm": "1.0.1",
     "@types/eslint": "8.21.1",
     "@types/jest": "29.4.0",
     "@types/node": "18.14.0",
