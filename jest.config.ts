@@ -19,7 +19,7 @@ const config: JestConfigWithTsJest = {
   // See https://kulshekhar.github.io/ts-jest/docs/guides/esm-support#use-esm-presets.
   preset: "ts-jest/presets/default-esm",
   transform: {
-    "^.+\\.[jt]s$": ["ts-jest", { useESM: true }],
+    "^.+\\.ts$": ["ts-jest", { useESM: true }],
   },
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
