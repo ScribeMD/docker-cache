@@ -29,7 +29,9 @@ const config: JestConfigWithTsJest = {
 if (process.env["CI"] === "true") {
   config.ci = true;
   config.collectCoverageFrom = ["**/*.ts"];
-  config.reporters = [["jest-junit", { outputDirectory: "reports/jest/" }]];
+  config.reporters = [
+    ["jest-junit", { outputDirectory: "<rootDir>/reports/jest/" }],
+  ];
 }
 
 export default config;
