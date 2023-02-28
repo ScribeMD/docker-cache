@@ -69,7 +69,7 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2.4.1
         if: always()
         with:
-          junit_files: src/reports/jest/junit.xml
+          files: src/reports/jest/junit.xml
           comment_mode: off
   save-cache:
     name: Save Cache
