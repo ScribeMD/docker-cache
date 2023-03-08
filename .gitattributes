@@ -6,8 +6,8 @@
 # repository to the working directory, such as when checking them out.
 * text eol=lf
 
-# Yarn generates some minified JavaScript files that are technically text, but
-# that we don't want Git to check for whitespace errors.
+# Yarn generates some JavaScript files that are technically text, but that we
+# don't want Git to check for whitespace errors.
 *.cjs binary
 
 # As of 2022-04-21, Git mistakenly categorizes Yarn cache files as textual.
