@@ -7,3 +7,7 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+[*.diff]
+# Preserve trailing whitespace so as not to break Git patch editing.
+trim_trailing_whitespace = false
