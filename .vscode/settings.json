@@ -1,4 +1,7 @@
 {
+  "[diff]": {
+    "files.trimTrailingWhitespace": false
+  },
   "editor.tabSize": 2,
   "editorconfig.generateAuto": false,
   "eslint.nodePath": ".yarn/sdks",
