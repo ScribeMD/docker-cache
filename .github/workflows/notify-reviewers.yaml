@@ -3,12 +3,12 @@ on:
   pull_request:
     types:
       - review_requested
+permissions:
+  contents: read
 jobs:
   notify-reviewers:
     name: Notify Reviewers
     uses: ScribeMD/slack-templates/.github/workflows/notify-reviewers.yaml@0.6.13
-    permissions:
-      contents: read
     secrets:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       SLACK_REVIEW_CHANNEL_ID: ${{ secrets.SLACK_REVIEW_CHANNEL_ID }}
