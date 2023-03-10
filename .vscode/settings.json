@@ -2,6 +2,9 @@
   "[diff]": {
     "files.trimTrailingWhitespace": false
   },
+  "[python]": {
+    "editor.tabSize": 4
+  },
   "editor.tabSize": 2,
   "editorconfig.generateAuto": false,
   "eslint.nodePath": ".yarn/sdks",
