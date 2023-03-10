@@ -23,8 +23,8 @@ describe("Util", (): void => {
     const mockedExec = async (
       command: string,
       error: Error | null,
-      stdout: string = "",
-      stderr: string = ""
+      stdout = "",
+      stderr = ""
     ): Promise<string> => {
       child_process.exec.mockImplementationOnce(<typeof child_process.exec>((
         _command: any,
