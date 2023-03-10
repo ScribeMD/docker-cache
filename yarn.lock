@@ -5,9 +5,9 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@actions/cache@npm:3.1.4":
-  version: 3.1.4
-  resolution: "@actions/cache@npm:3.1.4"
+"@actions/cache@npm:3.2.1":
+  version: 3.2.1
+  resolution: "@actions/cache@npm:3.2.1"
   dependencies:
     "@actions/core": ^1.10.0
     "@actions/exec": ^1.0.1
@@ -16,10 +16,10 @@ __metadata:
     "@actions/io": ^1.0.1
     "@azure/abort-controller": ^1.1.0
     "@azure/ms-rest-js": ^2.6.0
-    "@azure/storage-blob": ^12.8.0
+    "@azure/storage-blob": ^12.13.0
     semver: ^6.1.0
     uuid: ^3.3.3
-  checksum: 6816cda7819a9dbd0cf69ac4f37ed287ce4c176ff5929b91046f626b1880e21557ed4fb45ae62b9812ae6e0a55205c9fbe598f28a2a69afdaa452151c244a44e
+  checksum: ff06f82cc0cfcbd1180e93db13ac066d7d08895ce8d696c83c6d16718ddc2fda538f77a8d2f899236db5b00dc97b30c9afe58ac206dde813541349b84fe840ff
   languageName: node
   linkType: hard
 
@@ -106,9 +106,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/core-http@npm:^2.0.0":
-  version: 2.3.1
-  resolution: "@azure/core-http@npm:2.3.1"
+"@azure/core-http@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@azure/core-http@npm:3.0.0"
   dependencies:
     "@azure/abort-controller": ^1.0.0
     "@azure/core-auth": ^1.3.0
@@ -120,12 +120,11 @@ __metadata:
     form-data: ^4.0.0
     node-fetch: ^2.6.7
     process: ^0.11.10
-    tough-cookie: ^4.0.0
     tslib: ^2.2.0
     tunnel: ^0.0.6
     uuid: ^8.3.0
     xml2js: ^0.4.19
-  checksum: 8c5753cd17d4a66feab47b97b98e7e5b083e276f6e2950ef81a3b3d91a8a45d619704b04ef2a1d224019524728306d39516a8d47af1ca6512f73089acaaa5757
+  checksum: 9b6885a60a8fdac924cc9544e09d66757ff4ed51ed20ce3c279321e684e21c295c091ad9d45477e02baae5255e3a92c5fbb2ac46687d261d66488c294b32846f
   languageName: node
   linkType: hard
 
@@ -195,19 +194,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/storage-blob@npm:^12.8.0":
-  version: 12.12.0
-  resolution: "@azure/storage-blob@npm:12.12.0"
+"@azure/storage-blob@npm:^12.13.0":
+  version: 12.13.0
+  resolution: "@azure/storage-blob@npm:12.13.0"
   dependencies:
     "@azure/abort-controller": ^1.0.0
-    "@azure/core-http": ^2.0.0
+    "@azure/core-http": ^3.0.0
     "@azure/core-lro": ^2.2.0
     "@azure/core-paging": ^1.1.1
     "@azure/core-tracing": 1.0.0-preview.13
     "@azure/logger": ^1.0.0
     events: ^3.0.0
     tslib: ^2.2.0
-  checksum: bb7f6514a251f8ec337718088b8c9ba80e27b34c786b7fb380fdca19eb3735a0da917dcfcdacef27d0eb256d007a37f89f3d6b08c55405cbcc04685f2a51da3b
+  checksum: 1509b8904eb46937b76f9acc04e9e0c39e8e9219a3bc3f5c006df7eb4d29ff2ed0ebbecc875f9372b5a349639e79123b30bbfb407864cfe91633dd6871a9bd99
   languageName: node
   linkType: hard
 
@@ -2437,7 +2436,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "docker-cache@workspace:."
   dependencies:
-    "@actions/cache": 3.1.4
+    "@actions/cache": 3.2.1
     "@actions/core": 1.10.0
     "@fast-check/jest": 1.6.0
     "@jest/globals": 29.5.0
@@ -4843,7 +4842,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"psl@npm:^1.1.28, psl@npm:^1.1.33":
+"psl@npm:^1.1.28":
   version: 1.9.0
   resolution: "psl@npm:1.9.0"
   checksum: 20c4277f640c93d393130673f392618e9a8044c6c7bf61c53917a0fddb4952790f5f362c6c730a9c32b124813e173733f9895add8d26f566ed0ea0654b2e711d
@@ -4871,13 +4870,6 @@ __metadata:
   version: 6.0.0
   resolution: "pure-rand@npm:6.0.0"
   checksum: ad1378d0a4859482d053a5264b2b485b445ece4bbc56f8959c233ea678b81ac2d613737925d496ded134eff5f29cc5546bf7492b6bce319ee27bebbad8a0c612
-  languageName: node
-  linkType: hard
-
-"querystringify@npm:^2.1.1":
-  version: 2.2.0
-  resolution: "querystringify@npm:2.2.0"
-  checksum: 5641ea231bad7ef6d64d9998faca95611ed4b11c2591a8cae741e178a974f6a8e0ebde008475259abe1621cb15e692404e6b6626e927f7b849d5c09392604b15
   languageName: node
   linkType: hard
 
@@ -4938,13 +4930,6 @@ __metadata:
   version: 2.1.1
   resolution: "require-directory@npm:2.1.1"
   checksum: fb47e70bf0001fdeabdc0429d431863e9475e7e43ea5f94ad86503d918423c1543361cc5166d713eaa7029dd7a3d34775af04764bebff99ef413111a5af18c80
-  languageName: node
-  linkType: hard
-
-"requires-port@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "requires-port@npm:1.0.0"
-  checksum: eee0e303adffb69be55d1a214e415cf42b7441ae858c76dfc5353148644f6fd6e698926fc4643f510d5c126d12a705e7c8ed7e38061113bdf37547ab356797ff
   languageName: node
   linkType: hard
 
@@ -5405,18 +5390,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tough-cookie@npm:^4.0.0":
-  version: 4.1.2
-  resolution: "tough-cookie@npm:4.1.2"
-  dependencies:
-    psl: ^1.1.33
-    punycode: ^2.1.1
-    universalify: ^0.2.0
-    url-parse: ^1.5.3
-  checksum: a7359e9a3e875121a84d6ba40cc184dec5784af84f67f3a56d1d2ae39b87c0e004e6ba7c7331f9622a7d2c88609032473488b28fe9f59a1fec115674589de39a
-  languageName: node
-  linkType: hard
-
 "tr46@npm:~0.0.3":
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
@@ -5609,13 +5582,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universalify@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "universalify@npm:0.2.0"
-  checksum: e86134cb12919d177c2353196a4cc09981524ee87abf621f7bc8d249dbbbebaec5e7d1314b96061497981350df786e4c5128dbf442eba104d6e765bc260678b5
-  languageName: node
-  linkType: hard
-
 "update-browserslist-db@npm:^1.0.10":
   version: 1.0.10
   resolution: "update-browserslist-db@npm:1.0.10"
@@ -5636,16 +5602,6 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
-  languageName: node
-  linkType: hard
-
-"url-parse@npm:^1.5.3":
-  version: 1.5.10
-  resolution: "url-parse@npm:1.5.10"
-  dependencies:
-    querystringify: ^2.1.1
-    requires-port: ^1.0.0
-  checksum: fbdba6b1d83336aca2216bbdc38ba658d9cfb8fc7f665eb8b17852de638ff7d1a162c198a8e4ed66001ddbf6c9888d41e4798912c62b4fd777a31657989f7bdf
   languageName: node
   linkType: hard
 
