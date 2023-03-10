@@ -8,6 +8,10 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# Match the default pycodestyle style.
+[*.py]
+indent_size = 4
+
 [*.diff]
 # Preserve trailing whitespace so as not to break Git patch editing.
 trim_trailing_whitespace = false
