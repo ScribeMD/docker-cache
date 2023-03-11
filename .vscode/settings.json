@@ -17,7 +17,6 @@
   "python.defaultInterpreterPath": "./.venv/bin/python",
   "python.terminal.activateEnvInCurrentTerminal": true,
   "search.exclude": {
-    "poetry.lock": true,
     "/dist": true,
     "**/.yarn": true
   },
