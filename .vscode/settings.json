@@ -19,8 +19,7 @@
   "search.exclude": {
     "poetry.lock": true,
     "/dist": true,
-    "**/.yarn": true,
-    "**/.pnp.*": true
+    "**/.yarn": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib"
