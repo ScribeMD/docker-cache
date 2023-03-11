@@ -74,7 +74,7 @@ describe("Docker images", (): void => {
   const mockedLoadDockerImages = async (
     key: string,
     cacheHit: boolean,
-    images: string = ""
+    images = ""
   ): Promise<void> => {
     core.getInput.mockReturnValue(key);
     cache.restoreCache.mockResolvedValueOnce(cacheHit ? key : undefined);
@@ -86,7 +86,7 @@ describe("Docker images", (): void => {
 
   const assertSaveDockerImages = (
     cacheHit: boolean,
-    readOnly: boolean = false
+    readOnly = false
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
