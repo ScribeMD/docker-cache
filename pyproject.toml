@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool]
   [tool.commitizen]
-  version = "0.2.10"
+  version = "0.3.0"
   version_files = [
     "package.json:version",
     "pyproject.toml:version",
@@ -14,7 +14,7 @@ build-backend = "poetry.core.masonry.api"
 
   [tool.poetry]
   name = "docker-cache"
-  version = "0.2.10"
+  version = "0.3.0"
   description = "Cache Docker Images Whether Built or Pulled"
   authors = ["Kurt von Laven <kurt.von.laven@gmail.com>"]
   license = "MIT"
