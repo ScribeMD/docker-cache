@@ -39,9 +39,9 @@ describe("Docker images", (): void => {
   let docker: typeof import("./docker.js");
 
   beforeAll(async (): Promise<void> => {
-    cache = <any>await import("@actions/cache");
-    core = <any>await import("@actions/core");
-    util = <any>await import("./util.js");
+    cache = jest.mocked(await import("@actions/cache"));
+    core = jest.mocked(await import("@actions/core"));
+    util = jest.mocked(await import("./util.js"));
     docker = await import("./docker.js");
   });
 
