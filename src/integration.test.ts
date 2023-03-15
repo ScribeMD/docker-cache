@@ -1,21 +1,22 @@
+import { exec } from "node:child_process";
 import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
 import { string } from "fast-check";
 
 import { consoleOutput } from "./arbitraries/util.js";
+import { utilFactory } from "./mocks/util.js";
 
-import type { exec, ExecOptions } from "node:child_process";
+import type { ExecOptions } from "node:child_process";
 import type { InputOptions } from "@actions/core";
+import type { Mock } from "jest-mock";
 
 import type { ConsoleOutput } from "./util.js";
 
-jest.unstable_mockModule("node:child_process", () => ({
-  exec: jest.fn<typeof exec>(),
-}));
+jest.unstable_mockModule("node:util", utilFactory);
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
 
-const child_process = jest.mocked(await import("node:child_process"));
+const nodeUtil = jest.mocked(await import("node:util"));
 const cache = jest.mocked(await import("@actions/cache"));
 const core = jest.mocked(await import("@actions/core"));
 const docker = await import("./docker.js");
@@ -33,6 +34,7 @@ describe("Integration Test", (): void => {
   let state: Record<string, string>;
   let dockerImages: string[];
   let callCount: number;
+  let execMock: Mock<(command: string) => Promise<ConsoleOutput>>;
 
   beforeEach(async (): Promise<void> => {
     loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
@@ -64,11 +66,7 @@ describe("Integration Test", (): void => {
   });
 
   const mockExec = (listStderr: string, otherOutput: ConsoleOutput): void => {
-    child_process.exec.mockImplementation(<typeof exec>((
-      command: string,
-      _options: any,
-      callback: any
-    ): any => {
+    execMock = jest.fn((command: string): Promise<ConsoleOutput> => {
       let output: ConsoleOutput;
       if (command === LIST_COMMAND) {
         /* When Docker is running as root, docker image list generates a list
@@ -85,8 +83,10 @@ describe("Integration Test", (): void => {
       } else {
         output = otherOutput;
       }
-      callback(null, output);
-    }));
+      return Promise.resolve(output);
+    });
+
+    nodeUtil.promisify.mockReturnValue(execMock);
   };
 
   const assertExecBashCommand = (
@@ -96,11 +96,11 @@ describe("Integration Test", (): void => {
     output: ConsoleOutput
   ): void => {
     expect(core.info).nthCalledWith<[string]>(infoCallNum, command);
-    expect(child_process.exec).nthCalledWith<[string, ExecOptions, any]>(
+    expect(nodeUtil.promisify).nthCalledWith<[typeof exec]>(execCallNum, exec);
+    expect(execMock).nthCalledWith<[string, ExecOptions]>(
       execCallNum,
       command,
-      EXEC_OPTIONS,
-      expect.anything()
+      EXEC_OPTIONS
     );
     expect(core.info).nthCalledWith<[string]>(infoCallNum + 1, output.stdout);
     expect(core.error).nthCalledWith<[string]>(execCallNum, output.stderr);
@@ -128,14 +128,14 @@ describe("Integration Test", (): void => {
       const listOutput = joinOutput(dockerImages, listStderr);
       assertExecBashCommand(2, 1, LIST_COMMAND, listOutput);
     }
-    expect(child_process.exec).toHaveBeenCalledTimes(1);
+    expect(execMock).toHaveBeenCalledTimes(1);
   };
 
   const assertSaveCacheHit = (key: string): void => {
     expect(core.info).lastCalledWith(
       `Cache hit occurred on the primary key ${key}, not saving cache.`
     );
-    expect(child_process.exec).not.toHaveBeenCalled();
+    expect(execMock).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();
     expect(cache.saveCache).not.toHaveBeenCalled();
   };

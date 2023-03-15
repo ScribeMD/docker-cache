@@ -1,20 +1,17 @@
+import { exec } from "node:child_process";
 import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
 import { string } from "fast-check";
 
 import { consoleOutput, platform } from "./arbitraries/util.js";
-
-import type { exec } from "node:child_process";
+import { utilFactory } from "./mocks/util.js";
 
 import type { ConsoleOutput } from "./util.js";
 
-jest.unstable_mockModule("node:child_process", () => ({
-  exec: jest.fn<typeof exec>(),
-}));
-
+jest.unstable_mockModule("node:util", utilFactory);
 jest.mock("@actions/core");
 
-const child_process = jest.mocked(await import("node:child_process"));
+const nodeUtil = jest.mocked(await import("node:util"));
 const core = jest.mocked(await import("@actions/core"));
 const util = await import("./util.js");
 
@@ -26,25 +23,22 @@ describe("Util", (): void => {
       platform: NodeJS.Platform,
       output: ConsoleOutput
     ): Promise<string> => {
-      child_process.exec.mockImplementationOnce(<typeof exec>((
-        _command: any,
-        _options: any,
-        callback: any
-      ): any => {
-        callback(error, output);
-      }));
+      const execMock = jest.fn(
+        (): Promise<ConsoleOutput> =>
+          error ? Promise.reject(error) : Promise.resolve(output)
+      );
+
+      nodeUtil.promisify.mockReturnValueOnce(execMock);
+
       const stdout = await util.execBashCommand(command, platform);
 
       expect(core.info).nthCalledWith<[string]>(1, command);
+      expect(nodeUtil.promisify).lastCalledWith(exec);
       const shell =
         platform === "win32"
           ? "C:\\Program Files\\Git\\bin\\bash.exe"
           : "/usr/bin/bash";
-      expect(child_process.exec).lastCalledWith(
-        command,
-        { shell },
-        expect.anything()
-      );
+      expect(execMock).lastCalledWith(command, { shell });
       return stdout;
     };
 

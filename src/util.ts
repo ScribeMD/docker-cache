@@ -1,6 +1,5 @@
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
-const execAsPromised = promisify(exec);
 
 import { error, info, setFailed } from "@actions/core";
 
@@ -14,6 +13,7 @@ const execBashCommand = async (
   platform: NodeJS.Platform = process.platform
 ): Promise<string> => {
   info(command);
+  const execAsPromised = promisify(exec);
   const shell =
     platform === "win32"
       ? "C:\\Program Files\\Git\\bin\\bash.exe"
