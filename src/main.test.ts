@@ -8,13 +8,8 @@ jest.unstable_mockModule(
 );
 
 describe("Main", (): void => {
-  let docker: jest.MockedObject<typeof import("./docker.js")>;
-
-  beforeAll(async (): Promise<void> => {
-    docker = <any>await import("./docker.js");
-  });
-
   test("loads Docker images on module load", async (): Promise<void> => {
+    const docker = jest.mocked(await import("./docker.js"));
     await import("./main.js");
 
     expect(docker.loadDockerImages).lastCalledWith();
