@@ -14,8 +14,8 @@ describe("Util", (): void => {
   let util: typeof import("./util.js");
 
   beforeAll(async (): Promise<void> => {
-    child_process = <any>await import("node:child_process");
-    core = <any>await import("@actions/core");
+    child_process = jest.mocked(await import("node:child_process"));
+    core = jest.mocked(await import("@actions/core"));
     util = await import("./util.js");
   });
 
