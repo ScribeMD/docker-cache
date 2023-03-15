@@ -21,6 +21,10 @@ const cache = jest.mocked(await import("@actions/cache"));
 const core = jest.mocked(await import("@actions/core"));
 const docker = await import("./docker.js");
 
+interface ToString {
+  toString(): string;
+}
+
 const getKey = (paths: string[], key: string): string =>
   [...paths, key].join(", ");
 
@@ -40,9 +44,9 @@ describe("Integration Test", (): void => {
     loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
 
     cache.saveCache.mockImplementation(
-      (paths: string[], key: string): Promise<any> => {
+      (paths: string[], key: string): Promise<number> => {
         inMemoryCache[getKey(paths, key)] = key;
-        return Promise.resolve();
+        return Promise.resolve(0);
       }
     );
 
@@ -55,7 +59,7 @@ describe("Integration Test", (): void => {
 
     core.getState.mockImplementation((key: string): string => state[key] || "");
 
-    core.saveState.mockImplementation((key: string, value: any): void => {
+    core.saveState.mockImplementation((key: string, value: ToString): void => {
       state[key] = value.toString();
     });
   });
