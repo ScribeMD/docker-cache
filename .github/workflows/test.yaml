@@ -131,6 +131,8 @@ jobs:
           --header 'Accept: application/vnd.github.v3+json'
           --header 'Authorization: Bearer ${{ github.token }}'
           "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/caches?key=docker-cache-test-${{
+            matrix.os
+          }}-${{
             github.run_id
           }}-${{
             github.run_attempt
