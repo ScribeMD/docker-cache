@@ -2,8 +2,12 @@ import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
 import { string } from "fast-check";
 
+import { consoleOutput } from "./arbitraries/util.js";
+
 import type { ExecOptions } from "node:child_process";
 import type { InputOptions } from "@actions/core";
+
+import type { ConsoleOutput } from "./util.js";
 
 jest.unstable_mockModule("node:child_process", () => ({
   exec: jest.fn<typeof import("node:child_process").exec>(),
@@ -62,17 +66,18 @@ describe("Integration Test", (): void => {
     });
   });
 
-  const mockExec = (
-    listStderr: string,
-    otherStdout: string,
-    otherStderr: string
-  ): void => {
+  const joinOutput = (stdout: string[], stderr: string): ConsoleOutput => ({
+    stdout: stdout.join("\n"),
+    stderr,
+  });
+
+  const mockExec = (listStderr: string, otherOutput: ConsoleOutput): void => {
     child_process.exec.mockImplementation(<typeof child_process.exec>((
       command: string,
       _options: any,
       callback: any
     ): any => {
-      let stdout: string, stderr: string;
+      let output: ConsoleOutput;
       if (command === LIST_COMMAND) {
         /* When Docker is running as root, docker image list generates a list that includes a
          * standard set of Docker images that are pre-cached by GitHub Actions. The production
@@ -82,13 +87,11 @@ describe("Integration Test", (): void => {
          * difference between the restore and save steps so there is something to save.
          */
         dockerImages.push(`test-docker-image:v${++callCount}`);
-        stdout = dockerImages.join("\n");
-        stderr = listStderr;
+        output = joinOutput(dockerImages, listStderr);
       } else {
-        stdout = otherStdout;
-        stderr = otherStderr;
+        output = otherOutput;
       }
-      callback(null, { stdout, stderr });
+      callback(null, output);
     }));
   };
 
@@ -96,8 +99,7 @@ describe("Integration Test", (): void => {
     infoCallNum: number,
     execCallNum: number,
     command: string,
-    stdout: string,
-    stderr: string
+    output: ConsoleOutput
   ): void => {
     expect(core.info).nthCalledWith<[string]>(infoCallNum, command);
     expect(child_process.exec).nthCalledWith<[string, ExecOptions, any]>(
@@ -106,23 +108,22 @@ describe("Integration Test", (): void => {
       EXEC_OPTIONS,
       expect.anything()
     );
-    expect(core.info).nthCalledWith<[string]>(infoCallNum + 1, stdout);
-    expect(core.error).nthCalledWith<[string]>(execCallNum, stderr);
+    expect(core.info).nthCalledWith<[string]>(infoCallNum + 1, output.stdout);
+    expect(core.error).nthCalledWith<[string]>(execCallNum, output.stderr);
     expect(core.setFailed).not.toHaveBeenCalled();
   };
 
   const assertLoadDockerImages = (
     cacheHit: boolean,
     listStderr: string,
-    loadStdout: string,
-    loadStderr: string
+    loadOutput: ConsoleOutput
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
     });
     expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, cacheHit);
     if (cacheHit) {
-      assertExecBashCommand(1, 1, loadCommand, loadStdout, loadStderr);
+      assertExecBashCommand(1, 1, loadCommand, loadOutput);
       expect(core.saveState).toHaveBeenCalledTimes(1);
     } else {
       expect(core.info).nthCalledWith<[string]>(
@@ -130,13 +131,8 @@ describe("Integration Test", (): void => {
         "Recording preexisting Docker images. These include standard images " +
           "pre-cached by GitHub Actions when Docker is run as root."
       );
-      assertExecBashCommand(
-        2,
-        1,
-        LIST_COMMAND,
-        dockerImages.join("\n"),
-        listStderr
-      );
+      const listOutput = joinOutput(dockerImages, listStderr);
+      assertExecBashCommand(2, 1, LIST_COMMAND, listOutput);
     }
     expect(child_process.exec).toHaveBeenCalledTimes(1);
   };
@@ -152,50 +148,42 @@ describe("Integration Test", (): void => {
 
   const assertSaveCacheMiss = (
     listStderr: string,
-    saveStdout: string,
-    saveStderr: string
+    saveOutput: ConsoleOutput
   ): void => {
     expect(core.getInput).lastCalledWith("read-only");
     expect(core.info).nthCalledWith<[string]>(1, "Listing Docker images.");
-    assertExecBashCommand(
-      2,
-      1,
-      LIST_COMMAND,
-      dockerImages.join("\n"),
-      listStderr
-    );
+    const listOutput = joinOutput(dockerImages, listStderr);
+    assertExecBashCommand(2, 1, LIST_COMMAND, listOutput);
     expect(core.info).nthCalledWith<[string]>(
       4,
       "Images present before restore step will be skipped; only new images " +
         "will be saved."
     );
     const saveCommand = `docker save --output ${docker.DOCKER_IMAGES_PATH} test-docker-image:v2`;
-    assertExecBashCommand(5, 2, saveCommand, saveStdout, saveStderr);
+    assertExecBashCommand(5, 2, saveCommand, saveOutput);
   };
 
   const assertSaveDockerImages = (
     cacheHit: boolean,
     key: string,
     listStderr: string,
-    saveStdout: string,
-    saveStderr: string
+    saveOutput: ConsoleOutput
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
     });
     cacheHit
       ? assertSaveCacheHit(key)
-      : assertSaveCacheMiss(listStderr, saveStdout, saveStderr);
+      : assertSaveCacheMiss(listStderr, saveOutput);
   };
 
   testProp(
     "cache misses, then hits",
-    [string(), string(), string(), string()],
+    [string(), string(), consoleOutput()],
     async (
       key: string,
       listStderr: string,
-      otherStdout: string,
-      otherStderr: string
+      otherOutput: ConsoleOutput
     ): Promise<void> => {
       jest.clearAllMocks();
       inMemoryCache = {};
@@ -203,30 +191,30 @@ describe("Integration Test", (): void => {
       dockerImages = [];
       callCount = 0;
       core.getInput.mockReturnValue(key);
-      mockExec(listStderr, otherStdout, otherStderr);
+      mockExec(listStderr, otherOutput);
 
       // Attempt first cache restore.
       await docker.loadDockerImages();
       // Expect cache miss since cache has never been saved.
-      assertLoadDockerImages(false, listStderr, otherStdout, otherStderr);
+      assertLoadDockerImages(false, listStderr, otherOutput);
       jest.clearAllMocks();
 
       // Run post step first time.
       await docker.saveDockerImages();
       // Expect cache saved on cache miss.
-      assertSaveDockerImages(false, key, listStderr, otherStdout, otherStderr);
+      assertSaveDockerImages(false, key, listStderr, otherOutput);
       jest.clearAllMocks();
 
       // Attempt second cache restore.
       await docker.loadDockerImages();
       // Expect cache hit since cache has been saved.
-      assertLoadDockerImages(true, listStderr, otherStdout, otherStderr);
+      assertLoadDockerImages(true, listStderr, otherOutput);
       jest.clearAllMocks();
 
       // Run post step second time.
       await docker.saveDockerImages();
       // Expect cache not to have been saved on cache hit.
-      assertSaveDockerImages(true, key, listStderr, otherStdout, otherStderr);
+      assertSaveDockerImages(true, key, listStderr, otherOutput);
     }
   );
 });
