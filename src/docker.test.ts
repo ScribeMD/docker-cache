@@ -5,12 +5,16 @@ import { boolean, string, uniqueArray } from "fast-check";
 import type { InputOptions } from "@actions/core";
 import type { FunctionLike } from "jest-mock";
 
+import type { Util } from "../types/aliases.js";
+import type { execBashCommand } from "./util.js";
+
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
 
-jest.unstable_mockModule("./util.js", (): typeof import("./util.js") => ({
-  execBashCommand: jest.fn<typeof import("./util.js").execBashCommand>(),
-}));
+jest.unstable_mockModule(
+  "./util.js",
+  (): Util => ({ execBashCommand: jest.fn<typeof execBashCommand>() })
+);
 
 const cache = jest.mocked(await import("@actions/cache"));
 const core = jest.mocked(await import("@actions/core"));

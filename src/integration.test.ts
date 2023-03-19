@@ -4,13 +4,13 @@ import { string } from "fast-check";
 
 import { consoleOutput } from "./arbitraries/util.js";
 
-import type { ExecOptions } from "node:child_process";
+import type { exec, ExecOptions } from "node:child_process";
 import type { InputOptions } from "@actions/core";
 
 import type { ConsoleOutput } from "./util.js";
 
 jest.unstable_mockModule("node:child_process", () => ({
-  exec: jest.fn<typeof import("node:child_process").exec>(),
+  exec: jest.fn<typeof exec>(),
 }));
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
@@ -64,7 +64,7 @@ describe("Integration Test", (): void => {
   });
 
   const mockExec = (listStderr: string, otherOutput: ConsoleOutput): void => {
-    child_process.exec.mockImplementation(<typeof child_process.exec>((
+    child_process.exec.mockImplementation(<typeof exec>((
       command: string,
       _options: any,
       callback: any

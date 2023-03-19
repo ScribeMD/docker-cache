@@ -4,10 +4,12 @@ import { string } from "fast-check";
 
 import { consoleOutput, platform } from "./arbitraries/util.js";
 
+import type { exec } from "node:child_process";
+
 import type { ConsoleOutput } from "./util.js";
 
 jest.unstable_mockModule("node:child_process", () => ({
-  exec: jest.fn<typeof import("node:child_process").exec>(),
+  exec: jest.fn<typeof exec>(),
 }));
 
 jest.mock("@actions/core");
@@ -24,7 +26,7 @@ describe("Util", (): void => {
       platform: NodeJS.Platform,
       output: ConsoleOutput
     ): Promise<string> => {
-      child_process.exec.mockImplementationOnce(<typeof child_process.exec>((
+      child_process.exec.mockImplementationOnce(<typeof exec>((
         _command: any,
         _options: any,
         callback: any
