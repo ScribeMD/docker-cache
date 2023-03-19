@@ -1,9 +1,12 @@
 import { jest } from "@jest/globals";
 
+import type { loadDockerImages } from "./docker.js";
+import type { Docker } from "../types/aliases.js";
+
 jest.unstable_mockModule(
   "./docker.js",
-  (): Partial<typeof import("./docker.js")> => ({
-    loadDockerImages: jest.fn<typeof import("./docker.js").loadDockerImages>(),
+  (): Partial<Docker> => ({
+    loadDockerImages: jest.fn<typeof loadDockerImages>(),
   })
 );
 
