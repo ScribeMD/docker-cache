@@ -11,9 +11,8 @@ jest.unstable_mockModule("node:child_process", () => ({
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
 
-const getKey = (paths: string[], key: string): string => {
-  return [...paths, key].join(", ");
-};
+const getKey = (paths: string[], key: string): string =>
+  [...paths, key].join(", ");
 
 describe("Integration Test", (): void => {
   const EXEC_OPTIONS = { shell: "/usr/bin/bash" };
@@ -53,9 +52,7 @@ describe("Integration Test", (): void => {
       }
     );
 
-    core.getState.mockImplementation((key: string): string => {
-      return state[key] || "";
-    });
+    core.getState.mockImplementation((key: string): string => state[key] || "");
 
     core.saveState.mockImplementation((key: string, value: any): void => {
       state[key] = value.toString();
