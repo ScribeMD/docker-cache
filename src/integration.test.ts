@@ -76,12 +76,14 @@ describe("Integration Test", (): void => {
     ): any => {
       let output: ConsoleOutput;
       if (command === LIST_COMMAND) {
-        /* When Docker is running as root, docker image list generates a list that includes a
-         * standard set of Docker images that are pre-cached by GitHub Actions. The production
-         * code filters out the Docker images present during the restore step from the list of
-         * images to save since caching pre-cached images would harm performance and waste
-         * cache space. This mock implementation of docker image list ensures a non-empty
-         * difference between the restore and save steps so there is something to save.
+        /* When Docker is running as root, docker image list generates a list
+         * that includes a standard set of Docker images that are pre-cached by
+         * GitHub Actions. The production code filters out the Docker images
+         * present during the restore step from the list of images to save since
+         * caching pre-cached images would harm performance and waste cache
+         * space. This mock implementation of docker image list ensures a
+         * non-empty difference between the restore and save steps so there is
+         * something to save.
          */
         dockerImages.push(`test-docker-image:v${++callCount}`);
         output = joinOutput(dockerImages, listStderr);

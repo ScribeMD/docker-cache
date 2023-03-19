@@ -201,8 +201,8 @@ describe("Docker images", (): void => {
 
       /* The cache must be restored before the Docker images can be loaded. This
        * at least checks that the calls are made in the right order, but doesn't
-       * ensure that the cache finished restoring before the Docker images started
-       * loading.
+       * ensure that the cache finished restoring before the Docker images
+       * started loading.
        */
       assertCalledInOrder<FunctionLike>(
         core.getInput,
