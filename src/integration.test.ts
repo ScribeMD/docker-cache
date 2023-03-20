@@ -15,6 +15,11 @@ jest.unstable_mockModule("node:child_process", () => ({
 jest.mock("@actions/cache");
 jest.mock("@actions/core");
 
+const child_process = jest.mocked(await import("node:child_process"));
+const cache = jest.mocked(await import("@actions/cache"));
+const core = jest.mocked(await import("@actions/core"));
+const docker = await import("./docker.js");
+
 const getKey = (paths: string[], key: string): string =>
   [...paths, key].join(", ");
 
@@ -23,11 +28,6 @@ describe("Integration Test", (): void => {
   const LIST_COMMAND =
     'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
 
-  let child_process: jest.MockedObject<typeof import("node:child_process")>;
-  let cache: jest.MockedObject<typeof import("@actions/cache")>;
-  let core: jest.MockedObject<typeof import("@actions/core")>;
-  let docker: typeof import("./docker.js");
-
   let loadCommand: string;
   let inMemoryCache: Record<string, string>;
   let state: Record<string, string>;
@@ -35,11 +35,6 @@ describe("Integration Test", (): void => {
   let callCount: number;
 
   beforeEach(async (): Promise<void> => {
-    child_process = jest.mocked(await import("node:child_process"));
-    cache = jest.mocked(await import("@actions/cache"));
-    core = jest.mocked(await import("@actions/core"));
-    docker = await import("./docker.js");
-
     loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
 
     cache.saveCache.mockImplementation(
