@@ -7,9 +7,10 @@ jest.unstable_mockModule(
   })
 );
 
+const docker = jest.mocked(await import("./docker.js"));
+
 describe("Post", (): void => {
   test("saves Docker images on module load", async (): Promise<void> => {
-    const docker = jest.mocked(await import("./docker.js"));
     await import("./post.js");
 
     expect(docker.saveDockerImages).lastCalledWith();

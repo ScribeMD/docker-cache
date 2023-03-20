@@ -12,17 +12,11 @@ jest.unstable_mockModule("node:child_process", () => ({
 
 jest.mock("@actions/core");
 
+const child_process = jest.mocked(await import("node:child_process"));
+const core = jest.mocked(await import("@actions/core"));
+const util = await import("./util.js");
+
 describe("Util", (): void => {
-  let child_process: jest.MockedObject<typeof import("node:child_process")>;
-  let core: jest.MockedObject<typeof import("@actions/core")>;
-  let util: typeof import("./util.js");
-
-  beforeAll(async (): Promise<void> => {
-    child_process = jest.mocked(await import("node:child_process"));
-    core = jest.mocked(await import("@actions/core"));
-    util = await import("./util.js");
-  });
-
   describe("execBashCommand", (): void => {
     const mockedExec = async (
       command: string,

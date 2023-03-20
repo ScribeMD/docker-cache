@@ -12,6 +12,11 @@ jest.unstable_mockModule("./util.js", (): typeof import("./util.js") => ({
   execBashCommand: jest.fn<typeof import("./util.js").execBashCommand>(),
 }));
 
+const cache = jest.mocked(await import("@actions/cache"));
+const core = jest.mocked(await import("@actions/core"));
+const util = jest.mocked(await import("./util.js"));
+const docker = await import("./docker.js");
+
 // Expect the given mocks were called in the given order.
 const assertCalledInOrder = <T extends FunctionLike>(
   ...mocks: jest.MockedFunction<T>[]
@@ -33,18 +38,6 @@ const assertCalledInOrder = <T extends FunctionLike>(
 };
 
 describe("Docker images", (): void => {
-  let cache: jest.MockedObject<typeof import("@actions/cache")>;
-  let core: jest.MockedObject<typeof import("@actions/core")>;
-  let util: jest.MockedObject<typeof import("./util.js")>;
-  let docker: typeof import("./docker.js");
-
-  beforeAll(async (): Promise<void> => {
-    cache = jest.mocked(await import("@actions/cache"));
-    core = jest.mocked(await import("@actions/core"));
-    util = jest.mocked(await import("./util.js"));
-    docker = await import("./docker.js");
-  });
-
   const joinAndSplit = (list: string[]): string[] => {
     const joined = list.join("\n");
     return joined.split("\n");
