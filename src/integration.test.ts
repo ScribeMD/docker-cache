@@ -38,7 +38,7 @@ describe("Integration Test", (): void => {
     child_process = jest.mocked(await import("node:child_process"));
     cache = jest.mocked(await import("@actions/cache"));
     core = jest.mocked(await import("@actions/core"));
-    docker = jest.mocked(await import("./docker.js"));
+    docker = await import("./docker.js");
 
     loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
 
