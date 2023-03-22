@@ -67,7 +67,7 @@ jobs:
       - name: Run pre-commit hooks.
         uses: ScribeMD/pre-commit-action@0.9.62
       - name: Publish test results to GitHub.
-        uses: EnricoMi/publish-unit-test-result-action@v2.5.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.6.1
         if: always()
         with:
           files: src/reports/jest/junit.xml
