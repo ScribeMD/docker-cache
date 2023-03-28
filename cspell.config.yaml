@@ -1,6 +1,7 @@
 version: "0.2"
 language: en-US
 useGitignore: true
+usePnP: true
 ignorePaths:
   - .vscode
 import:
