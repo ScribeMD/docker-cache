@@ -5,6 +5,7 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
+    "github.vscode-github-actions",
     "ms-azuretools.vscode-docker",
     "ms-python.python",
     "ms-vscode-remote.remote-containers",
