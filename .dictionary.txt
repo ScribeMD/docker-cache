@@ -1,5 +1,3 @@
 Laven
-ltsc
-nanoserver
 npmpackagejsonlintignore
 trivyignore

@@ -3,6 +3,8 @@ language: en-US
 useGitignore: true
 ignorePaths:
   - .vscode
+import:
+  - "@cspell/dict-win32/cspell-ext.json"
 dictionaryDefinitions:
   - name: custom
     path: .dictionary.txt
@@ -13,3 +15,4 @@ dictionaries:
   - npm
   - python
   - python-common
+  - win32
