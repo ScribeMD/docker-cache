@@ -81,7 +81,7 @@ describe("Util", (): void => {
         expect(stdout).toBe("");
         expect(core.info).toHaveBeenCalledTimes(1);
         expect(core.error).not.toHaveBeenCalled();
-        expect(core.setFailed).lastCalledWith(error.toString());
+        expect(core.setFailed).lastCalledWith(error);
       },
       {
         examples: [
