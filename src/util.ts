@@ -24,8 +24,8 @@ const execBashCommand = async (
     stdout = output.stdout;
     info(stdout);
     error(output.stderr);
-  } catch (error: any) {
-    setFailed(error);
+  } catch (error: unknown) {
+    setFailed(<Error>error);
   }
   return stdout;
 };
