@@ -79,6 +79,12 @@ repos:
     hooks:
       - id: check-useless-excludes
 
+  ## Polyglot
+  - repo: https://github.com/pivotal/LicenseFinder
+    rev: v7.1.0
+    hooks:
+      - id: license-finder
+
   ## Python
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
     rev: v1.3.1
