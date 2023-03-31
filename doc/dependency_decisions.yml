@@ -1,0 +1,41 @@
+---
+- - :permit
+  - Apache 2.0
+  - :who: Kurt von Laven
+    :why: permissive free software license
+- - :permit
+  - CC-BY-4.0
+  - :who: Kurt von Laven
+    :why: permissive free license
+- - :permit
+  - BSD Zero Clause License
+  - :who: Kurt von Laven
+    :why: public domain equivalent software license
+- - :permit
+  - New BSD
+  - :who: Kurt von Laven
+    :why: permissive free software license
+- - :permit
+  - Simplified BSD
+  - :who: Kurt von Laven
+    :why: permissive free software license
+- - :permit
+  - ISC
+  - :who: Kurt von Laven
+    :why: permissive free software license
+- - :permit
+  - MIT
+  - :who: Kurt von Laven
+    :why: permissive free software license
+- - :permit
+  - Python-2.0
+  - :who: Kurt von Laven
+    :why: permissive free software license
+- - :permit
+  - Unlicense
+  - :who: Kurt von Laven
+    :why: public domain equivalent software license
+- - :approve
+  - docker-cache
+  - :who: Kurt von Laven
+    :why: top-level package
