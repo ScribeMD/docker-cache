@@ -54,7 +54,7 @@ performs Docker layer caching for built images but does not cache pulled images.
 
   ```yaml
   - name: Cache Docker images.
-    uses: ScribeMD/docker-cache@0.3.2
+    uses: ScribeMD/docker-cache@0.3.3
     with:
       key: docker-${{ runner.os }}-${{ hashFiles(paths) }}
   ```
