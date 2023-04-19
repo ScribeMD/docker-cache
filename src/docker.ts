@@ -36,6 +36,17 @@ const saveDockerImages = async (): Promise<void> => {
       `Cache miss occurred on the primary key ${key}. Not saving cache as ` +
         "read-only option was selected.",
     );
+    /* Check if a cache with our key has been saved between when we checked in
+     * loadDockerImages and now.
+     */
+  } else if (
+    key === (await restoreCache([""], key, [], { lookupOnly: true }))
+  ) {
+    info(
+      "A cache miss occurred during the initial attempt to load Docker " +
+        `images, but subsequently a cache with a matching key, ${key}, was saved. ` +
+        "This can occur when run in parallel. Not saving cache.",
+    );
   } else {
     const preexistingImages = getState(DOCKER_IMAGES_LIST).split("\n");
     info("Listing Docker images.");
