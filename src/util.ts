@@ -30,4 +30,4 @@ const execBashCommand = async (
   return stdout;
 };
 
-export { ConsoleOutput, execBashCommand };
+export { type ConsoleOutput, execBashCommand };
