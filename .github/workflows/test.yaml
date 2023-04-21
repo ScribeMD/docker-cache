@@ -57,7 +57,7 @@ jobs:
       - name: Cache Yarn dependencies.
         uses: actions/cache@v3.3.1
         with:
-          PATH: ${{ steps.yarn-cache.outputs.PATH }}
+          path: ${{ steps.yarn-cache.outputs.PATH }}
           key: >
             yarn-${{ steps.os.outputs.IMAGE }}-${{ hashFiles(
               '**/yarn.lock',
