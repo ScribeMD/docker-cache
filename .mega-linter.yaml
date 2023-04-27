@@ -20,6 +20,7 @@ SPELL_CSPELL_CONFIG_FILE: LINTER_DEFAULT
 # Work around https://github.com/oxsecurity/megalinter/issues/2500.
 SPELL_CSPELL_PRE_COMMANDS:
   - command: npm install @cspell/dict-win32@2.0.1
+    continue_if_failed: false
 TYPESCRIPT_DEFAULT_STYLE: prettier
 # Work around https://github.com/oxsecurity/megalinter/issues/1572.
 TYPESCRIPT_ES_CLI_LINT_MODE: project
