@@ -57,7 +57,7 @@ describe("Integration Test", (): void => {
       }
     );
 
-    core.getState.mockImplementation((key: string): string => state[key] || "");
+    core.getState.mockImplementation((key: string): string => state[key] ?? "");
 
     core.saveState.mockImplementation((key: string, value: ToString): void => {
       state[key] = value.toString();
