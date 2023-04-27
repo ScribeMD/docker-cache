@@ -3,10 +3,10 @@ import { promisify } from "node:util";
 
 import { error, info, setFailed } from "@actions/core";
 
-type ConsoleOutput = {
+interface ConsoleOutput {
   stdout: string;
   stderr: string;
-};
+}
 
 const execBashCommand = async (
   command: string,
