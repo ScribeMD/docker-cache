@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": ["jest.config.ts", "src/**/*.ts", "types/**/*.ts"],
   "exclude": ["**/reports"],
   "compilerOptions": {
     "newLine": "lf",
