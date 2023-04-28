@@ -21,16 +21,23 @@ const core = jest.mocked(await import("@actions/core"));
 const util = jest.mocked(await import("./util.js"));
 const docker = await import("./docker.js");
 
+const fail = (message: string): never => {
+  throw new Error(message);
+};
+
 // Expect the given mocks were called in the given order.
 const assertCalledInOrder = <T extends FunctionLike>(
   ...mocks: jest.MockedFunction<T>[]
 ): void => {
   const mockCallCounts = new Map<jest.MockedFunction<T>, number>();
   const callOrders = mocks.map(
-    (currentMock: jest.MockedFunction<T>): number => {
+    (currentMock: jest.MockedFunction<T>, index: number): number => {
       const callCount = mockCallCounts.get(currentMock) ?? 0;
       mockCallCounts.set(currentMock, callCount + 1);
-      return <number>currentMock.mock.invocationCallOrder[callCount];
+      return (
+        currentMock.mock.invocationCallOrder[callCount] ??
+        fail(`Mock function ${index} was called too few times: ${callCount}.`)
+      );
     }
   );
 
