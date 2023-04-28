@@ -25,12 +25,11 @@ const docker = await import("./docker.js");
 const assertCalledInOrder = <T extends FunctionLike>(
   ...mocks: jest.MockedFunction<T>[]
 ): void => {
-  const mockCallCounts: Record<string, number> = {};
+  const mockCallCounts = new Map<jest.MockedFunction<T>, number>();
   const callOrders = mocks.map(
     (currentMock: jest.MockedFunction<T>): number => {
-      const mockName = currentMock.getMockName();
-      const callCount = mockCallCounts[mockName] ?? 0;
-      mockCallCounts[mockName] = callCount + 1;
+      const callCount = mockCallCounts.get(currentMock) ?? 0;
+      mockCallCounts.set(currentMock, callCount + 1);
       return <number>currentMock.mock.invocationCallOrder[callCount];
     }
   );
