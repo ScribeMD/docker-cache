@@ -34,8 +34,8 @@ describe("Integration Test", (): void => {
     'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
 
   let loadCommand: string;
-  let inMemoryCache: Record<string, string>;
-  let state: Record<string, string>;
+  let inMemoryCache: Map<string, string>;
+  let state: Map<string, string>;
   let dockerImages: string[];
   let callCount: number;
   let execMock: Mock<(command: string) => Promise<ConsoleOutput>>;
@@ -46,7 +46,7 @@ describe("Integration Test", (): void => {
     cache.saveCache.mockImplementation(
       (paths: string[], primaryKey: string): Promise<number> => {
         const key = getKey(paths, primaryKey);
-        inMemoryCache[key] = primaryKey;
+        inMemoryCache.set(key, primaryKey);
         return Promise.resolve(0);
       }
     );
@@ -54,14 +54,16 @@ describe("Integration Test", (): void => {
     cache.restoreCache.mockImplementation(
       (paths: string[], primaryKey: string): Promise<string | undefined> => {
         const key = getKey(paths, primaryKey);
-        return Promise.resolve(inMemoryCache[key]);
+        return Promise.resolve(inMemoryCache.get(key));
       }
     );
 
-    core.getState.mockImplementation((key: string): string => state[key] ?? "");
+    core.getState.mockImplementation((key: string): string => {
+      return state.get(key) ?? "";
+    });
 
     core.saveState.mockImplementation((key: string, value: ToString): void => {
-      state[key] = value.toString();
+      state.set(key, value.toString());
     });
   });
 
@@ -185,8 +187,8 @@ describe("Integration Test", (): void => {
       otherOutput: ConsoleOutput
     ): Promise<void> => {
       jest.clearAllMocks();
-      inMemoryCache = {};
-      state = {};
+      inMemoryCache = new Map<string, string>();
+      state = new Map<string, string>();
       dockerImages = [];
       callCount = 0;
       core.getInput.mockReturnValue(key);
