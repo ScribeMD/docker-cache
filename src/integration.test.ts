@@ -25,8 +25,8 @@ interface ToString {
   toString(): string;
 }
 
-const getKey = (paths: string[], key: string): string =>
-  [...paths, key].join(", ");
+const getKey = (paths: string[], primaryKey: string): string =>
+  [...paths, primaryKey].join(", ");
 
 describe("Integration Test", (): void => {
   const EXEC_OPTIONS = { shell: "/usr/bin/bash" };
