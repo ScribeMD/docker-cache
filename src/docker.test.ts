@@ -121,7 +121,7 @@ describe("Docker images", (): void => {
       core.getInput.mockReturnValueOnce(readOnly.toString());
       if (!readOnly) {
         core.getState.mockReturnValueOnce(preexistingImages.join("\n"));
-        const images = [...new Set([...preexistingImages, ...newImages])];
+        const images = [...new Set(preexistingImages.concat(newImages))];
         util.execBashCommand.mockResolvedValueOnce(images.join("\n"));
       }
     }
