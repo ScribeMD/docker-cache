@@ -45,15 +45,16 @@ describe("Integration Test", (): void => {
 
     cache.saveCache.mockImplementation(
       (paths: string[], primaryKey: string): Promise<number> => {
-        inMemoryCache[getKey(paths, primaryKey)] = primaryKey;
+        const key = getKey(paths, primaryKey);
+        inMemoryCache[key] = primaryKey;
         return Promise.resolve(0);
       }
     );
 
     cache.restoreCache.mockImplementation(
       (paths: string[], primaryKey: string): Promise<string | undefined> => {
-        const value = inMemoryCache[getKey(paths, primaryKey)];
-        return Promise.resolve(value);
+        const key = getKey(paths, primaryKey);
+        return Promise.resolve(inMemoryCache[key]);
       }
     );
 
