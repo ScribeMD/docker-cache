@@ -44,8 +44,8 @@ describe("Integration Test", (): void => {
     loadCommand = `docker load --input ${docker.DOCKER_IMAGES_PATH}`;
 
     cache.saveCache.mockImplementation(
-      (paths: string[], key: string): Promise<number> => {
-        inMemoryCache[getKey(paths, key)] = key;
+      (paths: string[], primaryKey: string): Promise<number> => {
+        inMemoryCache[getKey(paths, primaryKey)] = primaryKey;
         return Promise.resolve(0);
       }
     );
