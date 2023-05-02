@@ -57,21 +57,21 @@ files = [
 
 [[package]]
 name = "commitizen"
-version = "3.1.0"
+version = "3.2.0"
 description = "Python commitizen client tool"
 category = "dev"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "commitizen-3.1.0-py3-none-any.whl", hash = "sha256:cfd0d8f6a2259bd52b42f0dbbb8de171110104af89884b844e4ce30668f82c7d"},
-    {file = "commitizen-3.1.0.tar.gz", hash = "sha256:b09999c2a411ec5e9dbbb40aca43cff355e4a3da5f3dca69fbaed7a87d1559c2"},
+    {file = "commitizen-3.2.0-py3-none-any.whl", hash = "sha256:7a694374d73590a2120b018516395ac6a2a8ee9c4a6eb743e82bad542c500525"},
+    {file = "commitizen-3.2.0.tar.gz", hash = "sha256:2c2b9b72b66bfa82cf8041ca2577443cbc96e964c3ef676b11d837e2aa8ea487"},
 ]
 
 [package.dependencies]
-argcomplete = ">=1.12.1,<2.2"
+argcomplete = ">=1.12.1,<3.1"
 charset-normalizer = ">=2.1.0,<4"
 colorama = ">=0.4.1,<0.5.0"
-decli = ">=0.5.2,<0.6.0"
+decli = ">=0.6.0,<0.7.0"
 importlib_metadata = ">=4.13,<5"
 jinja2 = ">=2.10.3"
 packaging = ">=19"
@@ -82,14 +82,14 @@ tomlkit = ">=0.5.3,<1.0.0"
 
 [[package]]
 name = "decli"
-version = "0.5.2"
+version = "0.6.0"
 description = "Minimal, easy-to-use, declarative cli tool"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "decli-0.5.2-py3-none-any.whl", hash = "sha256:d3207bc02d0169bf6ed74ccca09ce62edca0eb25b0ebf8bf4ae3fb8333e15ca0"},
-    {file = "decli-0.5.2.tar.gz", hash = "sha256:f2cde55034a75c819c630c7655a844c612f2598c42c21299160465df6ad463ad"},
+    {file = "decli-0.6.0-py3-none-any.whl", hash = "sha256:d5ed1d509f5a6cf765a4d7350f7ffb0be0c1770840cbd38b05fb0aab642645e8"},
+    {file = "decli-0.6.0.tar.gz", hash = "sha256:2915a55525ef2b1a0ce88b8ccba62ac22df5b6ff3ed2094448e0f951f08e7ba5"},
 ]
 
 [[package]]
@@ -474,4 +474,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "==3.11.3"
-content-hash = "62e34d75bf4d91f9d2632ae6a9fc52c73ccf381d5e123a8c48b6d34cf17cd340"
+content-hash = "8ab391cf0431a039904ea4f78ac5a6334d8477c7a08943f3528c8f80da6fab58"
