@@ -1,6 +1,8 @@
 import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
-import { boolean, fullUnicodeString, uniqueArray } from "fast-check";
+import { boolean, fullUnicodeString } from "fast-check";
+
+import { dockerImages, uniquePair } from "./arbitraries/util.js";
 
 import type { InputOptions } from "@actions/core";
 import type { FunctionLike } from "jest-mock";
@@ -48,11 +50,6 @@ const assertCalledInOrder = <T extends FunctionLike>(
 };
 
 describe("Docker images", (): void => {
-  const joinAndSplit = (list: string[]): string[] => {
-    const joined = list.join("\n");
-    return joined.split("\n");
-  };
-
   const assertLoadDockerImages = (key: string, cacheHit: boolean): void => {
     expect(core.getInput).lastCalledWith("key", { required: true });
     expect(cache.restoreCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], key);
@@ -236,23 +233,15 @@ describe("Docker images", (): void => {
       fullUnicodeString(),
       boolean(),
       boolean(),
-      uniqueArray(fullUnicodeString()),
-      uniqueArray(fullUnicodeString()),
+      uniquePair(dockerImages(), dockerImages()),
     ],
     async (
       key: string,
       cacheHit: boolean,
       readOnly: boolean,
-      preexistingImages: string[],
-      newImages: string[]
+      [preexistingImages, newImages]: [string[], string[]]
     ): Promise<void> => {
       jest.clearAllMocks();
-      preexistingImages = joinAndSplit(preexistingImages);
-      const preexistingImageSet = new Set(preexistingImages);
-      newImages = joinAndSplit(newImages);
-      newImages = newImages.filter(
-        (image: string): boolean => !preexistingImageSet.has(image)
-      );
       await mockedSaveDockerImages(
         key,
         cacheHit,
@@ -273,10 +262,10 @@ describe("Docker images", (): void => {
     },
     {
       examples: [
-        ["my-key", false, false, ["preexisting-image"], ["new-image"]],
-        ["my-key", false, false, ["preexisting-image"], ["preexisting-image"]],
-        ["my-key", false, true, ["preexisting-image"], ["new-image"]],
-        ["my-key", true, false, ["preexisting-image"], ["new-image"]],
+        ["my-key", false, false, [["preexisting-image"], ["new-image"]]],
+        ["my-key", false, false, [["preexisting-image"], []]],
+        ["my-key", false, true, [["preexisting-image"], ["new-image"]]],
+        ["my-key", true, false, [["preexisting-image"], ["new-image"]]],
       ],
     }
   );
