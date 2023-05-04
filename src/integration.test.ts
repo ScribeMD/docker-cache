@@ -1,7 +1,7 @@
 import { exec } from "node:child_process";
 import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
-import { string } from "fast-check";
+import { fullUnicodeString } from "fast-check";
 
 import { consoleOutput } from "./arbitraries/util.js";
 import { utilFactory } from "./mocks/util.js";
@@ -180,7 +180,7 @@ describe("Integration Test", (): void => {
 
   testProp(
     "cache misses, then hits",
-    [string(), string(), consoleOutput()],
+    [fullUnicodeString(), fullUnicodeString(), consoleOutput()],
     async (
       key: string,
       listStderr: string,

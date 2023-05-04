@@ -1,7 +1,7 @@
 import { exec } from "node:child_process";
 import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
-import { string } from "fast-check";
+import { fullUnicodeString } from "fast-check";
 
 import { consoleOutput, platform } from "./arbitraries/util.js";
 import { utilFactory } from "./mocks/util.js";
@@ -44,7 +44,7 @@ describe("Util", (): void => {
 
     testProp(
       "ferries command output to GitHub Actions on success",
-      [string(), platform(), consoleOutput()],
+      [fullUnicodeString(), platform(), consoleOutput()],
       async (
         command: string,
         platform: NodeJS.Platform,
@@ -67,7 +67,7 @@ describe("Util", (): void => {
 
     testProp(
       "ferries failure to GitHub Actions",
-      [string(), string(), platform(), consoleOutput()],
+      [fullUnicodeString(), fullUnicodeString(), platform(), consoleOutput()],
       async (
         command: string,
         errorMessage: string,

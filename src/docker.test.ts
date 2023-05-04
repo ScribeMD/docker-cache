@@ -1,6 +1,6 @@
 import { testProp } from "@fast-check/jest";
 import { jest } from "@jest/globals";
-import { boolean, string, uniqueArray } from "fast-check";
+import { boolean, fullUnicodeString, uniqueArray } from "fast-check";
 
 import type { InputOptions } from "@actions/core";
 import type { FunctionLike } from "jest-mock";
@@ -195,7 +195,7 @@ describe("Docker images", (): void => {
 
   testProp(
     "are loaded on cache hit",
-    [string()],
+    [fullUnicodeString()],
     async (key: string): Promise<void> => {
       jest.clearAllMocks();
       await mockedLoadDockerImages(key, true);
@@ -217,7 +217,7 @@ describe("Docker images", (): void => {
 
   testProp(
     "that are present during restore step are recorded on cache miss",
-    [string(), string()],
+    [fullUnicodeString(), fullUnicodeString()],
     async (key: string, images: string): Promise<void> => {
       jest.clearAllMocks();
       await mockedLoadDockerImages(key, false, images);
@@ -233,11 +233,11 @@ describe("Docker images", (): void => {
   testProp(
     "are saved unless cache hit, in read-only mode, or new Docker image list is empty",
     [
-      string(),
+      fullUnicodeString(),
       boolean(),
       boolean(),
-      uniqueArray(string()),
-      uniqueArray(string()),
+      uniqueArray(fullUnicodeString()),
+      uniqueArray(fullUnicodeString()),
     ],
     async (
       key: string,
