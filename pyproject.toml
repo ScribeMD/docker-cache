@@ -24,4 +24,4 @@ build-backend = "poetry.core.masonry.api"
 
   [tool.poetry.dev-dependencies]
   commitizen = "==3.2.1" # Keep in sync with .pre-commit-config.yaml.
-  pre-commit = "==3.3.1"
+  pre-commit = "==3.3.2"
