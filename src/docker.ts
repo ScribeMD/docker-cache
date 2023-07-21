@@ -29,6 +29,8 @@ const loadDockerImages = async (): Promise<void> => {
 
 const saveDockerImages = async (): Promise<void> => {
   const key = getInput("key", { required: true });
+  const includedImages = getInput("included-images", { required: true });
+  const includedImagesList = includedImages.split(" ");
   if (getState(CACHE_HIT) === "true") {
     info(`Cache hit occurred on the primary key ${key}, not saving cache.`);
   } else if (getInput("read-only") === "true") {
@@ -42,7 +44,9 @@ const saveDockerImages = async (): Promise<void> => {
     const images = await execBashCommand(LIST_COMMAND);
     const imagesList = images.split("\n");
     const newImages = imagesList.filter(
-      (image: string): boolean => !preexistingImages.includes(image)
+      (image: string): boolean =>
+        !preexistingImages.includes(image) &&
+        includedImagesList.includes(image)
     );
     if (newImages.length === 0) {
       info("No Docker images to save");
@@ -52,6 +56,8 @@ const saveDockerImages = async (): Promise<void> => {
           "will be saved."
       );
       const newImagesArgs = newImages.join(" ");
+      info("newImagesArgs");
+      info(newImagesArgs);
       const cmd = `docker save --output ${DOCKER_IMAGES_PATH} ${newImagesArgs}`;
       await execBashCommand(cmd);
       await saveCache([DOCKER_IMAGES_PATH], key);
