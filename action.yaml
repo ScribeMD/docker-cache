@@ -11,6 +11,12 @@ inputs:
       are not supported, because partial cache restoration leads to a "snowball"
       effect.
     required: true
+  included-images:
+    description: >
+      If "all", all images will be included.
+      Otherwise, specify precisely all needed images to be included separated with spaces.
+    required: true
+    default: "all"
   read-only:
     description: If "true", disables saving the cache upon cache miss
     required: false
