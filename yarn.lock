@@ -684,13 +684,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fast-check/jest@npm:1.6.2":
-  version: 1.6.2
-  resolution: "@fast-check/jest@npm:1.6.2"
+"@fast-check/jest@npm:1.7.1":
+  version: 1.7.1
+  resolution: "@fast-check/jest@npm:1.7.1"
   dependencies:
     fast-check: ^3.0.0
   peerDependencies:
-    "@fast-check/worker": ~0.0.1
+    "@fast-check/worker": ~0.0.7
     "@jest/expect": ">=28.0.0"
     "@jest/globals": ">=25.5.2"
   peerDependenciesMeta:
@@ -698,7 +698,7 @@ __metadata:
       optional: true
     "@jest/expect":
       optional: true
-  checksum: baa8f8742d8a574dccf7bd11d95415c6f03e96167156c0b793090a887c4a0ccd9e46121e9caf260d80ce961b88ea20a12a027d982ceecd6a009fad1143e4eb01
+  checksum: 792f0cedd751ffe3c40ae83d7b54c598ac884b216a6c9058b1bfd710a2c140a465a2b2b62d7f1a48864f5353f4be75d8e212d8b819f4b14ced7473517ad35bdf
   languageName: node
   linkType: hard
 
@@ -2489,7 +2489,7 @@ __metadata:
     "@actions/cache": 3.2.1
     "@actions/core": 1.10.0
     "@cspell/dict-win32": 2.0.1
-    "@fast-check/jest": 1.6.2
+    "@fast-check/jest": 1.7.1
     "@jest/globals": 29.6.2
     "@jest/types": 29.6.1
     "@tsconfig/node18-strictest-esm": 1.0.1
