@@ -2503,7 +2503,7 @@ __metadata:
     "@yarnpkg/sdks": 2.7.1
     eslint: 8.46.0
     eslint-config-prettier: 8.8.0
-    fast-check: 3.9.0
+    fast-check: 3.12.0
     jest: 29.6.2
     jest-junit: 16.0.0
     jest-mock: 29.6.2
@@ -2802,12 +2802,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-check@npm:3.9.0, fast-check@npm:^3.0.0":
-  version: 3.9.0
-  resolution: "fast-check@npm:3.9.0"
+"fast-check@npm:3.12.0, fast-check@npm:^3.0.0":
+  version: 3.12.0
+  resolution: "fast-check@npm:3.12.0"
   dependencies:
     pure-rand: ^6.0.0
-  checksum: d613687db6e7423e73560c50ab58de65e472dedaeb22daed8875281e7d22c310f6bddf531ac5b1c1cc92d9d4cdbd19fc8329b09b04db2db7e67e51cea93061a6
+  checksum: 3ac61af9344731ebf63ae52c6a211bbcd8497fc2d030b980d96e4caeb04d47592a864db9085669e8b683684cf45d9bc7bf8a6dfb995367d4ef2c87bf5122e088
   languageName: node
   linkType: hard
 
