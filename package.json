@@ -29,7 +29,7 @@
     "@jest/globals": "29.6.2",
     "@jest/types": "29.6.1",
     "@tsconfig/node18-strictest-esm": "1.0.1",
-    "@types/eslint": "8.44.1",
+    "@types/eslint": "8.44.2",
     "@types/jest": "29.5.3",
     "@types/node": "18.17.2",
     "@typescript-eslint/eslint-plugin": "6.2.1",
