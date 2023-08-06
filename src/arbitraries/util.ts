@@ -22,8 +22,8 @@ export const dockerImages = (): Arbitrary<string[]> =>
   uniqueArray(
     stringOf(
       fullUnicode().filter((char: string): boolean => char !== "\n"),
-      { minLength: 1 }
-    )
+      { minLength: 1 },
+    ),
   );
 
 export const platform = (): Arbitrary<NodeJS.Platform> =>
@@ -37,7 +37,7 @@ export const platform = (): Arbitrary<NodeJS.Platform> =>
  */
 export const uniquePair = <T>(
   arrArbA: Arbitrary<T[]>,
-  arrArbB: Arbitrary<T[]>
+  arrArbB: Arbitrary<T[]>,
 ): Arbitrary<[T[], T[]]> =>
   tuple(arrArbA, arrArbB).map(([arrayA, arrayB]: [T[], T[]]): [T[], T[]] => {
     const setA = new Set(arrayA);

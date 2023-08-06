@@ -48,14 +48,14 @@ describe("Integration Test", (): void => {
         const key = getKey(paths, primaryKey);
         inMemoryCache.set(key, primaryKey);
         return Promise.resolve(0);
-      }
+      },
     );
 
     cache.restoreCache.mockImplementation(
       (paths: string[], primaryKey: string): Promise<string | undefined> => {
         const key = getKey(paths, primaryKey);
         return Promise.resolve(inMemoryCache.get(key));
-      }
+      },
     );
 
     core.getState.mockImplementation((key: string): string => {
@@ -100,14 +100,14 @@ describe("Integration Test", (): void => {
     infoCallNum: number,
     execCallNum: number,
     command: string,
-    output: ConsoleOutput
+    output: ConsoleOutput,
   ): void => {
     expect(core.info).nthCalledWith<[string]>(infoCallNum, command);
     expect(nodeUtil.promisify).nthCalledWith<[typeof exec]>(execCallNum, exec);
     expect(execMock).nthCalledWith<[string, ExecOptions]>(
       execCallNum,
       command,
-      EXEC_OPTIONS
+      EXEC_OPTIONS,
     );
     expect(core.info).nthCalledWith<[string]>(infoCallNum + 1, output.stdout);
     expect(core.error).nthCalledWith<[string]>(execCallNum, output.stderr);
@@ -117,7 +117,7 @@ describe("Integration Test", (): void => {
   const assertLoadDockerImages = (
     cacheHit: boolean,
     listStderr: string,
-    loadOutput: ConsoleOutput
+    loadOutput: ConsoleOutput,
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
@@ -130,7 +130,7 @@ describe("Integration Test", (): void => {
       expect(core.info).nthCalledWith<[string]>(
         1,
         "Recording preexisting Docker images. These include standard images " +
-          "pre-cached by GitHub Actions when Docker is run as root."
+          "pre-cached by GitHub Actions when Docker is run as root.",
       );
       const listOutput = joinOutput(dockerImages, listStderr);
       assertExecBashCommand(2, 1, LIST_COMMAND, listOutput);
@@ -140,7 +140,7 @@ describe("Integration Test", (): void => {
 
   const assertSaveCacheHit = (key: string): void => {
     expect(core.info).lastCalledWith(
-      `Cache hit occurred on the primary key ${key}, not saving cache.`
+      `Cache hit occurred on the primary key ${key}, not saving cache.`,
     );
     expect(execMock).not.toHaveBeenCalled();
     expect(core.setFailed).not.toHaveBeenCalled();
@@ -149,7 +149,7 @@ describe("Integration Test", (): void => {
 
   const assertSaveCacheMiss = (
     listStderr: string,
-    saveOutput: ConsoleOutput
+    saveOutput: ConsoleOutput,
   ): void => {
     expect(core.getInput).lastCalledWith("read-only");
     expect(core.info).nthCalledWith<[string]>(1, "Listing Docker images.");
@@ -158,7 +158,7 @@ describe("Integration Test", (): void => {
     expect(core.info).nthCalledWith<[string]>(
       4,
       "Images present before restore step will be skipped; only new images " +
-        "will be saved."
+        "will be saved.",
     );
     const saveCommand = `docker save --output ${docker.DOCKER_IMAGES_PATH} test-docker-image:v2`;
     assertExecBashCommand(5, 2, saveCommand, saveOutput);
@@ -168,7 +168,7 @@ describe("Integration Test", (): void => {
     cacheHit: boolean,
     key: string,
     listStderr: string,
-    saveOutput: ConsoleOutput
+    saveOutput: ConsoleOutput,
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
@@ -184,7 +184,7 @@ describe("Integration Test", (): void => {
     async (
       key: string,
       listStderr: string,
-      otherOutput: ConsoleOutput
+      otherOutput: ConsoleOutput,
     ): Promise<void> => {
       jest.clearAllMocks();
       inMemoryCache = new Map<string, string>();
@@ -216,6 +216,6 @@ describe("Integration Test", (): void => {
       await docker.saveDockerImages();
       // Expect cache not to have been saved on cache hit.
       assertSaveDockerImages(true, key, listStderr, otherOutput);
-    }
+    },
   );
 });

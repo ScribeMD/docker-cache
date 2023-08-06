@@ -15,7 +15,7 @@ jest.mock("@actions/core");
 
 jest.unstable_mockModule(
   "./util.js",
-  (): Util => ({ execBashCommand: jest.fn<typeof execBashCommand>() })
+  (): Util => ({ execBashCommand: jest.fn<typeof execBashCommand>() }),
 );
 
 const cache = jest.mocked(await import("@actions/cache"));
@@ -40,11 +40,11 @@ const assertCalledInOrder = <T extends FunctionLike>(
         currentMock.mock.invocationCallOrder[callCount] ??
         fail(`Mock function ${index} was called too few times: ${callCount}.`)
       );
-    }
+    },
   );
 
   const sortedCallOrders = [...callOrders].sort(
-    (a: number, b: number): number => a - b
+    (a: number, b: number): number => a - b,
   );
   expect(callOrders).toStrictEqual(sortedCallOrders);
 };
@@ -56,16 +56,16 @@ describe("Docker images", (): void => {
     expect(core.saveState).nthCalledWith<[string, boolean]>(
       1,
       docker.CACHE_HIT,
-      cacheHit
+      cacheHit,
     );
     expect(core.setOutput).lastCalledWith(docker.CACHE_HIT, cacheHit);
     if (cacheHit) {
       expect(util.execBashCommand).lastCalledWith(
-        `docker load --input ${docker.DOCKER_IMAGES_PATH}`
+        `docker load --input ${docker.DOCKER_IMAGES_PATH}`,
       );
     } else {
       expect(util.execBashCommand).lastCalledWith(
-        'docker image list --format "{{ .Repository }}:{{ .Tag }}"'
+        'docker image list --format "{{ .Repository }}:{{ .Tag }}"',
       );
     }
     expect(util.execBashCommand).toHaveBeenCalledTimes(1);
@@ -74,7 +74,7 @@ describe("Docker images", (): void => {
   const mockedLoadDockerImages = async (
     key: string,
     cacheHit: boolean,
-    images = ""
+    images = "",
   ): Promise<void> => {
     core.getInput.mockReturnValue(key);
     cache.restoreCache.mockResolvedValueOnce(cacheHit ? key : undefined);
@@ -86,7 +86,7 @@ describe("Docker images", (): void => {
 
   const assertSaveDockerImages = (
     cacheHit: boolean,
-    readOnly = false
+    readOnly = false,
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
@@ -99,7 +99,7 @@ describe("Docker images", (): void => {
         expect(core.info).nthCalledWith<[string]>(1, "Listing Docker images.");
         expect(util.execBashCommand).nthCalledWith<[string]>(
           1,
-          'docker image list --format "{{ .Repository }}:{{ .Tag }}"'
+          'docker image list --format "{{ .Repository }}:{{ .Tag }}"',
         );
       }
     }
@@ -110,7 +110,7 @@ describe("Docker images", (): void => {
     cacheHit: boolean,
     readOnly: boolean,
     preexistingImages: string[],
-    newImages: string[]
+    newImages: string[],
   ): Promise<void> => {
     core.getInput.mockReturnValueOnce(key);
     core.getState.mockReturnValueOnce(cacheHit.toString());
@@ -134,7 +134,7 @@ describe("Docker images", (): void => {
 
   const assertSaveCacheHit = (key: string): void => {
     expect(core.info).lastCalledWith(
-      `Cache hit occurred on the primary key ${key}, not saving cache.`
+      `Cache hit occurred on the primary key ${key}, not saving cache.`,
     );
     assertCacheNotSaved();
   };
@@ -142,7 +142,7 @@ describe("Docker images", (): void => {
   const assertSaveReadOnly = (key: string): void => {
     expect(core.info).lastCalledWith(
       `Cache miss occurred on the primary key ${key}. ` +
-        "Not saving cache as read-only option was selected."
+        "Not saving cache as read-only option was selected.",
     );
     assertCacheNotSaved();
   };
@@ -156,10 +156,12 @@ describe("Docker images", (): void => {
   const assertSaveCacheMiss = (key: string, newImages: string[]): void => {
     expect(core.info).lastCalledWith(
       "Images present before restore step will be skipped; only new images " +
-        "will be saved."
+        "will be saved.",
     );
     expect(util.execBashCommand).lastCalledWith(
-      `docker save --output ${docker.DOCKER_IMAGES_PATH} ${newImages.join(" ")}`
+      `docker save --output ${docker.DOCKER_IMAGES_PATH} ${newImages.join(
+        " ",
+      )}`,
     );
     expect(cache.saveCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], key);
 
@@ -174,7 +176,7 @@ describe("Docker images", (): void => {
       core.getState,
       util.execBashCommand,
       util.execBashCommand,
-      cache.saveCache
+      cache.saveCache,
     );
   };
 
@@ -207,9 +209,9 @@ describe("Docker images", (): void => {
       assertCalledInOrder<FunctionLike>(
         core.getInput,
         cache.restoreCache,
-        util.execBashCommand
+        util.execBashCommand,
       );
-    }
+    },
   );
 
   testProp(
@@ -221,10 +223,10 @@ describe("Docker images", (): void => {
 
       expect(core.info).lastCalledWith(
         "Recording preexisting Docker images. These include standard images " +
-          "pre-cached by GitHub Actions when Docker is run as root."
+          "pre-cached by GitHub Actions when Docker is run as root.",
       );
       expect(core.saveState).lastCalledWith(docker.DOCKER_IMAGES_LIST, images);
-    }
+    },
   );
 
   testProp(
@@ -239,7 +241,7 @@ describe("Docker images", (): void => {
       key: string,
       cacheHit: boolean,
       readOnly: boolean,
-      [preexistingImages, newImages]: [string[], string[]]
+      [preexistingImages, newImages]: [string[], string[]],
     ): Promise<void> => {
       jest.clearAllMocks();
       await mockedSaveDockerImages(
@@ -247,7 +249,7 @@ describe("Docker images", (): void => {
         cacheHit,
         readOnly,
         preexistingImages,
-        newImages
+        newImages,
       );
 
       if (cacheHit) {
@@ -267,6 +269,6 @@ describe("Docker images", (): void => {
         ["my-key", false, true, [["preexisting-image"], ["new-image"]]],
         ["my-key", true, false, [["preexisting-image"], ["new-image"]]],
       ],
-    }
+    },
   );
 });

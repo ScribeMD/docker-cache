@@ -7,7 +7,7 @@ jest.unstable_mockModule(
   "./docker.js",
   (): Partial<Docker> => ({
     saveDockerImages: jest.fn<typeof saveDockerImages>(),
-  })
+  }),
 );
 
 const docker = jest.mocked(await import("./docker.js"));

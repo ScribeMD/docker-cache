@@ -26,15 +26,15 @@ repos:
       - id: poetry-lock
       - id: poetry-install
       - id: pre-commit-install
-      - id: megalinter-incremental
-        args: &megalinter-args [--flavor, javascript, --release, v6.22.2]
-      - id: megalinter-full
-        args: *megalinter-args
       - id: yarn-install
       - id: yarn-dedupe
       - id: yarn-audit
       - id: yarn-build
       - id: yarn-test
+      - id: megalinter-incremental
+        args: &megalinter-args [--flavor, javascript, --release, v7.2.1]
+      - id: megalinter-full
+        args: *megalinter-args
 
   ## Markdown
   - repo: https://github.com/frnmst/md-toc

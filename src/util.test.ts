@@ -21,11 +21,11 @@ describe("Util", (): void => {
       command: string,
       error: Error | null,
       platform: NodeJS.Platform,
-      output: ConsoleOutput
+      output: ConsoleOutput,
     ): Promise<string> => {
       const execMock = jest.fn(
         (): Promise<ConsoleOutput> =>
-          error ? Promise.reject(error) : Promise.resolve(output)
+          error ? Promise.reject(error) : Promise.resolve(output),
       );
 
       nodeUtil.promisify.mockReturnValueOnce(execMock);
@@ -48,7 +48,7 @@ describe("Util", (): void => {
       async (
         command: string,
         platform: NodeJS.Platform,
-        output: ConsoleOutput
+        output: ConsoleOutput,
       ): Promise<void> => {
         jest.clearAllMocks();
         const stdout = await mockedExec(command, null, platform, output);
@@ -62,7 +62,7 @@ describe("Util", (): void => {
           ["sample Linux command", "linux", { stdout: "", stderr: "" }],
           ["sample Windows command", "win32", { stdout: "", stderr: "" }],
         ],
-      }
+      },
     );
 
     testProp(
@@ -72,7 +72,7 @@ describe("Util", (): void => {
         command: string,
         errorMessage: string,
         platform: NodeJS.Platform,
-        output: ConsoleOutput
+        output: ConsoleOutput,
       ): Promise<void> => {
         jest.clearAllMocks();
         const error = new Error(errorMessage);
@@ -88,7 +88,7 @@ describe("Util", (): void => {
           ["sample Linux command", "", "linux", { stdout: "", stderr: "" }],
           ["sample Windows command", "", "win32", { stdout: "", stderr: "" }],
         ],
-      }
+      },
     );
   });
 });
