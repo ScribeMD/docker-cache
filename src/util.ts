@@ -10,7 +10,7 @@ interface ConsoleOutput {
 
 const execBashCommand = async (
   command: string,
-  platform: NodeJS.Platform = process.platform
+  platform: NodeJS.Platform = process.platform,
 ): Promise<string> => {
   info(command);
   const execAsPromised = promisify(exec);

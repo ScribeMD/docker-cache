@@ -20,7 +20,7 @@ const loadDockerImages = async (): Promise<void> => {
   } else {
     info(
       "Recording preexisting Docker images. These include standard images " +
-        "pre-cached by GitHub Actions when Docker is run as root."
+        "pre-cached by GitHub Actions when Docker is run as root.",
     );
     const dockerImages = await execBashCommand(LIST_COMMAND);
     saveState(DOCKER_IMAGES_LIST, dockerImages);
@@ -34,7 +34,7 @@ const saveDockerImages = async (): Promise<void> => {
   } else if (getInput("read-only") === "true") {
     info(
       `Cache miss occurred on the primary key ${key}. Not saving cache as ` +
-        "read-only option was selected."
+        "read-only option was selected.",
     );
   } else {
     const preexistingImages = getState(DOCKER_IMAGES_LIST).split("\n");
@@ -42,14 +42,14 @@ const saveDockerImages = async (): Promise<void> => {
     const images = await execBashCommand(LIST_COMMAND);
     const imagesList = images.split("\n");
     const newImages = imagesList.filter(
-      (image: string): boolean => !preexistingImages.includes(image)
+      (image: string): boolean => !preexistingImages.includes(image),
     );
     if (newImages.length === 0) {
       info("No Docker images to save");
     } else {
       info(
         "Images present before restore step will be skipped; only new images " +
-          "will be saved."
+          "will be saved.",
       );
       const newImagesArgs = newImages.join(" ");
       const cmd = `docker save --output ${DOCKER_IMAGES_PATH} ${newImagesArgs}`;
