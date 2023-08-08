@@ -2,6 +2,7 @@ APPLY_FIXES: all
 CLEAR_REPORT_FOLDER: true
 DEFAULT_BRANCH: main
 DISABLE_LINTERS:
+  - MARKDOWN_MARKDOWN_LINK_CHECK # Superseded by Lychee
   - TYPESCRIPT_STANDARD # We use Prettier instead.
 FAIL_IF_MISSING_LINTER_IN_FLAVOR: true
 FILTER_REGEX_EXCLUDE: \.pnp\.(c|loader\.m)js|\.yarn|dist
