@@ -27,7 +27,7 @@
     "@cspell/dict-win32": "2.0.1",
     "@fast-check/jest": "1.7.1",
     "@jest/globals": "29.6.2",
-    "@jest/types": "29.6.1",
+    "@jest/types": "29.6.3",
     "@tsconfig/node18-strictest-esm": "1.0.1",
     "@types/eslint": "8.44.2",
     "@types/jest": "29.5.4",
