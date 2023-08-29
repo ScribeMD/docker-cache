@@ -10,7 +10,7 @@ FORMATTERS_DISABLE_ERRORS: false
 PRINT_ALPACA: false
 SHOW_ELAPSED_TIME: true
 JAVASCRIPT_DEFAULT_STYLE: prettier
-JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.1.cjs, run, eslint]
+JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
 JAVASCRIPT_ES_CONFIG_FILE: LINTER_DEFAULT
 JSON_PRETTIER_FILE_EXTENSIONS:
   - .json
@@ -24,5 +24,5 @@ SPELL_CSPELL_PRE_COMMANDS:
   - command: npm install @cspell/dict-win32@2.0.1
     continue_if_failed: false
 TYPESCRIPT_DEFAULT_STYLE: prettier
-TYPESCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.1.cjs, run, eslint]
+TYPESCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
 TYPESCRIPT_ES_CONFIG_FILE: LINTER_DEFAULT
