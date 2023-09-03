@@ -1,4 +1,4 @@
-EXTENDS: https://raw.githubusercontent.com/ScribeMD/.github/0.11.5/.github/base.mega-linter.yaml
+EXTENDS: https://raw.githubusercontent.com/ScribeMD/.github/0.11.6/.github/base.mega-linter.yaml
 JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
 # Work around https://github.com/oxsecurity/megalinter/issues/2500.
 SPELL_CSPELL_PRE_COMMANDS:
