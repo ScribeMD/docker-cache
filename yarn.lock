@@ -12,21 +12,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@actions/cache@npm:3.2.1":
-  version: 3.2.1
-  resolution: "@actions/cache@npm:3.2.1"
+"@actions/cache@npm:3.2.2":
+  version: 3.2.2
+  resolution: "@actions/cache@npm:3.2.2"
   dependencies:
     "@actions/core": ^1.10.0
     "@actions/exec": ^1.0.1
     "@actions/glob": ^0.1.0
-    "@actions/http-client": ^2.0.1
+    "@actions/http-client": ^2.1.1
     "@actions/io": ^1.0.1
     "@azure/abort-controller": ^1.1.0
     "@azure/ms-rest-js": ^2.6.0
     "@azure/storage-blob": ^12.13.0
     semver: ^6.1.0
     uuid: ^3.3.3
-  checksum: ff06f82cc0cfcbd1180e93db13ac066d7d08895ce8d696c83c6d16718ddc2fda538f77a8d2f899236db5b00dc97b30c9afe58ac206dde813541349b84fe840ff
+  checksum: 1dc43a66596b98a7d4ad9f3a3e92b24186e28a42486fac311c7f99c2883d0387a6078d76b31c5ca3af30bb2b929c6f8e5f352e315bcce4fb9cae5d5f2f1f5fad
   languageName: node
   linkType: hard
 
@@ -59,7 +59,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@actions/http-client@npm:^2.0.1":
+"@actions/http-client@npm:^2.0.1, @actions/http-client@npm:^2.1.1":
   version: 2.1.1
   resolution: "@actions/http-client@npm:2.1.1"
   dependencies:
@@ -2431,7 +2431,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "docker-cache@workspace:."
   dependencies:
-    "@actions/cache": 3.2.1
+    "@actions/cache": 3.2.2
     "@actions/core": 1.10.0
     "@cspell/dict-win32": 2.0.1
     "@fast-check/jest": 1.7.2
