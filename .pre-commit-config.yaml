@@ -32,7 +32,7 @@ repos:
       - id: yarn-build
       - id: yarn-test
       - id: megalinter-incremental
-        args: &megalinter-args [--flavor, javascript, --release, v7.2.1]
+        args: &megalinter-args [--flavor, javascript, --release, v7.3.0]
       - id: megalinter-full
         args: *megalinter-args
 
