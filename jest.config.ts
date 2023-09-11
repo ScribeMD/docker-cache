@@ -12,6 +12,7 @@ const config: JestConfigWithTsJest = {
       statements: 100,
     },
   },
+  extensionsToTreatAsEsm: [".ts"],
   moduleFileExtensions: ["ts", "js"],
   resetMocks: true,
   rootDir: "src",
