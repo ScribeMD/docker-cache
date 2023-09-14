@@ -12,7 +12,8 @@
     "build": "yarn run build:main && yarn run build:post",
     "build:main": "yarn run ncc build src/main.ts --out dist/main --minify",
     "build:post": "yarn run ncc build src/post.ts --out dist/post --minify",
-    "test": "yarn run tsc && yarn node --experimental-vm-modules \"$(yarn bin jest)\""
+    "jest:esm": "yarn node --experimental-vm-modules \"$(yarn bin jest)\"",
+    "test": "yarn run tsc && yarn run jest:esm"
   },
   "engines": {
     "node": "18.17.1",
