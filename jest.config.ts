@@ -15,7 +15,7 @@ const config: JestConfigWithTsJest = {
   extensionsToTreatAsEsm: [".ts"],
   moduleFileExtensions: ["ts", "js"],
   resetMocks: true,
-  rootDir: "src",
+  rootDir: "../src",
 
   // See https://kulshekhar.github.io/ts-jest/docs/guides/esm-support#use-esm-presets.
   preset: "ts-jest/presets/default-esm",

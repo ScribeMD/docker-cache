@@ -9,7 +9,6 @@
 [![Automated Updates: Renovate](https://img.shields.io/badge/Renovate-Automated_Updates-FF9F1C?logo=renovatebot&logoColor=1A1F6C&labelColor=666)](https://docs.renovatebot.com/)
 [![Language: TypeScript](https://img.shields.io/badge/TypeScript-Language-FF785A?logo=typescript&logoColor=3178C6&labelColor=666)](https://www.typescriptlang.org/)
 [![Runtime: Node.js](https://img.shields.io/badge/Node.js-Runtime-2C0703?logo=nodedotjs&logoColor=393&labelColor=666)](https://nodejs.org/)
-[![REPL: ts-node](https://img.shields.io/badge/ts--node-REPL-FF5E5B?logo=tsnode&logoColor=3178C6&labelColor=666)](https://typestrong.org/ts-node/)
 [![Test Framework: Jest](https://img.shields.io/badge/Jest-Test_Framework-000?logo=jest&logoColor=C21325&labelColor=666)](https://jestjs.io/)
 [![Package Management: Yarn](https://img.shields.io/badge/Yarn-Package_Management-6320EE?logo=yarn&logoColor=2C8EBB&labelColor=666)](https://yarnpkg.com/)
 [![Package Management: Poetry](https://img.shields.io/badge/Poetry-Package_Management-06BA63?logo=poetry&logoColor=60A5FA&labelColor=666)](https://python-poetry.org/)
