@@ -1,9 +1,13 @@
 {
-  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+  "extends": [
+    "@tsconfig/node18/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
+  ],
   "include": ["jest.config.ts", "src/**/*.ts", "types/**/*.ts"],
   "exclude": ["**/reports"],
   "compilerOptions": {
-    "newLine": "lf",
+    "module": "es2022",
+    "moduleResolution": "bundler",
     "outDir": "build"
   }
 }
