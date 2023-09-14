@@ -85,12 +85,6 @@ repos:
     hooks:
       - id: license-finder
 
-  ## Python
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: v1.3.2
-    hooks:
-      - id: python-safety-dependencies-check
-
   ## Natural language
   - repo: https://github.com/PrincetonUniversity/blocklint
     rev: v0.2.4
