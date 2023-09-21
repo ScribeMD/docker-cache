@@ -29,6 +29,7 @@ repos:
       - id: yarn-install
       - id: yarn-dedupe
       - id: yarn-audit
+      - id: yarn-sdks
       - id: yarn-build
       - id: yarn-test
       - id: megalinter-incremental
