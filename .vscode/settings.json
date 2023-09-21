@@ -17,6 +17,7 @@
   "python.terminal.activateEnvInCurrentTerminal": true,
   "search.exclude": {
     "/dist": true,
+    "**/.pnp.*": true,
     "**/.yarn": true
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
