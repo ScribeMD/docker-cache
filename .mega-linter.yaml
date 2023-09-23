@@ -2,6 +2,6 @@ EXTENDS: https://raw.githubusercontent.com/ScribeMD/.github/0.14.0/.github/base.
 JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
 # Work around https://github.com/oxsecurity/megalinter/issues/2500.
 SPELL_CSPELL_PRE_COMMANDS:
-  - command: npm install @cspell/dict-win32@2.0.1
+  - command: npm install @cspell/dict-win32@2.0.2
     continue_if_failed: false
 TYPESCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-3.6.3.cjs, run, eslint]
