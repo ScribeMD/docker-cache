@@ -73,7 +73,7 @@ performs Docker layer caching for built images but does not cache pulled images.
 The explicit cache key to ferry to the
 [official GitHub cache action](https://github.com/marketplace/actions/cache).
 `restore-keys` are not supported, because partial cache restoration leads to a
-["snowball" effect](https://glebbahmutov.com/blog/do-not-let-npm-cache-snowball/).
+[“snowball” effect](https://glebbahmutov.com/blog/do-not-let-npm-cache-snowball/).
 
 ### Optional
 
