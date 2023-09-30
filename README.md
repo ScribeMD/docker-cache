@@ -81,7 +81,7 @@ The explicit cache key to ferry to the
 
 default: `false`
 
-If `"true"`, disable saving cache upon cache miss.
+If `true`, disable saving cache upon cache miss.
 
 ## Outputs
 
