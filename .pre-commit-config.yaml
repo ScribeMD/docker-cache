@@ -7,7 +7,7 @@ default_install_hook_types:
   - pre-merge-commit
   - pre-push
 default_language_version:
-  python: python3.11.5 # Keep in sync with .tool-versions and pyproject.toml.
+  python: python3.12.0 # Keep in sync with .tool-versions and pyproject.toml.
 default_stages:
   - commit
   - push
