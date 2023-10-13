@@ -20,7 +20,7 @@ build-backend = "poetry.core.masonry.api"
 
   [tool.poetry.dependencies]
   # Keep in sync with .pre-commit-config.yaml and .tool-versions.
-  python = "==3.11.5"
+  python = "==3.12.0"
 
   [tool.poetry.group.dev.dependencies]
   commitizen = "==3.9.1" # Keep in sync with .pre-commit-config.yaml.
