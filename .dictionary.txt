@@ -1,4 +1,7 @@
+Dockerfiles
+ignorefile
 Laven
 npmcli
 npmpackagejsonlintignore
+trivy
 trivyignore
