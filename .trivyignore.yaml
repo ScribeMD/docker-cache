@@ -1,0 +1,11 @@
+misconfigurations:
+  - id: AVD-DS-0002
+    paths:
+      - Dockerfile
+      - Dockerfile.windows
+    statement: Dockerfiles only used for testing, so it's okay that user is root.
+  - id: AVD-DS-0026
+    paths:
+      - Dockerfile
+      - Dockerfile.windows
+    statement: Dockerfiles only used for testing, so health check isn't needed.

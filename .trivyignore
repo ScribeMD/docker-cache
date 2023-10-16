@@ -1,2 +1,0 @@
-AVD-DS-0002 # Dockerfile only used for testing, so it's okay that user is root.
-AVD-DS-0026 # Dockerfile only used for testing, so health check isn't needed.
