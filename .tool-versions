@@ -1,4 +1,4 @@
-nodejs 18.18.2 # Keep in sync with package.json.
+nodejs 20.9.0 # Keep in sync with package.json.
 yarn 1.22.19
 python 3.12.0 # Keep in sync with .pre-commit-config.yaml and pyproject.toml.
 poetry 1.6.1
