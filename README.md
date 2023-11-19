@@ -41,7 +41,7 @@ Cache Docker images whether built or pulled by
 cache misses and
 [loading](https://docs.docker.com/engine/reference/commandline/load/) them on
 cache hits. Filter out Docker images that are present before the action is run,
-notably those [pre-cached by GitHub actions](https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md#cached-docker-images);
+notably those [pre-cached by GitHub actions](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2204-Readme.md#cached-docker-images);
 only save Docker images pulled or built in the same job after the action is run.
 Note that this action does not perform Docker layer caching.
 [The official Docker build push action](https://github.com/docker/build-push-action)
