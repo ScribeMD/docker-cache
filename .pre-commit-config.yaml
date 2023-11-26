@@ -29,6 +29,13 @@ repos:
       - id: yarn-install
       - id: yarn-dedupe
       - id: yarn-audit
+        args:
+          - --all
+          - --recursive
+          - --ignore
+          - uuid (deprecation)
+          - --ignore
+          - "@npmcli/move-file (deprecation)"
       - id: yarn-sdks
       - id: yarn-build
       - id: yarn-test
