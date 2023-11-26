@@ -1,3 +1,4 @@
 Laven
+npmcli
 npmpackagejsonlintignore
 trivyignore

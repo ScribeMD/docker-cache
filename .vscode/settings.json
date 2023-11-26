@@ -12,7 +12,7 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "git.branchProtection": ["main"],
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
   "python.defaultInterpreterPath": "./.venv/bin/python",
   "python.terminal.activateEnvInCurrentTerminal": true,
   "search.exclude": {
