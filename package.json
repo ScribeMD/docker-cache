@@ -39,7 +39,7 @@
     "@vercel/ncc": "0.38.1",
     "@yarnpkg/sdks": "2.7.1",
     "eslint": "8.55.0",
-    "eslint-config-prettier": "9.0.0",
+    "eslint-config-prettier": "9.1.0",
     "fast-check": "3.14.0",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
