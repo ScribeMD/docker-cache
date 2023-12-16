@@ -16,7 +16,7 @@ jobs:
       contents: write # for pre-commit-action
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
       - name: Get operating system name and version.
@@ -55,7 +55,7 @@ jobs:
           yarn_cache="$(yarn config get cacheFolder)"
           echo "PATH=$yarn_cache" >>"$GITHUB_OUTPUT"
       - name: Cache Yarn dependencies.
-        uses: actions/cache@v3.3.2
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
         with:
           path: ${{ steps.yarn-cache.outputs.PATH }}
           key: >
@@ -65,9 +65,9 @@ jobs:
             ) }}
           restore-keys: yarn-${{ steps.os.outputs.IMAGE }}-
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@0.9.116
+        uses: ScribeMD/pre-commit-action@aaa96559a813c7280f69aa91a73916dc3eabf19e # 0.9.116
       - name: Publish test results to GitHub.
-        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
+        uses: EnricoMi/publish-unit-test-result-action@ca89ad036b5fcd524c1017287fb01b5139908408 # v2.11.0
         if: always()
         with:
           files: src/reports/jest/junit.xml
@@ -82,7 +82,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Save Docker images.
         uses: ./
         with:
@@ -110,7 +110,7 @@ jobs:
       actions: write # for cache deletion
     steps:
       - name: Check out repository.
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Load Docker images.
         uses: ./
         with:
@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Send Slack notification with workflow result.
-        uses: ScribeMD/slack-templates@0.6.33
+        uses: ScribeMD/slack-templates@fbd2fa66c991d2330e2a225a5b81217ed8ade9ae # 0.6.33
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
