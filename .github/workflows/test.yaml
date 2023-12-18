@@ -65,7 +65,7 @@ jobs:
             ) }}
           restore-keys: yarn-${{ steps.os.outputs.IMAGE }}-
       - name: Run pre-commit hooks.
-        uses: ScribeMD/pre-commit-action@aaa96559a813c7280f69aa91a73916dc3eabf19e # 0.9.116
+        uses: ScribeMD/pre-commit-action@832e026101148e0234fde20eecf91c08942ace4a # 0.9.127
       - name: Publish test results to GitHub.
         uses: EnricoMi/publish-unit-test-result-action@ca89ad036b5fcd524c1017287fb01b5139908408 # v2.11.0
         if: always()
