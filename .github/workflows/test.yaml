@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Send Slack notification with workflow result.
-        uses: ScribeMD/slack-templates@fbd2fa66c991d2330e2a225a5b81217ed8ade9ae # 0.6.33
+        uses: ScribeMD/slack-templates@bea126c3915616204196f29d27d6ab9526d61a25 # 0.6.37
         with:
           bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
           channel-id: ${{ secrets.SLACK_ACTIONS_CHANNEL_ID }}
