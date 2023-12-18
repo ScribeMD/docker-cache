@@ -8,7 +8,7 @@ permissions:
 jobs:
   notify-assignee:
     name: Notify Assignee
-    uses: ScribeMD/slack-templates/.github/workflows/notify-assignee.yaml@fbd2fa66c991d2330e2a225a5b81217ed8ade9ae # 0.6.33
+    uses: ScribeMD/slack-templates/.github/workflows/notify-assignee.yaml@bea126c3915616204196f29d27d6ab9526d61a25 # 0.6.37
     secrets:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       SLACK_ASSIGN_CHANNEL_ID: ${{ secrets.SLACK_ASSIGN_CHANNEL_ID }}
