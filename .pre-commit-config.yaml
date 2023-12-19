@@ -18,7 +18,7 @@ repos:
 
   ## Python, Polyglot, Git, pre-commit
   - repo: https://github.com/ScribeMD/pre-commit-hooks
-    rev: 0.16.2
+    rev: 0.16.3
     hooks:
       - id: no-merge-commits
       - id: asdf-install
@@ -40,7 +40,7 @@ repos:
       - id: yarn-build
       - id: yarn-test
       - id: megalinter-incremental
-        args: &megalinter-args [--flavor, javascript, --release, v7.5.0]
+        args: &megalinter-args [--flavor, javascript, --release, v7.7.0]
       - id: megalinter-full
         args: *megalinter-args
 
