@@ -3,6 +3,6 @@ JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-4.0.2.cjs, run, eslint]
 # Work around https://github.com/oxsecurity/megalinter/issues/2500.
 REPOSITORY_TRIVY_ARGUMENTS: --ignorefile .trivyignore.yaml
 SPELL_CSPELL_PRE_COMMANDS:
-  - command: npm install @cspell/dict-win32@2.0.2
+  - command: npm install @cspell/dict-win32@2.0.3
     continue_if_failed: false
 TYPESCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-4.0.2.cjs, run, eslint]

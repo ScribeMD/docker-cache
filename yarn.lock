@@ -612,10 +612,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cspell/dict-win32@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@cspell/dict-win32@npm:2.0.2"
-  checksum: b471d289c0422788d21ae321f524d21dcd4ceae7ff81e6a70a57662da2774e42374e735b86738ccd01adce5f500bbd95ec0274b16338f72119b98ff76fa6a039
+"@cspell/dict-win32@npm:2.0.3":
+  version: 2.0.3
+  resolution: "@cspell/dict-win32@npm:2.0.3"
+  checksum: 7d83585e773bab165fa7c9c61817ed2306e0895264d368ffaf73dd7f01a42d3c8154fa70e2de3e00c94d6945886c7ae05035a344323f3ed75f79287f63143764
   languageName: node
   linkType: hard
 
@@ -2318,7 +2318,7 @@ __metadata:
   dependencies:
     "@actions/cache": "npm:3.2.2"
     "@actions/core": "npm:1.10.1"
-    "@cspell/dict-win32": "npm:2.0.2"
+    "@cspell/dict-win32": "npm:2.0.3"
     "@fast-check/jest": "npm:1.8.0"
     "@jest/globals": "npm:29.7.0"
     "@jest/types": "npm:29.6.3"
