@@ -1186,13 +1186,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.44.9":
-  version: 8.44.9
-  resolution: "@types/eslint@npm:8.44.9"
+"@types/eslint@npm:8.56.1":
+  version: 8.56.1
+  resolution: "@types/eslint@npm:8.56.1"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: e9da4e4c7b7c9014b17d40007e36f02f3b5dd55c43bb05928b52dd9c19f2a8fb7971a851a4e7a11625c3c69da286c5baf55de2f8bb900b1a4cfb5145a4491b37
+  checksum: a2aa5e2ec16f07944a60b825d6447d66f83369783e31c014ccf582fa92df963aa8d62c447a8fdc4fbfcd7299ad74ed1a753e06e560ce184eab4efceccfa66262
   languageName: node
   linkType: hard
 
@@ -2323,7 +2323,7 @@ __metadata:
     "@jest/types": "npm:29.6.3"
     "@tsconfig/node18": "npm:18.2.2"
     "@tsconfig/strictest": "npm:2.0.2"
-    "@types/eslint": "npm:8.44.9"
+    "@types/eslint": "npm:8.56.1"
     "@types/jest": "npm:29.5.11"
     "@types/node": "npm:20.10.6"
     "@typescript-eslint/eslint-plugin": "npm:6.15.0"
