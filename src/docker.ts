@@ -42,7 +42,7 @@ const saveDockerImages = async (): Promise<void> => {
     const images = await execBashCommand(LIST_COMMAND);
     const imagesList = images.split("\n");
     const newImages = imagesList.filter(
-      (image: string): boolean => !preexistingImages.includes(image),
+      (image: string): boolean => !preexistingImages.includes(image) && image !== "<none>:<none>",
     );
     if (newImages.length === 0) {
       info("No Docker images to save");

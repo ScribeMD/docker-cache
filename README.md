@@ -27,9 +27,12 @@ Cache Docker Images Whether Built or Pulled
   - [Usage](#usage)
   - [Inputs](#inputs)
     - [Required](#required)
+      - [`key`](#key)
     - [Optional](#optional)
+      - [`read-only`](#read-only)
   - [Outputs](#outputs)
     - [`cache-hit`](#cache-hit)
+  - [Anonymous image names](#anonymous-image-names)
   - [Supported Runners](#supported-runners)
   - [Permissions](#permissions)
   - [Changelog](#changelog)
@@ -93,6 +96,30 @@ True on cache hit (even if the subsequent
 [`docker load`](https://docs.docker.com/engine/reference/commandline/load/)
 failed) and false on cache miss. See also
 [skipping steps based on cache-hit](https://github.com/marketplace/actions/cache#Skipping-steps-based-on-cache-hit).
+
+## Anonymous image names
+
+Anonymous images (eg. `<none>:<none>`) will be skipped during caching
+via `docker save`, as we use the `{{ .Repository }}:{{ .Tag }}` format
+to reference which images to save.
+
+`docker save {{ .ID }}` would allow us to cache/load such anonymous images.
+However, the docker client loses reference to the original
+`{{ .Repository }}:{{ .Tag }}` value upon `docker load` for previously
+named images, resulting in:
+
+```sh
+my-image:tag
+```
+
+to become
+
+```sh
+<none>:<none>
+```
+
+Be sure to name + tag those images you wish to be handled by the caching
+and loading operations in this action.
 
 ## Supported Runners
 
