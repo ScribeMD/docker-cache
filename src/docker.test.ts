@@ -256,7 +256,7 @@ describe("Docker images", (): void => {
         assertSaveCacheHit(key);
       } else if (readOnly) {
         assertSaveReadOnly(key);
-      } else if (newImages.length === 0) {
+      } else if (newImages.length === 0 || newImages.every((img) => img == "<none>:<none>")) {
         assertNoNewImagesToSave();
       } else {
         assertSaveCacheMiss(key, newImages);
@@ -268,6 +268,7 @@ describe("Docker images", (): void => {
         ["my-key", false, false, [["preexisting-image"], []]],
         ["my-key", false, true, [["preexisting-image"], ["new-image"]]],
         ["my-key", true, false, [["preexisting-image"], ["new-image"]]],
+        ["my-key", false, false, [["preexisting-image"], ["<none>:<none>"]]],
       ],
     },
   );
