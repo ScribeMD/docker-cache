@@ -256,7 +256,10 @@ describe("Docker images", (): void => {
         assertSaveCacheHit(key);
       } else if (readOnly) {
         assertSaveReadOnly(key);
-      } else if (newImages.length === 0 || newImages.every((img) => img == "<none>:<none>")) {
+      } else if (
+        newImages.length === 0 ||
+        newImages.every((img) => img == "<none>:<none>")
+      ) {
         assertNoNewImagesToSave();
       } else {
         assertSaveCacheMiss(key, newImages);
