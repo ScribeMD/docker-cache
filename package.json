@@ -16,7 +16,7 @@
     "test": "yarn run tsc && yarn run jest:esm"
   },
   "engines": {
-    "node": "20.10.0",
+    "node": "20.11.1",
     "yarn": "4.0.2"
   },
   "packageManager": "yarn@4.0.2",
@@ -33,7 +33,7 @@
     "@tsconfig/strictest": "2.0.2",
     "@types/eslint": "8.56.1",
     "@types/jest": "29.5.11",
-    "@types/node": "20.10.7",
+    "@types/node": "20.11.27",
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
     "@vercel/ncc": "0.38.1",
