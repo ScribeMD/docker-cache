@@ -13,7 +13,7 @@ build-backend = "poetry.core.masonry.api"
 
   [tool.poetry]
   name = "docker-cache"
-  version = "0.3.7"
+  version = "0.4.0"
   description = "Cache Docker Images Whether Built or Pulled"
   authors = ["Kurt von Laven <kurt.von.laven@gmail.com>"]
   license = "MIT"
