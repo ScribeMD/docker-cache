@@ -1,4 +1,4 @@
-EXTENDS: https://raw.githubusercontent.com/ScribeMD/.github/0.14.15/.github/base.mega-linter.yaml
+EXTENDS: https://raw.githubusercontent.com/ScribeMD/.github/0.14.16/.github/base.mega-linter.yaml
 JAVASCRIPT_ES_CLI_EXECUTABLE: [node, .yarn/releases/yarn-4.0.2.cjs, run, eslint]
 # Work around https://github.com/oxsecurity/megalinter/issues/2500.
 REPOSITORY_TRIVY_ARGUMENTS: --ignorefile .trivyignore.yaml
