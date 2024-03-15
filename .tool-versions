@@ -1,5 +1,5 @@
 nodejs 20.11.1 # Keep in sync with package.json.
 yarn 1.22.19
-python 3.12.1 # Keep in sync with .pre-commit-config.yaml and pyproject.toml.
+python 3.12.2 # Keep in sync with .pre-commit-config.yaml and pyproject.toml.
 poetry 1.7.1
 ruby 3.3.0
