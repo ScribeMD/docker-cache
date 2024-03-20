@@ -31,7 +31,7 @@
     "@jest/types": "29.6.3",
     "@tsconfig/node18": "18.2.2",
     "@tsconfig/strictest": "2.0.2",
-    "@types/eslint": "8.56.5",
+    "@types/eslint": "8.56.6",
     "@types/jest": "29.5.12",
     "@types/node": "20.11.27",
     "@typescript-eslint/eslint-plugin": "7.3.1",
