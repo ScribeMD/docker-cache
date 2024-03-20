@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@tsconfig/node18/tsconfig.json",
+    "@tsconfig/node20/tsconfig.json",
     "@tsconfig/strictest/tsconfig.json"
   ],
   "include": ["jest.config.ts", "src/**/*.ts", "types/**/*.ts"],
