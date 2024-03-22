@@ -12,6 +12,7 @@ build-backend = "poetry.core.masonry.api"
   major_version_zero = true
 
   [tool.poetry]
+  package-mode = false
   name = "docker-cache"
   version = "0.4.0"
   description = "Cache Docker Images Whether Built or Pulled"
