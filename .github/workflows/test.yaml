@@ -87,14 +87,15 @@ jobs:
         uses: ./
         with:
           key: docker-cache-test-${{ matrix.os }}-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Build an empty test Docker image.
+      - name: Build one tagged and one dangling empty test Docker image.
         run: |
           if [[ "${{ matrix.os }}" =~ 'windows' ]]; then
             DOCKERFILE='Dockerfile.windows'
           else
             DOCKERFILE='Dockerfile'
           fi
-          docker build --tag empty . --file "$DOCKERFILE"
+          docker build --tag empty . --file "$DOCKERFILE" # Dangling image
+          docker build --tag empty --no-cache . --file "$DOCKERFILE" # Tagged image
         shell: bash
   restore-cache:
     name: Restore Cache
@@ -115,10 +116,15 @@ jobs:
         uses: ./
         with:
           key: docker-cache-test-${{ matrix.os }}-${{github.run_id }}-${{ github.run_attempt }}
-      - name: Verify Docker loaded empty image from cache.
+      - name: Verify Docker loaded both empty images from cache.
         run: |
-          description="$(docker inspect --format '{{ index .Config.Labels "description" }}' empty)"
-          [[ $description == 'empty image' ]]
+          function emptyImageExists() {
+            id="$(docker images --quiet --filter "label=description=empty image" "$@")"
+            [[ -n "$id" ]]
+          }
+          emptyImageExists empty
+          emptyImageExists --filter "dangling=true"
+
         shell: bash
       - name: Delete test cache if permitted (i.e., workflow not triggered from fork).
         if: always()

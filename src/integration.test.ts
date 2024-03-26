@@ -31,7 +31,9 @@ const getKey = (paths: string[], primaryKey: string): string =>
 describe("Integration Test", (): void => {
   const EXEC_OPTIONS = { shell: "/usr/bin/bash" };
   const LIST_COMMAND =
-    'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
+    "docker image list --format '" +
+    '{{ if ne .Repository "<none>" }}{{ .Repository }}' +
+    `{{ if ne .Tag "<none>" }}:{{ .Tag }}{{ end }}{{ else }}{{ .ID }}{{ end }}'`;
 
   let loadCommand: string;
   let inMemoryCache: Map<string, string>;

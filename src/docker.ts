@@ -7,7 +7,9 @@ const CACHE_HIT = "cache-hit";
 const DOCKER_IMAGES_LIST = "docker-images-list";
 const DOCKER_IMAGES_PATH = "~/.docker-images.tar";
 const LIST_COMMAND =
-  'docker image list --format "{{ .Repository }}:{{ .Tag }}"';
+  "docker image list --format '" +
+  '{{ if ne .Repository "<none>" }}{{ .Repository }}' +
+  `{{ if ne .Tag "<none>" }}:{{ .Tag }}{{ end }}{{ else }}{{ .ID }}{{ end }}'`;
 
 const loadDockerImages = async (): Promise<void> => {
   const requestedKey = getInput("key", { required: true });
