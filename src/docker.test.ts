@@ -50,6 +50,11 @@ const assertCalledInOrder = <T extends FunctionLike>(
 };
 
 describe("Docker images", (): void => {
+  const LIST_COMMAND =
+    "docker image list --format '" +
+    '{{ if ne .Repository "<none>" }}{{ .Repository }}' +
+    `{{ if ne .Tag "<none>" }}:{{ .Tag }}{{ end }}{{ else }}{{ .ID }}{{ end }}'`;
+
   const assertLoadDockerImages = (key: string, cacheHit: boolean): void => {
     expect(core.getInput).lastCalledWith("key", { required: true });
     expect(cache.restoreCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], key);
@@ -64,9 +69,7 @@ describe("Docker images", (): void => {
         `docker load --input ${docker.DOCKER_IMAGES_PATH}`,
       );
     } else {
-      expect(util.execBashCommand).lastCalledWith(
-        'docker image list --format "{{ .Repository }}:{{ .Tag }}"',
-      );
+      expect(util.execBashCommand).lastCalledWith(LIST_COMMAND);
     }
     expect(util.execBashCommand).toHaveBeenCalledTimes(1);
   };
@@ -106,10 +109,7 @@ describe("Docker images", (): void => {
             1,
             "Listing Docker images.",
           );
-          expect(util.execBashCommand).nthCalledWith<[string]>(
-            1,
-            'docker image list --format "{{ .Repository }}:{{ .Tag }}"',
-          );
+          expect(util.execBashCommand).nthCalledWith<[string]>(1, LIST_COMMAND);
         }
       }
     }
