@@ -1,6 +1,6 @@
 {
   "name": "docker-cache",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Cache Docker Images Whether Built or Pulled",
   "homepage": "https://github.com/ScribeMD/docker-cache#readme",
   "main": "dist/main/index.js",
