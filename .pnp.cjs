@@ -120,7 +120,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@actions/http-client", "npm:2.2.1"],\
           ["tunnel", "npm:0.0.6"],\
-          ["undici", "npm:5.28.3"]\
+          ["undici", "npm:5.28.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6516,10 +6516,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["undici", [\
-      ["npm:5.28.3", {\
-        "packageLocation": "./.yarn/cache/undici-npm-5.28.3-fb5b0fbd18-3c559ae50e.zip/node_modules/undici/",\
+      ["npm:5.28.4", {\
+        "packageLocation": "./.yarn/cache/undici-npm-5.28.4-63fa65e206-08d0f25965.zip/node_modules/undici/",\
         "packageDependencies": [\
-          ["undici", "npm:5.28.3"],\
+          ["undici", "npm:5.28.4"],\
           ["@fastify/busboy", "npm:2.1.1"]\
         ],\
         "linkType": "HARD"\
