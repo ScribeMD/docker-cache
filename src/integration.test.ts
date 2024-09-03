@@ -29,7 +29,7 @@ const getKey = (paths: string[], primaryKey: string): string =>
   [...paths, primaryKey].join(", ");
 
 describe("Integration Test", (): void => {
-  const EXEC_OPTIONS = { shell: "/usr/bin/bash" };
+  const EXEC_OPTIONS = { shell: "/bin/bash" };
   const LIST_COMMAND =
     "docker image list --format '" +
     '{{ if ne .Repository "<none>" }}{{ .Repository }}' +

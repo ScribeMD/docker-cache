@@ -37,7 +37,7 @@ describe("Util", (): void => {
       const shell =
         platform === "win32"
           ? "C:\\Program Files\\Git\\bin\\bash.exe"
-          : "/usr/bin/bash";
+          : "/bin/bash";
       expect(execMock).lastCalledWith(command, { shell });
       return stdout;
     };

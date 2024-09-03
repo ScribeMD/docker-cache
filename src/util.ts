@@ -17,7 +17,7 @@ const execBashCommand = async (
   const shell =
     platform === "win32"
       ? "C:\\Program Files\\Git\\bin\\bash.exe"
-      : "/usr/bin/bash";
+      : "/bin/bash";
   let stdout = "";
   try {
     const output: ConsoleOutput = await execAsPromised(command, { shell });
