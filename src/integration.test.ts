@@ -153,7 +153,7 @@ describe("Integration Test", (): void => {
     listStderr: string,
     saveOutput: ConsoleOutput,
   ): void => {
-    expect(core.getInput).lastCalledWith("read-only");
+    expect(core.getInput).nthCalledWith(2, "read-only");
     expect(core.info).nthCalledWith<[string]>(1, "Listing Docker images.");
     const listOutput = joinOutput(dockerImages, listStderr);
     assertExecBashCommand(2, 1, LIST_COMMAND, listOutput);

@@ -65,7 +65,8 @@ const saveDockerImages = async (): Promise<void> => {
           "will be saved.",
       );
       const newImagesArgs = newImages.join(" ");
-      const cmd = `docker save --output ${DOCKER_IMAGES_PATH} ${newImagesArgs}`;
+      const isUseGzip = getInput("gzip") === "true";
+      const cmd = isUseGzip ? `docker save ${newImagesArgs} | gzip > ${DOCKER_IMAGES_PATH}` : `docker save --output ${DOCKER_IMAGES_PATH} ${newImagesArgs}`;
       await execBashCommand(cmd);
       await saveCache([DOCKER_IMAGES_PATH], key);
     }

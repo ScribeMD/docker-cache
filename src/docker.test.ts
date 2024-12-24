@@ -92,13 +92,14 @@ describe("Docker images", (): void => {
     key: string,
     readOnly = false,
     prevSave = false,
+    gzip = false,
   ): void => {
     expect(core.getInput).nthCalledWith<[string, InputOptions]>(1, "key", {
       required: true,
     });
     expect(core.getState).nthCalledWith<[string]>(1, docker.CACHE_HIT);
     if (!cacheHit) {
-      expect(core.getInput).lastCalledWith("read-only");
+      expect(core.getInput).nthCalledWith(2, "read-only");
       if (!readOnly) {
         expect(cache.restoreCache).lastCalledWith([""], key, [], {
           lookupOnly: true,
@@ -110,6 +111,9 @@ describe("Docker images", (): void => {
             "Listing Docker images.",
           );
           expect(util.execBashCommand).nthCalledWith<[string]>(1, LIST_COMMAND);
+          if (gzip) {
+            expect(core.getInput).lastCalledWith("gzip");
+          }
         }
       }
     }
@@ -120,6 +124,7 @@ describe("Docker images", (): void => {
     cacheHit: boolean,
     readOnly: boolean,
     prevSave: boolean,
+    gzip: boolean,
     preexistingImages: string[],
     newImages: string[],
   ): Promise<void> => {
@@ -132,6 +137,9 @@ describe("Docker images", (): void => {
           cache.restoreCache.mockResolvedValueOnce(key);
         } else {
           cache.restoreCache.mockResolvedValueOnce(undefined);
+          if (gzip) {
+            core.getInput.mockReturnValueOnce(gzip.toString());
+          }
           core.getState.mockReturnValueOnce(preexistingImages.join("\n"));
           const images = preexistingImages.concat(newImages);
           util.execBashCommand.mockResolvedValueOnce(images.join("\n"));
@@ -140,7 +148,7 @@ describe("Docker images", (): void => {
     }
     await docker.saveDockerImages();
 
-    assertSaveDockerImages(cacheHit, key, readOnly, prevSave);
+    assertSaveDockerImages(cacheHit, key, readOnly, prevSave, gzip);
   };
 
   const assertCacheNotSaved = (): void => {
@@ -178,6 +186,32 @@ describe("Docker images", (): void => {
     expect(cache.saveCache).not.toHaveBeenCalled();
   };
 
+  const assertSaveCacheMissWithGzip = (key: string, newImages: string[]): void => {
+    expect(core.info).lastCalledWith(
+      "Images present before restore step will be skipped; only new images " +
+        "will be saved.",
+    );
+    expect(util.execBashCommand).lastCalledWith(
+      `docker save ${newImages.join(" ")} | gzip > ${docker.DOCKER_IMAGES_PATH}`
+    );
+    expect(cache.saveCache).lastCalledWith([docker.DOCKER_IMAGES_PATH], key);
+
+    /* The Docker images must be saved before the cache can be. This at least
+     * checks that the calls are made in the right order, but doesn't ensure
+     * that the Docker images finished saving before the cache started saving.
+     */
+    assertCalledInOrder<FunctionLike>(
+      core.getInput,
+      core.getState,
+      core.getInput,
+      core.getState,
+      util.execBashCommand,
+      core.getInput,
+      util.execBashCommand,
+      cache.saveCache,
+    );
+  };
+
   const assertSaveCacheMiss = (key: string, newImages: string[]): void => {
     expect(core.info).lastCalledWith(
       "Images present before restore step will be skipped; only new images " +
@@ -200,6 +234,7 @@ describe("Docker images", (): void => {
       core.getInput,
       core.getState,
       util.execBashCommand,
+      core.getInput,
       util.execBashCommand,
       cache.saveCache,
     );
@@ -262,6 +297,7 @@ describe("Docker images", (): void => {
       boolean(),
       boolean(),
       boolean(),
+      boolean(),
       uniquePair(dockerImages(), dockerImages()),
     ],
     async (
@@ -269,6 +305,7 @@ describe("Docker images", (): void => {
       cacheHit: boolean,
       readOnly: boolean,
       prevSave: boolean,
+      gzip: boolean,
       [preexistingImages, newImages]: [string[], string[]],
     ): Promise<void> => {
       jest.clearAllMocks();
@@ -277,6 +314,7 @@ describe("Docker images", (): void => {
         cacheHit,
         readOnly,
         prevSave,
+        gzip,
         preexistingImages,
         newImages,
       );
@@ -289,17 +327,20 @@ describe("Docker images", (): void => {
         assertSavePrevSave(key);
       } else if (newImages.length === 0) {
         assertNoNewImagesToSave();
+      } else if (gzip) {
+        assertSaveCacheMissWithGzip(key, newImages);
       } else {
         assertSaveCacheMiss(key, newImages);
       }
     },
     {
       examples: [
-        ["my-key", false, false, false, [["preexisting-image"], ["new-image"]]],
-        ["my-key", false, false, false, [["preexisting-image"], []]],
-        ["my-key", false, true, false, [["preexisting-image"], ["new-image"]]],
-        ["my-key", true, false, false, [["preexisting-image"], ["new-image"]]],
-        ["my-key", false, false, true, [["preexisting-image"], ["new-image"]]],
+        ["my-key", false, false, false, false, [["preexisting-image"], ["new-image"]]],
+        ["my-key", false, false, false, false, [["preexisting-image"], []]],
+        ["my-key", false, true, false, false, [["preexisting-image"], ["new-image"]]],
+        ["my-key", true, false, false, false, [["preexisting-image"], ["new-image"]]],
+        ["my-key", false, false, true, false, [["preexisting-image"], ["new-image"]]],
+        ["my-key", false, false, false, true, [["preexisting-image"], ["new-image"]]],
       ],
     },
   );
