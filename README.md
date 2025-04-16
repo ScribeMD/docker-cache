@@ -21,6 +21,8 @@
 
 Cache Docker Images Whether Built or Pulled
 
+> **Note:** This action is compatible with the new GitHub Actions cache service that will be required starting February 1st, 2025. It uses @actions/cache v4, which integrates with the new cache service APIs.
+
 <!--TOC-->
 
 - [docker-cache](#docker-cache)
@@ -53,7 +55,7 @@ performs Docker layer caching for built images but does not cache pulled images.
 
   ```yaml
   - name: Cache Docker images.
-    uses: ScribeMD/docker-cache@0.5.0
+    uses: ScribeMD/docker-cache@0.6.0
     with:
       key: docker-${{ runner.os }}-${{ hashFiles(paths) }}
   ```

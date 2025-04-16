@@ -1,6 +1,6 @@
 {
   "name": "docker-cache",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Cache Docker Images Whether Built or Pulled",
   "homepage": "https://github.com/ScribeMD/docker-cache#readme",
   "main": "dist/main/index.js",
@@ -21,7 +21,7 @@
   },
   "packageManager": "yarn@4.1.1",
   "dependencies": {
-    "@actions/cache": "3.2.2",
+    "@actions/cache": "4.0.3",
     "@actions/core": "1.10.1"
   },
   "devDependencies": {
