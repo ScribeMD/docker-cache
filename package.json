@@ -1,6 +1,6 @@
 {
   "name": "docker-cache",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Cache Docker Images Whether Built or Pulled",
   "homepage": "https://github.com/ScribeMD/docker-cache#readme",
   "main": "dist/main/index.js",
@@ -21,12 +21,12 @@
   },
   "packageManager": "yarn@4.1.1",
   "dependencies": {
-    "@actions/cache": "3.2.2",
-    "@actions/core": "1.10.1"
+    "@actions/cache": "4.0.3",
+    "@actions/core": "1.11.1"
   },
   "devDependencies": {
     "@cspell/dict-win32": "2.0.3",
-    "@fast-check/jest": "1.8.0",
+    "@fast-check/jest": "1.8.2",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
     "@tsconfig/node20": "20.1.2",
@@ -40,7 +40,7 @@
     "@yarnpkg/sdks": "3.1.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
-    "fast-check": "3.16.0",
+    "fast-check": "3.23.2",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "jest-mock": "29.7.0",
